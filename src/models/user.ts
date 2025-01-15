@@ -1,10 +1,18 @@
-const { auth } = require("../routes/auth");
 
-const users = [
-    "user",
-    "user2",
-    "user3",
-    "user4",
-];
+import mongoose, { Schema, Document } from 'mongoose';
 
-module.exports = users
+export interface IUser extends Document {
+    username: string;
+    password: string;
+    createdAt: Date;
+    updatedAt: Date;
+}
+
+const UserSchema: Schema = new Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+}, {
+    timestamps: true,
+});
+
+export default mongoose.model<IUser>('User', UserSchema);

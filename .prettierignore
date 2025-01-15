@@ -1,3 +1,8 @@
 # Ignore artifacts:
 build
 coverage
+node_modules
+.nuxt
+.output
+LICENSE
+README.md

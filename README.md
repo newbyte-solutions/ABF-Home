@@ -1,75 +1,28 @@
-# Nuxt 3 Minimal Starter
+# ABF Frontend
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Getting Started
+### Prerequisites
+- Node.js
+- npm
 
-## Setup
+### Installation
+1. Clone the repository
+2. Navigate to the project directory
+3. Run `npm install` to install the dependencies
+4. Run `npm run dev` to start the development server
 
-Make sure to install the dependencies:
+### Contributing
+1. Fork the repository
+2. Create a new branch
+3. Make your changes
+4. Fromat with prettier
+5. Push your changes to your fork
+6. Create a pull request
 
-```bash
-# npm
-npm install
+### License
+This project is licensed under the MIT License - see the LICENSE file for details
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+### Contact
+Ownership of the website is under Newbyte Solutions and Helland Ungdomsskole. Please use the following contact information for any inquiries:
+Newbyte Solutions: martinustomrenslemmen@gmail.com
+Helland Ungdomsskole: geir-tony.tomren@vestnes.kommune.no

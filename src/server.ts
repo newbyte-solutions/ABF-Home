@@ -21,7 +21,6 @@ app.use(express.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/static', express.static('public'))
 
-
 // Local Routes
 app.get("/", (req: express.Request, res: express.Response) => {
     res.send("This is the main route for the Express Template V1 running JS")

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-20 bg-white text-black absolute drop-shadow-2xl">
+  <div class="w-full h-20 bg-white text-black absolute drop-shadow-2xl z-20">
     <div class="w-full h-20 flex justify-center py-5 items-start space-x-4">
       <div class="absolute left-10">
         <h1 class="tracking-wider text-3xl font-bold">HUS</h1>

@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  css: ['~/assets/css/index.css'],
+  css: ["~/assets/css/index.css"],
 
   postcss: {
     plugins: {
@@ -10,5 +10,5 @@ export default defineNuxtConfig({
     },
   },
 
-  compatibilityDate: '2025-01-13',
-})
+  compatibilityDate: "2025-01-13",
+});

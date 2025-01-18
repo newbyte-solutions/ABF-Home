@@ -4,7 +4,7 @@
       <div class="absolute left-10">
         <h1 class="tracking-wider text-3xl font-bold">HUS</h1>
       </div>
-      
+
       <!-- Desktop Menu -->
       <div class="hidden md:flex space-x-4">
         <router-link
@@ -36,15 +36,35 @@
       <!-- Mobile Menu Button -->
       <div class="md:hidden absolute right-10">
         <button @click="isOpen = !isOpen" class="focus:outline-none">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path v-if="!isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            <path v-if="isOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            class="w-6 h-6"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              v-if="!isOpen"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+            <path
+              v-if="isOpen"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       </div>
 
       <!-- Mobile Menu -->
-      <div v-if="isOpen" class="md:hidden absolute top-20 left-0 right-0 bg-white shadow-lg">
+      <div
+        v-if="isOpen"
+        class="md:hidden absolute top-20 left-0 right-0 bg-white shadow-lg"
+      >
         <div class="flex flex-col items-center py-4 space-y-4">
           <router-link
             to="/"
@@ -84,8 +104,8 @@
 export default {
   data() {
     return {
-      isOpen: false
-    }
-  }
-}
+      isOpen: false,
+    };
+  },
+};
 </script>

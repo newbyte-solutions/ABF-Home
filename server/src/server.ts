@@ -8,7 +8,7 @@ const app = express()
 const port = 5000
 
 let corsConfig = {
-    origin: 'http://localhost/',
+    origin: '*',
     optionsSuccessStatus: 200
 }
 

@@ -27,10 +27,12 @@ app.get("/", (req: express.Request, res: express.Response) => {
 })
 
 // Routes
-const auth_route = require("./routes/auth.ts")
-const news_route = require("./routes/news.ts")
+const auth_route = require("./routes/auth")
+const company_route = require("./routes/company")
+const news_route = require("./routes/news")
 
 app.use("/auth", auth_route)
+app.use("/company", company_route)
 app.use("/news", news_route)
 
 // Run app

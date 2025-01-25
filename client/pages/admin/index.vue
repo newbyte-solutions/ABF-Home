@@ -11,14 +11,14 @@
       <form @submit.prevent="handleLogin" class="mt-8 space-y-6">
         <div class="rounded-md shadow-sm">
           <div>
-            <label for="username" class="text-white">Brukernavn:</label>
+            <label for="email" class="text-white">Email:</label>
             <input
               type="text"
-              id="username"
-              v-model="username"
+              id="email"
+              v-model="email"
               required
               class="appearance-none relative block w-full px-3 mt-2 mb-4 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
-              placeholder="Username"
+              placeholder="Email"
             />
           </div>
           <div>
@@ -29,7 +29,7 @@
               v-model="password"
               required
               class="appearance-none relative block w-full px-3 mt-2 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
-              placeholder="Password"
+              placeholder="Passord"
             />
           </div>
         </div>
@@ -52,15 +52,15 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      username: "",
+      email: "",
       password: "",
     };
   },
   methods: {
     async handleLogin() {
       try {
-        const response = await axios.post('http://localhost:5000/auth', {
-          username: this.username,
+        const response = await axios.post('http://localhost:5000/auth/login', {
+          email: this.email,
           password: this.password,
         });
         if (response.data) {

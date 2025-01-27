@@ -1,9 +1,9 @@
 <template>
   <div
-    class="w-full min-h-screen bg-gradient-to-b -z-10 from-slate-400 to-slate-900 fixed"
+    class="w-full min-h-screen bg-gradient-to-br -z-10 from-gray-200 to-gray-300 fixed"
   ></div>
-  <div class="w-full h-fit">
-    <div class="w-full h-screen flex justify-center items-center">
+  <div class="w-full min-h-screen">
+    <div class="w-full h-screen pt-20 flex justify-center items-center">
       <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 class="text-2xl font-bold mb-12 text-gray-800 text-center">Kom i kontakt</h2>
         <form @submit.prevent="submitForm" class="space-y-8">

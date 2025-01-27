@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full min-h-screen bg-gradient-to-b -z-10 from-slate-400 to-slate-900 fixed"
+    class="w-full min-h-screen bg-gradient-to-br -z-10 from-gray-200 to-gray-300 fixed"
   ></div>
   <div class="w-full h-fit">
     <div class="w-full h-screen flex justify-center items-center">

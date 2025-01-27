@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full min-h-screen absolute top-0 -z-10 bg-gradient-to-b from-slate-900 to-slate-800"></div>
+  <div class="w-full min-h-screen absolute top-0 -z-10 bg-gradient-to-b from-gray-200 to-gray-300"></div>
   <div
     class="w-full min-h-screen text-white flex flex-col md:flex-row justify-center items-center space-y-12 md:space-y-0 md:space-x-16 p-12"
   >

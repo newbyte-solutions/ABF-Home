@@ -1,7 +1,6 @@
 import express from 'express'
 import user from '../models/user';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 const router = express.Router()
 import { checkAdmin } from '../middleware/auth';
 
@@ -23,15 +22,7 @@ router.post('/login', async (req: express.Request, res: express.Response) => {
                 console.log('Password validation successful');
                 console.log('Login successful for user:', foundUser.email);
 
-                // Generate a JWT token with the user's role and ID
-                const token = jwt.sign(
-                    { id: foundUser._id, role: foundUser.role },
-                    'your-secret-key',
-                    { expiresIn: '1h' }
-                );
-
-                // Respond with token and role
-                res.status(200).json({ token, role: foundUser.role });
+                res.status(200);
             // Error handling
             } else {
                 console.log('Password validation failed for user:', foundUser.email);

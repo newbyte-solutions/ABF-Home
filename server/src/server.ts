@@ -1,41 +1,53 @@
-import express from 'express'
-const cors = require("cors")
-const bodyParser = require("body-parser")
-import { connectDB } from "./db"
+import express from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import session from 'express-session';
+import passport from 'passport';
+import { connectDB } from './db';
+import authRoute from './routes/auth';
+import companyRoute from './routes/company';
+import newsRoute from './routes/news';
 
 // App Config
-const app = express()
-const port = 5000
+const app = express();
+const port = 5000;
 
-let corsConfig = {
+const corsConfig = {
     origin: '*',
-    optionsSuccessStatus: 200
-}
+    optionsSuccessStatus: 200,
+};
+
+app.use(session({
+    secret: 'secretos',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === 'production' },
+}));
 
 // Connect to MongoDB
-connectDB()
+connectDB();
+
+// Initialize Passport.js
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Middleware
-app.use(cors(corsConfig))
-app.use(express.urlencoded({ extended: true }))
+app.use(cors(corsConfig));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use('/static', express.static('public'))
+app.use('/static', express.static('public'));
 
 // Local Routes
-app.get("/", (req: express.Request, res: express.Response) => {
-    res.send("This is the main route for the Express Template V1 running JS")
-})
+app.get('/', (req: express.Request, res: express.Response) => {
+    res.send('This is the main route for the Express Template V1 running JS');
+});
 
 // Routes
-const auth_route = require("./routes/auth")
-const company_route = require("./routes/company")
-const news_route = require("./routes/news")
-
-app.use("/auth", auth_route)
-app.use("/company", company_route)
-app.use("/news", news_route)
+app.use('/auth', authRoute);
+app.use('/company', companyRoute);
+app.use('/news', newsRoute);
 
 // Run app
 app.listen(port, () => {
-    console.log(`App running on ${port}`)
-})
+    console.log(`App running on ${port}`);
+});

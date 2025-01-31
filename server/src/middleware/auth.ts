@@ -1,13 +1,26 @@
-import { RequestHandler } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import { IUser } from '../models/user';
 
-export const checkAdmin: RequestHandler = (req, res, next) => {
-    const user = (req as any).user;
-
-    if (user && user.role === 'admin') {
+// Middleware to check if user is an admin
+export const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated() && req.user && (req.user as IUser).role === 'admin') {
         return next();
     }
-
-    res.status(403).json({ message: 'Forbidden: You do not have the necessary permissions.' });
+    return res.status(403).json({ message: 'Forbidden: Admin access required' });
 };
 
-export default checkAdmin;
+// Middleware to check if user is a student
+export const checkStudent = (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated() && req.user && (req.user as IUser).role === 'student') {
+        return next();
+    }
+    return res.status(403).json({ message: 'Forbidden: Student access required' });
+};
+
+// Middleware to check if user is a guest (not authenticated)
+export const checkGuest = (req: Request, res: Response, next: NextFunction) => {
+    if (!req.isAuthenticated()) {
+        return next();
+    }
+    return res.status(403).json({ message: 'Forbidden: Guest access only' });
+};

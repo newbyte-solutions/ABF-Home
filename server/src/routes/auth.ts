@@ -7,8 +7,11 @@ import User, { IUser } from '../models/user';
 import { checkAdmin, checkStudent } from '../middleware/auth';
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const router = express.Router();
 =======
+=======
+>>>>>>> parent of bb4783f7 (Feat: support for student login)
 router.post('/login', async (req: express.Request, res: express.Response) => {
     console.log('Login attempt initiated');
     const data = req.body;
@@ -40,6 +43,7 @@ passport.serializeUser((user: Express.User, done) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 passport.deserializeUser(async (id, done) => {
     console.log(`[Auth] Deserializing user ID: ${id}`);
     try {
@@ -65,6 +69,8 @@ router.post('/login_admin', (req: Request, res: Response, next: NextFunction) =>
             return res.status(401).json({ message: info.message });
         }
 =======
+=======
+>>>>>>> parent of bb4783f7 (Feat: support for student login)
 router.post('/register', async (req: express.Request, res: express.Response) => {
     const data = req.body;
 >>>>>>> parent of bb4783f7 (Feat: support for student login)

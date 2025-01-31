@@ -6,7 +6,14 @@ import session from 'express-session';
 import User, { IUser } from '../models/user';
 import { checkAdmin, checkStudent } from '../middleware/auth';
 
+<<<<<<< HEAD
 const router = express.Router();
+=======
+router.post('/login', async (req: express.Request, res: express.Response) => {
+    console.log('Login attempt initiated');
+    const data = req.body;
+    console.log('Request body:', data);
+>>>>>>> parent of bb4783f7 (Feat: support for student login)
 
 // Passport Local Strategy
 passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
@@ -32,6 +39,7 @@ passport.serializeUser((user: Express.User, done) => {
     done(null, (user as IUser).id);
 });
 
+<<<<<<< HEAD
 passport.deserializeUser(async (id, done) => {
     console.log(`[Auth] Deserializing user ID: ${id}`);
     try {
@@ -56,6 +64,10 @@ router.post('/login_admin', (req: Request, res: Response, next: NextFunction) =>
             console.log('[Auth] Admin login failed:', info.message);
             return res.status(401).json({ message: info.message });
         }
+=======
+router.post('/register', async (req: express.Request, res: express.Response) => {
+    const data = req.body;
+>>>>>>> parent of bb4783f7 (Feat: support for student login)
 
         if (user.role !== 'admin') {
             console.log(`[Auth] Access denied: User ${user.email} attempted admin login with role ${user.role}`);

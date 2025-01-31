@@ -10,12 +10,8 @@
         <p>Website by: Newbyte Solutions</p>
       </div>
       <div class="flex-1 text-center md:text-right">
-        <router-link to="/admin" class="text-blue-800 hover:text-gray-900 underline"
+        <router-link to="/admin" class="text-blue-800 underline"
           >Admin</router-link
-        >
-        |
-        <router-link to="/student" class="text-blue-800 hover:text-gray-900 underline"
-        >Student</router-link
         >
       </div>
     </div>

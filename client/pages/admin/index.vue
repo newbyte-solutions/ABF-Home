@@ -59,7 +59,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await axios.post('http://localhost:5000/auth/login', {
+        const response = await axios.post('http://localhost:5000/auth/login_admin', {
           email: this.email,
           password: this.password,
         });

@@ -59,12 +59,12 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await axios.post('http://localhost:5000/auth/admin_login', {
+        const response = await axios.post('http://localhost:5000/auth/student_login', {
           email: this.email,
           password: this.password,
         });
         if (response.data) {
-          this.$router.push('/admin/dashboard');
+          this.$router.push('/student/dashboard');
         }
       } catch (error) {
         console.error('Login failed:', error);

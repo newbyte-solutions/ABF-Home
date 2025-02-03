@@ -1,123 +1,55 @@
 import express, { Request, Response, NextFunction } from 'express';
+const router = express.Router()
 import bcrypt from 'bcrypt';
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
-import session from 'express-session';
 import User, { IUser } from '../models/user';
-import { checkAdmin, checkStudent } from '../middleware/auth';
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-const router = express.Router();
-=======
-=======
->>>>>>> parent of bb4783f7 (Feat: support for student login)
-router.post('/login', async (req: express.Request, res: express.Response) => {
-    console.log('Login attempt initiated');
-    const data = req.body;
-    console.log('Request body:', data);
->>>>>>> parent of bb4783f7 (Feat: support for student login)
-
-// Passport Local Strategy
-passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
-    console.log(`[Auth] Attempting authentication for email: ${email}`);
-    try {
-        const foundUser = await User.findOne({ email: email.toLowerCase() });
-        if (!foundUser) {
-            console.log(`[Auth] User not found for email: ${email}`);
-            return done(null, false, { message: 'User not found' });
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-        console.log(`[Auth] Password validation ${isPasswordValid ? 'successful' : 'failed'} for email: ${email}`);
-        return isPasswordValid ? done(null, foundUser) : done(null, false, { message: 'Invalid credentials' });
-    } catch (err) {
-        console.error('[Auth] Error during authentication:', err);
-        return done(err);
-    }
-}));
-
-passport.serializeUser((user: Express.User, done) => {
-    console.log(`[Auth] Serializing user: ${(user as IUser).id}`);
-    done(null, (user as IUser).id);
-});
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-passport.deserializeUser(async (id, done) => {
-    console.log(`[Auth] Deserializing user ID: ${id}`);
-    try {
-        const foundUser = await User.findById(id);
-        console.log(`[Auth] User deserialized successfully: ${foundUser?.email}`);
-        done(null, foundUser);
-    } catch (err) {
-        console.error('[Auth] Error deserializing user:', err);
-        done(err);
-    }
-});
 
 // Admin Login
-router.post('/login_admin', (req: Request, res: Response, next: NextFunction) => {
-    console.log('[Auth] Admin login attempt');
-    passport.authenticate('local', (err: any, user: IUser, info: any) => {
-        if (err) {
-            console.error('[Auth] Admin login error:', err);
-            return next(err);
-        }
-        if (!user) {
-            console.log('[Auth] Admin login failed:', info.message);
-            return res.status(401).json({ message: info.message });
-        }
-=======
-=======
->>>>>>> parent of bb4783f7 (Feat: support for student login)
-router.post('/register', async (req: express.Request, res: express.Response) => {
-    const data = req.body;
->>>>>>> parent of bb4783f7 (Feat: support for student login)
+router.post('/login_admin', async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<void> => {
+    console.log('[Auth] Admin login attempt')
+    try {
+        const { email, password } = req.body
 
-        if (user.role !== 'admin') {
-            console.log(`[Auth] Access denied: User ${user.email} attempted admin login with role ${user.role}`);
-            return res.status(403).json({ message: 'Access denied: Admins only' });
+        // Validate input
+        if (!email || !password) {
+            console.log('[Auth] Admin login failed: Missing credentials')
+            res.status(400).json({ message: 'Email and password are required' })
+            return
         }
 
-        req.logIn(user, (err) => {
-            if (err) {
-                console.error('[Auth] Admin login session error:', err);
-                return next(err);
+        // Find user and verify role
+        const user = await User.findOne({ email })
+        if (!user || user.role !== 'admin') {
+            console.log('[Auth] Admin login failed: Invalid credentials or not an admin')
+            res.status(401).json({ message: 'Invalid credentials' })
+            return
+        }
+
+        // Check password
+        const isMatch = await bcrypt.compare(password, user.password)
+        if (!isMatch) {
+            console.log('[Auth] Admin login failed: Invalid password')
+            res.status(401).json({ message: 'Invalid credentials' })
+            return
+        }
+
+        console.log(`[Auth] Admin login successful: ${email}`)
+        res.status(200).json({
+            message: 'Login successful',
+            user: {
+                email: user.email,
+                role: user.role
             }
-            console.log(`[Auth] Admin login successful: ${user.email}`);
-            return res.status(200).json({ message: 'Admin login successful', user: { email: user.email, role: user.role } });
-        });
-    })(req, res, next);
+        })
+    } catch (error) {
+        console.error('[Auth] Error during admin login:', error)
+        res.status(500).json({ message: 'Internal Server Error' })
+    }
 });
 
 // Student Login
 router.post('/login_student', (req: Request, res: Response, next: NextFunction) => {
     console.log('[Auth] Student login attempt');
-    passport.authenticate('local', (err: any, user: IUser, info: any) => {
-        if (err) {
-            console.error('[Auth] Student login error:', err);
-            return next(err);
-        }
-        if (!user) {
-            console.log('[Auth] Student login failed:', info.message);
-            return res.status(401).json({ message: info.message });
-        }
-
-        if (user.role !== 'student') {
-            console.log(`[Auth] Access denied: User ${user.email} attempted student login with role ${user.role}`);
-            return res.status(403).json({ message: 'Access denied: Students only' });
-        }
-
-        req.logIn(user, (err) => {
-            if (err) {
-                console.error('[Auth] Student login session error:', err);
-                return next(err);
-            }
-            console.log(`[Auth] Student login successful: ${user.email}`);
-            return res.status(200).json({ message: 'Student login successful', user: { email: user.email, role: user.role } });
-        });
-    })(req, res, next);
+    
 });
 
 // Register a new user
@@ -157,19 +89,6 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
         console.error('[Auth] Error during registration:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
-});
-
-// Logout User
-router.post('/logout', (req: Request, res: Response, next: NextFunction) => {
-    console.log('[Auth] Logout attempt');
-    req.logout((err) => {
-        if (err) {
-            console.error('[Auth] Logout error:', err);
-            return next(err);
-        }
-        console.log('[Auth] User logged out successfully');
-        res.status(200).json({ message: 'Logged out successfully' });
-    });
 });
 
 export default router;

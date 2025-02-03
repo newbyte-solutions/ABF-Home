@@ -2,45 +2,46 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 import session from 'express-session';
-import passport from 'passport';
+import Session from "./models/session";
+import mongoose from 'mongoose';
 import { connectDB } from './db';
 import authRoute from './routes/auth';
 import companyRoute from './routes/company';
 import newsRoute from './routes/news';
+import { env } from 'process';
 
 // App Config
 const app = express();
 const port = 5000;
 
+// Connect to MongoDB
+connectDB();
 const corsConfig = {
     origin: '*',
     optionsSuccessStatus: 200,
 };
 
-app.use(session({
-    secret: 'secretos',
+const sess = {
+    secret: "keyboard cat",
+    cookie: { secure: false },
+    saveUninstialized: true,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' },
-}));
+};
 
-// Connect to MongoDB
-connectDB();
-
-// Initialize Passport.js
-app.use(passport.initialize());
-app.use(passport.session());
+if (app.get("env") === "production") {
+    console.log(
+      "Production environment detected, setting trust proxy and secure cookies"
+    );
+    app.set("trust proxy", 1); // trust first proxy
+    sess.cookie.secure = true; // serve secure cookies
+}
 
 // Middleware
 app.use(cors(corsConfig));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use('/static', express.static('public'));
-
-// Local Routes
-app.get('/', (req: express.Request, res: express.Response) => {
-    res.send('This is the main route for the Express Template V1 running JS');
-});
+app.use(session(sess));
 
 // Routes
 app.use('/auth', authRoute);

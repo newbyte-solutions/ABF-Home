@@ -1,26 +1,32 @@
-import { Request, Response, NextFunction } from 'express';
-import { IUser } from '../models/user';
+import express, { Request, Response, NextFunction } from 'express';
 
-// Middleware to check if user is an admin
-export const checkAdmin = (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated() && req.user && (req.user as IUser).role === 'admin') {
-        return next();
-    }
-    return res.status(403).json({ message: 'Forbidden: Admin access required' });
+// auth middleware
+export const isAdmin = (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+  console.debug(req.session);
+  if (!req.session.user) {
+    res.status(401).json({ error: "Unauthorized" });
+    return; // Return after sending the response
+  }
+  if (req.session.user.role !== "admin") {
+    res.status(403).json({ error: "Forbidden" });
+    return; // Return after sending the response
+  }
+  next();
 };
 
-// Middleware to check if user is a student
-export const checkStudent = (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated() && req.user && (req.user as IUser).role === 'student') {
-        return next();
-    }
-    return res.status(403).json({ message: 'Forbidden: Student access required' });
+export const isStudent = (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+  console.debug(req.session);
+  if (!req.session.user) {
+    res.status(401).json({ error: "Unauthorized" });
+    return; // Return after sending the response
+  }
+  if (req.session.user.role !== "student") { 
+    res.status(403).json({ error: "Forbidden" });
+    return; // Return after sending the response
+  }
+  next();
 };
 
-// Middleware to check if user is a guest (not authenticated)
-export const checkGuest = (req: Request, res: Response, next: NextFunction) => {
-    if (!req.isAuthenticated()) {
-        return next();
-    }
-    return res.status(403).json({ message: 'Forbidden: Guest access only' });
-};
+ 
+
+module.exports = { isAdmin, isStudent };

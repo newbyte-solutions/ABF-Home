@@ -28,6 +28,12 @@ const sess = {
     resave: false,
 };
 
+declare module 'express-session' {
+    export interface SessionData {
+      user: { [key: string]: any };
+    }
+  }
+
 if (app.get("env") === "production") {
     console.log(
       "Production environment detected, setting trust proxy and secure cookies"

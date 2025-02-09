@@ -35,6 +35,8 @@ export default {
           email: this.email,
           password: this.password,
           role: this.role
+        }, {
+          withCredentials: true
         })
         
         if (response.data) {

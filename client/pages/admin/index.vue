@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8"
-  >
+  <div class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
     <div class="max-w-md w-full space-y-8">
       <div>
         <h1 class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white">
@@ -22,14 +20,14 @@
             />
           </div>
           <div>
-            <label for="password" class="text-white">Passord:</label>
+            <label for="password" class="text-white">Password:</label>
             <input
               type="password"
               id="password"
               v-model="password"
               required
               class="appearance-none relative block w-full px-3 mt-2 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
-              placeholder="Passord"
+              placeholder="Password"
             />
           </div>
         </div>
@@ -41,6 +39,7 @@
             Login
           </button>
         </div>
+        <p v-if="loginError" class="text-red-500 text-center mt-4">Invalid credentials</p>
       </form>
     </div>
   </div>
@@ -52,8 +51,9 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
+      loginError: false,  // Flag to track login errors
     };
   },
   methods: {
@@ -62,12 +62,16 @@ export default {
         const response = await axios.post('http://localhost:5000/auth/admin_login', {
           email: this.email,
           password: this.password,
+        }, {
+          withCredentials: true,  // Include cookies with request
         });
+
         if (response.data) {
           this.$router.push('/admin/dashboard');
         }
       } catch (error) {
         console.error('Login failed:', error);
+        this.loginError = true;  // Display error if login fails
       }
     },
   },

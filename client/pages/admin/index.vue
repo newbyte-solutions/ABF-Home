@@ -53,7 +53,7 @@ export default {
     return {
       email: '',
       password: '',
-      loginError: false,  // Flag to track login errors
+      loginError: false, 
     };
   },
   methods: {
@@ -63,7 +63,7 @@ export default {
           email: this.email,
           password: this.password,
         }, {
-          withCredentials: true,  // Include cookies with request
+          withCredentials: true, 
         });
 
         if (response.data) {

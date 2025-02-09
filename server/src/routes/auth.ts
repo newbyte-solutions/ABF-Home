@@ -46,6 +46,7 @@ router.post('/admin_login', async (req: Request, res: Response): Promise<void> =
       res.status(500).json({ message: 'Internal Server Error' });
     }
   });
+
 // Student Login
 router.post('/student_login', async (req: Request, res: Response): Promise<void> => {
   const { email, password } = req.body;
@@ -115,6 +116,16 @@ router.post('/logout', (req: Request, res: Response) => {
     if (err) return res.status(500).json({ message: 'Internal Server Error' });
     res.status(200).json({ message: 'Logout successful' });
   });
+});
+
+// Check admin
+router.get('/check_admin', isAdmin, (req: Request, res: Response) => {
+  res.status(200).json({ message: 'Admin authenticated', role: 'admin' });
+});
+
+// Check student
+router.get('/check_student', isStudent, (req: Request, res: Response) => {
+  res.status(200).json({ message: 'Student authenticated', role: 'student' });
 });
 
 export default router;

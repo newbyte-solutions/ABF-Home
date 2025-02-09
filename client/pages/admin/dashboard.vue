@@ -27,6 +27,19 @@ export default {
       role: ''
     }
   },
+  async created() {
+    try {
+      const response = await axios.get('http://localhost:5000/auth/check_admin', {
+        withCredentials: true
+      })
+      if (response.data.role !== 'admin') {
+        this.$router.push('/')
+      }
+    } catch (error) {
+      console.error('Authorization check failed:', error)
+      this.$router.push('/')
+    }
+  },
   methods: {
     async handleRegistration() {
       try {

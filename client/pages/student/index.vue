@@ -62,12 +62,16 @@ export default {
         const response = await axios.post('http://localhost:5000/auth/student_login', {
           email: this.email,
           password: this.password,
+        }, {
+          withCredentials: true, 
         });
+
         if (response.data) {
           this.$router.push('/student/dashboard');
         }
       } catch (error) {
         console.error('Login failed:', error);
+        this.loginError = true;  // Display error if login fails
       }
     },
   },

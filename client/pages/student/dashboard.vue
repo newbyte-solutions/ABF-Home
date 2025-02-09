@@ -22,6 +22,10 @@ export default {
   data() {
     return {
       name: '',
+      email: '',
+      username: '',
+      class: '',
+      teacher: '',
       company: '',
       companyId: ''
     }
@@ -35,6 +39,18 @@ export default {
       this.companyId = response.data.companyId
     } catch (error) {
       console.error('Error fetching company:', error)
+    }
+    try {
+      const response = await axios.get('http://localhost:5000/auth/me', {
+        withCredentials: true
+      })
+      this.name = response.data.name
+      this.email = response.data.email
+      this.username = response.data.username
+      this.class = response.data.class
+      this.teacher = response.data.teacher
+    } catch (error) {
+      console.error("error fetching user:", error)
     }
   }
 }

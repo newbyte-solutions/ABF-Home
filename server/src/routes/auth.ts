@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 import { isAdmin, isStudent } from '../middleware/auth';
+import { promises } from 'dns';
 
 const router = express.Router();
 
@@ -127,5 +128,32 @@ router.get('/check_admin', isAdmin, (req: Request, res: Response) => {
 router.get('/check_student', isStudent, (req: Request, res: Response) => {
   res.status(200).json({ message: 'Student authenticated', role: 'student' });
 });
+
+// Check if user is logged in
+router.get('/check_login', (req: Request, res: Response) => {
+  if (req.session.user) {
+    res.status(200).json({ message: 'User is logged in', user: req.session.user });
+  } else {
+    res.status(401).json({ message: 'User is not logged in' });
+  }
+});
+
+// Me
+router.get("/me", async (req: Request, res: Response): Promise<void> => {
+  if (req.session.user) {
+    try {
+      const user = await User.findOne({ email: req.session.user.email })
+      if (!user) {
+        res.status(404).json({ message: 'User not found' })
+        return
+      }
+      res.status(200).json({ user: { email: user.email, role: user.role } })
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error' })
+    }
+  } else {
+    res.status(401).json({ message: 'User not authenticated' })
+  }
+})
 
 export default router;

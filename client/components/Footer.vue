@@ -13,6 +13,10 @@
         <router-link to="/admin" class="text-blue-800 underline"
           >Admin</router-link
         >
+        |
+        <router-link to="/student" class="text-blue-800 underline"
+          >Student</router-link
+        >
       </div>
     </div>
   </footer>

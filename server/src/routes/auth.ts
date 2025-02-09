@@ -56,7 +56,7 @@ router.post('/admin_login', async (req: express.Request, res: express.Response, 
 });
 
 // Student Login
-router.post('/student_login0', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+router.post('/student_login', async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     console.log('[Auth] Student login attempt')
     try {
         const { email, password } = req.body

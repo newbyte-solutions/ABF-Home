@@ -2,7 +2,6 @@ import express, { Request, Response, NextFunction } from 'express';
 import bcrypt from 'bcrypt';
 import User from '../models/user';
 import { isAdmin, isStudent } from '../middleware/auth';
-import { promises } from 'dns';
 
 const router = express.Router();
 

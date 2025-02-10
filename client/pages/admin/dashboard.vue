@@ -92,35 +92,41 @@ export default {
       }
     },
     async handleNewCompany() {
-      try {
-        const response = await axios.post('http://localhost:5000/auth/register-company', {
-          companyName: this.companyName,
-          email: this.companyEmail,
-          phone: this.companyPhone,
-          address: this.companyAddress,
-          contactPerson: this.contactPerson,
-          registrationDate: this.companyRegistrationDate,
-          grade: this.grade
-        }, {
-          withCredentials: true
-        })
-        
-        if (response.data) {
-          this.companyName = ''
-          this.companyEmail = ''
-          this.companyPhone = ''
-          this.companyAddress = ''
-          this.contactPerson = ''
-          this.companyRegistrationDate = ''
-          this.grade = ''
-          
-          alert('Company registration successful!')
-        }
-      } catch (error) {
-        console.error('Company registration failed:', error)
-        alert(error.response?.data?.message || 'Company registration failed')
-      }
+  try {
+    const formData = new FormData();
+    formData.append('companyName', this.companyName);
+    formData.append('email', this.companyEmail);
+    formData.append('phone', this.companyPhone);
+    formData.append('contactPerson', this.contactPerson);
+    formData.append('registrationDate', this.companyRegistrationDate);
+    formData.append('grade', this.grade);
+    
+    if (this.companyLogo) {
+      formData.append('companyLogo', this.companyLogo);
     }
+
+    const response = await axios.post('http://localhost:5000/auth/register-company', formData, {
+      withCredentials: true,
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+
+    if (response.data) {
+      this.companyName = '';
+      this.companyEmail = '';
+      this.companyPhone = '';
+      this.contactPerson = '';
+      this.companyRegistrationDate = '';
+      this.grade = '';
+      this.companyLogo = null;
+
+      alert('Company registration successful!');
+    }
+  } catch (error) {
+    console.error('Company registration failed:', error);
+    alert(error.response?.data?.message || 'Company registration failed');
+  }
+}
+
   }
 }
 </script>

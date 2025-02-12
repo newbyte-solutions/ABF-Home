@@ -78,12 +78,10 @@ router.post(
         if (err) {
           res.status(500).json({ message: "Internal Server Error" });
         } else {
-          res
-            .status(200)
-            .json({
-              message: "Login successful",
-              user: { email: user.email, role: user.role },
-            });
+          res.status(200).json({
+            message: "Login successful",
+            user: { email: user.email, role: user.role },
+          });
         }
       });
     } catch (error) {
@@ -122,12 +120,10 @@ router.post(
       });
       await newUser.save();
 
-      res
-        .status(201)
-        .json({
-          message: "User registered successfully",
-          user: { email: newUser.email, role: newUser.role },
-        });
+      res.status(201).json({
+        message: "User registered successfully",
+        user: { email: newUser.email, role: newUser.role },
+      });
     } catch (error) {
       res.status(500).json({ message: "Internal Server Error" });
     }

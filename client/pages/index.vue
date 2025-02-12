@@ -1,27 +1,27 @@
 <script setup>
 const news = [
   {
-    title: 'Nyhet 1',
-    description: 'Dette er en beskrivelse av nyhet 1',
-    date: '2024-01-01',
-    imagePath: 'https://placehold.co/600x400',
-    articlePath: '/articles/nyhet-1'
+    title: "Nyhet 1",
+    description: "Dette er en beskrivelse av nyhet 1",
+    date: "2024-01-01",
+    imagePath: "https://placehold.co/600x400",
+    articlePath: "/articles/nyhet-1",
   },
   {
-    title: 'Nyhet 2',
-    description: 'Dette er en beskrivelse av nyhet 2',
-    date: '2024-01-02',
-    imagePath: 'https://placehold.co/600x400',
-    articlePath: '/articles/nyhet-2'
+    title: "Nyhet 2",
+    description: "Dette er en beskrivelse av nyhet 2",
+    date: "2024-01-02",
+    imagePath: "https://placehold.co/600x400",
+    articlePath: "/articles/nyhet-2",
   },
   {
-    title: 'Nyhet 3',
-    description: 'Dette er en beskrivelse av nyhet 3',
-    date: '2024-01-03',
-    imagePath: 'https://placehold.co/600x400',
-    articlePath: '/articles/nyhet-3'
-  }
-]
+    title: "Nyhet 3",
+    description: "Dette er en beskrivelse av nyhet 3",
+    date: "2024-01-03",
+    imagePath: "https://placehold.co/600x400",
+    articlePath: "/articles/nyhet-3",
+  },
+];
 </script>
 
 <template>
@@ -42,25 +42,54 @@ const news = [
       </p>
       <p class="text-2xl md:text-3xl lg:text-4xl font-light">Arbeidslivsfag</p>
       <div class="absolute bottom-10 animate-bounce">
-        <svg class="w-20 h-20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        <svg
+          class="w-20 h-20"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M19 14l-7 7m0 0l-7-7m7 7V3"
+          ></path>
         </svg>
       </div>
     </div>
   </div>
-  <div class="w-full min-h-screen bg-white drop-shadow-2xl relative flex flex-col justify-center items-center p-4">
+  <div
+    class="w-full min-h-screen bg-white drop-shadow-2xl relative flex flex-col justify-center items-center p-4"
+  >
     <h2 class="text-4xl font-semibold mb-10">Nyheter</h2>
-    <div class="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div v-for="item in news" :key="item.title" class="flex flex-col bg-gray-100 rounded-lg shadow-xl h-full">
+    <div
+      class="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+    >
+      <div
+        v-for="item in news"
+        :key="item.title"
+        class="flex flex-col bg-gray-100 rounded-lg shadow-xl h-full"
+      >
         <div class="relative h-64">
-          <img :src="item.imagePath" alt="News image" class="absolute w-full h-full object-cover rounded-t-lg">
+          <img
+            :src="item.imagePath"
+            alt="News image"
+            class="absolute w-full h-full object-cover rounded-t-lg"
+          />
         </div>
         <div class="p-6 flex flex-col flex-grow">
           <h3 class="text-xl font-bold mb-2">{{ item.title }}</h3>
           <p class="text-gray-600 mb-4 flex-grow">{{ item.description }}</p>
           <div class="mt-auto">
-            <span class="text-sm text-gray-500 block mb-4">{{ item.date }}</span>
-            <a :href="item.articlePath" class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors w-full text-center">Les mer</a>
+            <span class="text-sm text-gray-500 block mb-4">{{
+              item.date
+            }}</span>
+            <a
+              :href="item.articlePath"
+              class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors w-full text-center"
+              >Les mer</a
+            >
           </div>
         </div>
       </div>

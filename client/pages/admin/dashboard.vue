@@ -199,7 +199,11 @@
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Company</option>
-          <option v-for="company in companies" :key="company.id" :value="company.id">
+          <option
+            v-for="company in companies"
+            :key="company.id"
+            :value="company.id"
+          >
             {{ company.name }}
           </option>
         </select>

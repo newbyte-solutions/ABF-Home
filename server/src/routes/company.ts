@@ -71,12 +71,10 @@ router.post(
       });
 
       await newCompany.save();
-      res
-        .status(201)
-        .json({
-          message: "Company registered successfully",
-          company: newCompany,
-        });
+      res.status(201).json({
+        message: "Company registered successfully",
+        company: newCompany,
+      });
     } catch (error) {
       console.error("Company registration error:", error);
       res.status(500).json({ message: "Internal Server Error" });

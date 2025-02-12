@@ -20,16 +20,10 @@
           >Klasser</router-link
         >
         <router-link
-          to="/nyheter"
+          to="/ftf"
           active-class="active-link"
-          class="tracking-wider text-2xl"
-          >Nyheter</router-link
-        >
-        <router-link
-          to="/kontakt"
-          active-class="active-link"
-          class="tracking-wider text-2xl"
-          >Kontakt</router-link
+          class="tracking-wider text-2xl absolute right-10"
+          >Fjord til Fjell</router-link
         >
       </div>
 
@@ -81,18 +75,11 @@
             >Klasser</router-link
           >
           <router-link
-            to="/nyheter"
+            to="/ftf"
             active-class="active-link"
             class="tracking-wider text-2xl"
             @click="isOpen = false"
-            >Nyheter</router-link
-          >
-          <router-link
-            to="/kontakt"
-            active-class="active-link"
-            class="tracking-wider text-2xl"
-            @click="isOpen = false"
-            >Kontakt</router-link
+            >Fjord til Fjell</router-link
           >
         </div>
       </div>

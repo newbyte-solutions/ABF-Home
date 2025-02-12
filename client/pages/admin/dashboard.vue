@@ -2,124 +2,219 @@
   <div
     class="w-full min-h-screen bg-gray-900 text-white flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-10 items-center justify-center p-4"
   >
-    <form
-      @submit.prevent="handleRegistration"
-      class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
-    >
-      <h2 class="font-semibold text-4xl text-center mb-10">Ny Bruker</h2>
-      <input
-        required
-        type="text"
-        v-model="username"
-        placeholder="Username"
-        id="username"
-        name="username"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="email"
-        v-model="email"
-        placeholder="Email"
-        id="email"
-        name="email"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="password"
-        v-model="password"
-        placeholder="Password"
-        id="password"
-        name="password"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <select
-        required
-        v-model="role"
-        id="role"
-        name="role"
-        class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+    <div class="py-32">
+      <form
+        @submit.prevent="handleRegistration"
+        class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
       >
-        <option value="">Select Role</option>
-        <option value="admin">Admin</option>
-        <option value="student">Student</option>
-      </select>
-      <button
-        type="submit"
-        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <h2 class="font-semibold text-4xl text-center mb-10">Ny Bruker</h2>
+        <input
+          required
+          type="text"
+          v-model="username"
+          placeholder="Username"
+          id="username"
+          name="username"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="email"
+          v-model="email"
+          placeholder="Email"
+          id="email"
+          name="email"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="password"
+          v-model="password"
+          placeholder="Password"
+          id="password"
+          name="password"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
+          required
+          v-model="role"
+          id="role"
+          name="role"
+          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Select Role</option>
+          <option value="admin">Admin</option>
+          <option value="student">Student</option>
+        </select>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    <div class="py-20">
+      <form
+        @submit.prevent="handleNewCompany"
+        class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
       >
-        Register
-      </button>
-    </form>
-    <form
-      @submit.prevent="handleNewCompany"
-      class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
-    >
-      <h2 class="font-semibold text-4xl text-center mb-10">Ny Bedrift</h2>
-      <input
-        required
-        type="text"
-        v-model="companyName"
-        placeholder="Company Name"
-        id="companyName"
-        name="companyName"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="email"
-        v-model="companyEmail"
-        placeholder="Email"
-        id="companyEmail"
-        name="companyEmail"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="tel"
-        v-model="companyPhone"
-        placeholder="Phone Number"
-        id="companyPhone"
-        name="companyPhone"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="text"
-        v-model="contactPerson"
-        placeholder="Contact Person"
-        id="contactPerson"
-        name="contactPerson"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <input
-        required
-        type="date"
-        v-model="companyRegistrationDate"
-        id="companyRegistrationDate"
-        name="companyRegistrationDate"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <select
-        required
-        v-model="grade"
-        id="grade"
-        name="grade"
-        class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <h2 class="font-semibold text-4xl text-center mb-10">Ny Bedrift</h2>
+        <input
+          required
+          type="text"
+          v-model="companyName"
+          placeholder="Company Name"
+          id="companyName"
+          name="companyName"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="email"
+          v-model="companyEmail"
+          placeholder="Email"
+          id="companyEmail"
+          name="companyEmail"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="tel"
+          v-model="companyPhone"
+          placeholder="Phone Number"
+          id="companyPhone"
+          name="companyPhone"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="text"
+          v-model="contactPerson"
+          placeholder="Contact Person"
+          id="contactPerson"
+          name="contactPerson"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="date"
+          v-model="companyRegistrationDate"
+          id="companyRegistrationDate"
+          name="companyRegistrationDate"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
+          required
+          v-model="grade"
+          id="grade"
+          name="grade"
+          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Velg Klasse</option>
+          <option value="8">8.</option>
+          <option value="9">9.</option>
+          <option value="10">10.</option>
+        </select>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+    <div class="py-20">
+      <form
+        @submit.prevent="handleNewArticle"
+        class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
       >
-        <option value="">Velg Klasse</option>
-        <option value="8">8.</option>
-        <option value="9">9.</option>
-        <option value="10">10.</option>
-      </select>
-      <button
-        type="submit"
-        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        Register
-      </button>
-    </form>
+        <h2 class="font-semibold text-4xl text-center mb-10">Ny Artikkel</h2>
+        <input
+          required
+          type="text"
+          v-model="articleTitle"
+          placeholder="Title"
+          id="articleTitle"
+          name="articleTitle"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="text"
+          v-model="articleDescription"
+          placeholder="Description"
+          id="articleDescription"
+          name="articleDescription"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
+          type="text"
+          v-model="articleTags"
+          placeholder="Tags (comma separated)"
+          id="articleTags"
+          name="articleTags"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <textarea
+          required
+          v-model="articleContent"
+          placeholder="Content"
+          id="articleContent"
+          name="articleContent"
+          rows="6"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        ></textarea>
+        <input
+          type="file"
+          @change="handleImageUpload"
+          accept="image/*"
+          id="articleImage"
+          name="articleImage"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+        />
+        <input
+          required
+          type="text"
+          v-model="articleAuthor"
+          placeholder="Author"
+          id="articleAuthor"
+          name="articleAuthor"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <select
+          required
+          v-model="articleCompany"
+          id="articleCompany"
+          name="articleCompany"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Select Company</option>
+          <option v-for="company in companies" :key="company.id" :value="company.id">
+            {{ company.name }}
+          </option>
+        </select>
+        <select
+          required
+          v-model="articleGrade"
+          id="articleGrade"
+          name="articleGrade"
+          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Velg Klasse</option>
+          <option value="8">8.</option>
+          <option value="9">9.</option>
+          <option value="10">10.</option>
+        </select>
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Create Article
+        </button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -139,6 +234,15 @@ export default {
       contactPerson: "",
       companyRegistrationDate: "",
       grade: "",
+      articleTitle: "",
+      articleDescription: "",
+      articleTags: "",
+      articleContent: "",
+      articleImage: null,
+      articleAuthor: "",
+      articleCompany: "",
+      articleGrade: "",
+      companies: [],
     };
   },
   async created() {
@@ -152,6 +256,14 @@ export default {
       if (response.data.role !== "admin") {
         this.$router.push("/");
       }
+      // Fetch companies for the dropdown
+      const companiesResponse = await axios.get(
+        "http://localhost:5000/company/companies",
+        {
+          withCredentials: true,
+        },
+      );
+      this.companies = companiesResponse.data;
     } catch (error) {
       console.error("Authorization check failed:", error);
       this.$router.push("/");
@@ -205,7 +317,7 @@ export default {
         }
 
         const response = await axios.post(
-          "http://localhost:5000/auth/register-company",
+          "http://localhost:5000/company/register-company",
           formData,
           {
             withCredentials: true,
@@ -227,6 +339,50 @@ export default {
       } catch (error) {
         console.error("Company registration failed:", error);
         alert(error.response?.data?.message || "Company registration failed");
+      }
+    },
+    handleImageUpload(event) {
+      this.articleImage = event.target.files[0];
+    },
+    async handleNewArticle() {
+      try {
+        const formData = new FormData();
+        formData.append("title", this.articleTitle);
+        formData.append("description", this.articleDescription);
+        formData.append("tags", this.articleTags);
+        formData.append("content", this.articleContent);
+        formData.append("author", this.articleAuthor);
+        formData.append("company", this.articleCompany);
+        formData.append("grade", this.articleGrade);
+
+        if (this.articleImage) {
+          formData.append("image", this.articleImage);
+        }
+
+        const response = await axios.post(
+          "http://localhost:5000/articles/create",
+          formData,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "multipart/form-data" },
+          },
+        );
+
+        if (response.data) {
+          this.articleTitle = "";
+          this.articleDescription = "";
+          this.articleTags = "";
+          this.articleContent = "";
+          this.articleImage = null;
+          this.articleAuthor = "";
+          this.articleCompany = "";
+          this.articleGrade = "";
+
+          alert("Article created successfully!");
+        }
+      } catch (error) {
+        console.error("Article creation failed:", error);
+        alert(error.response?.data?.message || "Article creation failed");
       }
     },
   },

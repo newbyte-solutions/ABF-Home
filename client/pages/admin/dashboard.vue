@@ -104,6 +104,14 @@
           name="companyRegistrationDate"
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
+        <input
+          type="file"
+          @change="handleLogoUpload"
+          accept="image/*"
+          id="companyLogo"
+          name="companyLogo"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white"
+        />
         <select
           required
           v-model="grade"
@@ -234,6 +242,7 @@ export default {
       contactPerson: "",
       companyRegistrationDate: "",
       grade: "",
+      companyLogo: null,
       articleTitle: "",
       articleDescription: "",
       articleTags: "",
@@ -301,6 +310,9 @@ export default {
         console.error("Registration failed:", error);
         alert(error.response?.data?.message || "Registration failed");
       }
+    },
+    handleLogoUpload(event) {
+      this.companyLogo = event.target.files[0];
     },
     async handleNewCompany() {
       try {

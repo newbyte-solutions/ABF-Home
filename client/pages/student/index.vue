@@ -4,7 +4,9 @@
   >
     <div class="max-w-md w-full space-y-8">
       <div>
-        <h1 class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white">
+        <h1
+          class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white"
+        >
           Login
         </h1>
       </div>
@@ -47,7 +49,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -59,19 +61,23 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await axios.post('http://localhost:5000/auth/student_login', {
-          email: this.email,
-          password: this.password,
-        }, {
-          withCredentials: true, 
-        });
+        const response = await axios.post(
+          "http://localhost:5000/auth/student_login",
+          {
+            email: this.email,
+            password: this.password,
+          },
+          {
+            withCredentials: true,
+          },
+        );
 
         if (response.data) {
-          this.$router.push('/student/dashboard');
+          this.$router.push("/student/dashboard");
         }
       } catch (error) {
-        console.error('Login failed:', error);
-        this.loginError = true;  // Display error if login fails
+        console.error("Login failed:", error);
+        this.loginError = true; // Display error if login fails
       }
     },
   },

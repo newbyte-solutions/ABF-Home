@@ -5,7 +5,9 @@
   <div class="w-full min-h-screen">
     <div class="w-full h-screen pt-20 flex justify-center items-center">
       <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
-        <h2 class="text-2xl font-bold mb-12 text-gray-800 text-center">Kom i kontakt</h2>
+        <h2 class="text-2xl font-bold mb-12 text-gray-800 text-center">
+          Kom i kontakt
+        </h2>
         <form @submit.prevent="submitForm" class="space-y-8">
           <div>
             <label for="name" class="block text-sm font-medium text-gray-700"

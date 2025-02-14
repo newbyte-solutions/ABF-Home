@@ -15,8 +15,9 @@ const port = 5000;
 connectDB();
 
 const corsConfig = {
-  origin: "http://localhost:3000", // The URL of your frontend
+  origin: "http://localhost:3001",
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
   optionsSuccessStatus: 200,
 };
@@ -29,12 +30,12 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: process.env.NODE_ENV === "production", // Secure cookies in production
-    maxAge: 86400000, // 1 day in milliseconds
+    secure: process.env.NODE_ENV === "production",
+    maxAge: 86400000,
   },
   store: MongoStore.create({
     mongoUrl: MONGO_URI,
-    ttl: 14 * 24 * 60 * 60, // 2 weeks TTL
+    ttl: 14 * 24 * 60 * 60,
   }),
 };
 
@@ -44,12 +45,22 @@ declare module "express-session" {
   }
 }
 
+// Middleware: Serve static files
+console.log("Configuring static file serving");
+app.use("/uploads", express.static("./uploads"), (req, res, next) => {
+  console.log(`Serving static file: ${req.url}`);
+  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
+
 // Apply middleware
 app.use(cors(corsConfig));
 app.use(session(sessionConfig));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/static", express.static("public"));
+app.use("/static", express.static("uploads"));
 
 // Routes
 app.use("/auth", authRoute);

@@ -156,94 +156,81 @@
       </form>
     </div>
     <div class="py-20">
-      <form
-        @submit.prevent="handleNewArticle"
-        class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm"
-      >
-        <h2 class="font-semibold text-4xl text-center mb-10">Ny Artikkel</h2>
+      <form @submit.prevent="handleNewArticle" class="max-w-lg mx-auto p-6 bg-gray-800 rounded-lg shadow-lg">
+        <h2 class="text-2xl font-bold mb-6 text-white text-center">Create New Article</h2>
+
         <input
-          required
-          type="text"
           v-model="articleTitle"
-          placeholder="Title"
-          id="articleTitle"
-          name="articleTitle"
+          type="text"
+          placeholder="Article Title"
+          required
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
-          required
-          type="text"
           v-model="articleDescription"
-          placeholder="Description"
-          id="articleDescription"
-          name="articleDescription"
-          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          required
           type="text"
-          v-model="articleTags"
-          placeholder="Tags (comma separated)"
-          id="articleTags"
-          name="articleTags"
+          placeholder="Description"
+          required
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <textarea
-          required
           v-model="articleContent"
           placeholder="Content"
-          id="articleContent"
-          name="articleContent"
-          rows="6"
-          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
         ></textarea>
+
         <input
-          type="file"
-          @change="handleImageUpload"
-          accept="image/*"
-          id="articleImage"
-          name="articleImage"
-          class="w-full mb-4 p-2 rounded bg-gray-700 text-white"
-        />
-        <input
-          required
-          type="text"
           v-model="articleAuthor"
+          type="text"
           placeholder="Author"
-          id="articleAuthor"
-          name="articleAuthor"
+          required
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <select
+
+        <select 
+          v-model="articleCompany" 
           required
-          v-model="articleCompany"
-          id="articleCompany"
-          name="articleCompany"
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Company</option>
           <option
             v-for="company in companies"
-            :key="company.id"
-            :value="company.id"
+            :key="company._id"
+            :value="company._id"
           >
             {{ company.name }}
           </option>
+          <option value="global">Global</option>
         </select>
-        <select
+
+        <select 
+          v-model="articleGrade" 
           required
-          v-model="articleGrade"
-          id="articleGrade"
-          name="articleGrade"
-          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
-          <option value="">Velg Klasse</option>
-          <option value="8">8.</option>
-          <option value="9">9.</option>
-          <option value="10">10.</option>
-          <option value="100">Lærar</option>
+          <option value="">Select Grade</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="teacher">Teacher</option>
         </select>
-        <button
+
+        <input
+          v-model="articleTags"
+          type="text"
+          placeholder="Tags (comma separated)"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <input 
+          type="file" 
+          @change="handleImageChange" 
+          accept="image/*"
+          class="w-full mb-6 p-2 rounded bg-gray-700 text-white"
+        />
+
+        <button 
           type="submit"
           class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
@@ -348,18 +335,21 @@ export default {
       try {
         const formData = new FormData();
         formData.append("companyName", this.companyName);
-        formData.append("email", this.companyEmail);
-        formData.append("phone", this.companyPhone);
-        formData.append("contactPerson", this.contactPerson);
-        formData.append("registrationDate", this.companyRegistrationDate);
-        formData.append("grade", this.companyGrade);
+        formData.append("companyEmail", this.companyEmail);
+        formData.append("companyPhone", this.companyPhone);
+        formData.append("companyContactPerson", this.contactPerson);
+        formData.append(
+          "companyRegistrationDate",
+          this.companyRegistrationDate,
+        );
+        formData.append("companyGrade", this.companyGrade);
 
         if (this.companyLogo) {
           formData.append("companyLogo", this.companyLogo);
         }
 
         const response = await axios.post(
-          "http://localhost:5000/company/register-company",
+          "http://localhost:5000/company/register_company",
           formData,
           {
             withCredentials: true,
@@ -383,49 +373,45 @@ export default {
         alert(error.response?.data?.message || "Company registration failed");
       }
     },
-    handleImageUpload(event) {
+    handleImageChange(event) {
       this.articleImage = event.target.files[0];
     },
     async handleNewArticle() {
-      try {
-        const formData = new FormData();
-        formData.append("title", this.articleTitle);
-        formData.append("description", this.articleDescription);
-        formData.append("tags", this.articleTags);
-        formData.append("content", this.articleContent);
-        formData.append("author", this.articleAuthor);
-        formData.append("company", this.articleCompany);
-        formData.append("grade", this.articleGrade);
+      const formData = new FormData();
+      formData.append("articleTitle", this.articleTitle);
+      formData.append("articleDescription", this.articleDescription);
+      formData.append("articleContent", this.articleContent);
+      formData.append("articleAuthor", this.articleAuthor);
+      formData.append("articleCompany", this.articleCompany);
+      formData.append("articleGrade", this.articleGrade);
+      formData.append("articleTags", this.articleTags);
 
-        if (this.articleImage) {
-          formData.append("image", this.articleImage);
-        }
-
-        const response = await axios.post(
-          "http://localhost:5000/articles/create",
-          formData,
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "multipart/form-data" },
-          },
-        );
-
-        if (response.data) {
-          this.articleTitle = "";
-          this.articleDescription = "";
-          this.articleTags = "";
-          this.articleContent = "";
-          this.articleAuthor = "";
-          this.articleCompany = "";
-          this.articleGrade = "";
-          this.articleImage = null;
-
-          alert("Article created successfully!");
-        }
-      } catch (error) {
-        console.error("Article creation failed:", error);
-        alert(error.response?.data?.message || "Article creation failed");
+      if (this.articleImage) {
+        formData.append("articleImage", this.articleImage);
       }
+
+      try {
+        const response = await axios.post(
+          "http://localhost:5000/news/new_article",
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } },
+        );
+        alert("Article created successfully!");
+        this.resetForm();
+      } catch (error) {
+        console.error("Error creating article:", error);
+        alert("Failed to create article. Please try again.");
+      }
+    },
+    resetForm() {
+      this.articleTitle = "";
+      this.articleDescription = "";
+      this.articleContent = "";
+      this.articleAuthor = "";
+      this.articleCompany = "";
+      this.articleGrade = "";
+      this.articleTags = "";
+      this.articleImage = null;
     },
   },
 };

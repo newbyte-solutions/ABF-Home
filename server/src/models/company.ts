@@ -1,77 +1,77 @@
 import mongoose, { Schema, Document, Int32 } from "mongoose";
 
 interface ICompany extends Document {
-  name: string;
-  description: string;
-  students: string[];
-  website: string;
-  logo: string;
-  tags: string[];
-  phone: string;
-  email: string;
-  contactPerson: string;
-  grade: Int32;
-  founded: Date;
-  createdAt: Date;
+  companyName: string;
+  companyEmail: string;
+  companyPhone: string;
+  companyContactPerson: string;
+  companyRegistrationDate: Date;
+  companyGrade: Int32;
+  companyLogo: string;
+  companyStudents: string[];
+  companyWebsite: string;
+  companyDescription: string;
+  companyTags: string[];
+  companyCreatedAt: Date;
 }
 
 const CompanySchema: Schema = new Schema({
-  name: {
+  companyName: {
     type: String,
     required: true,
     trim: true,
   },
-  description: {
+  companyDescription: {
     type: String,
     required: true,
     trim: true,
   },
-  students: [
+  companyStudents: [
     {
       type: String,
       required: false,
     },
   ],
-  website: {
+  companyWebsite: {
     type: String,
     required: true,
     trim: true,
   },
-  logo: {
+  companyLogo: {
     type: String,
     required: false,
     trim: true,
   },
-  tags: [
+  companyTags: [
     {
       type: String,
       required: false,
     },
   ],
-  phone: {
+  companyPhone: {
     type: String,
     required: false,
     trim: true,
   },
-  email: {
+  companyEmail: {
     type: String,
     required: false,
     trim: true,
   },
-  contactPerson: {
+  companyContactPerson: {
     type: String,
     required: false,
     trim: true,
   },
-  grade: {
+  companyGrade: {
     type: Number,
     required: false,
   },
-  founded: {
+  companyFounded: {
     type: Date,
     required: true,
   },
-  createdAt: {
+  companyCreatedAt: {
     type: Date,
     default: Date.now,
   },

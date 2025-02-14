@@ -6,6 +6,8 @@ const UserSchema = new Schema(
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     role: { type: String, required: true, enum: ["admin", "student"] },
+    phone: { type: String },
+    grade: { type: Number },
   },
   {
     timestamps: true,
@@ -19,8 +21,10 @@ type IUser = {
   email: string;
   password: string;
   role: "admin" | "student";
-  id?: string; // Add id as an optional property
-  _id?: mongoose.Types.ObjectId; // Add _id for Mongoose documents
+  phone?: string;
+  grade?: number;
+  id?: string;
+  _id?: mongoose.Types.ObjectId;
   createdAt?: Date;
   updatedAt?: Date;
 };

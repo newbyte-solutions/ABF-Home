@@ -28,6 +28,15 @@
         />
         <input
           required
+          type="tel"
+          v-model="phone"
+          placeholder="Phone Number"
+          id="phone"
+          name="phone"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          required
           type="password"
           v-model="password"
           placeholder="Password"
@@ -40,11 +49,24 @@
           v-model="role"
           id="role"
           name="role"
-          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Select Role</option>
           <option value="admin">Admin</option>
           <option value="student">Student</option>
+        </select>
+        <select
+          required
+          v-model="grade"
+          id="userGrade"
+          name="userGrade"
+          class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <option value="">Velg Klasse</option>
+          <option value="8">8.</option>
+          <option value="9">9.</option>
+          <option value="10">10.</option>
+          <option value="100">Lærar</option>
         </select>
         <button
           type="submit"
@@ -114,15 +136,16 @@
         />
         <select
           required
-          v-model="grade"
-          id="grade"
-          name="grade"
+          v-model="companyGrade"
+          id="companyGrade"
+          name="companyGrade"
           class="w-full mb-6 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">Velg Klasse</option>
           <option value="8">8.</option>
           <option value="9">9.</option>
           <option value="10">10.</option>
+          <option value="100">Lærar</option>
         </select>
         <button
           type="submit"
@@ -218,6 +241,7 @@
           <option value="8">8.</option>
           <option value="9">9.</option>
           <option value="10">10.</option>
+          <option value="100">Lærar</option>
         </select>
         <button
           type="submit"
@@ -239,13 +263,15 @@ export default {
       username: "",
       email: "",
       password: "",
+      phone: "",
       role: "",
+      grade: "",
       companyName: "",
       companyEmail: "",
       companyPhone: "",
       contactPerson: "",
       companyRegistrationDate: "",
-      grade: "",
+      companyGrade: "",
       companyLogo: null,
       articleTitle: "",
       articleDescription: "",
@@ -292,8 +318,8 @@ export default {
             email: this.email,
             password: this.password,
             phone: this.phone,
-            registrationDate: this.registrationDate,
             role: this.role,
+            grade: this.grade,
           },
           {
             withCredentials: true,
@@ -305,8 +331,8 @@ export default {
           this.email = "";
           this.password = "";
           this.phone = "";
-          this.registrationDate = "";
           this.role = "";
+          this.grade = "";
 
           alert("Registration successful!");
         }
@@ -326,7 +352,7 @@ export default {
         formData.append("phone", this.companyPhone);
         formData.append("contactPerson", this.contactPerson);
         formData.append("registrationDate", this.companyRegistrationDate);
-        formData.append("grade", this.grade);
+        formData.append("grade", this.companyGrade);
 
         if (this.companyLogo) {
           formData.append("companyLogo", this.companyLogo);
@@ -345,9 +371,9 @@ export default {
           this.companyName = "";
           this.companyEmail = "";
           this.companyPhone = "";
-          this.contactPerson = "";
+          this.companyContactPerson = "";
           this.companyRegistrationDate = "";
-          this.grade = "";
+          this.companyGrade = "";
           this.companyLogo = null;
 
           alert("Company registration successful!");
@@ -389,10 +415,10 @@ export default {
           this.articleDescription = "";
           this.articleTags = "";
           this.articleContent = "";
-          this.articleImage = null;
           this.articleAuthor = "";
           this.articleCompany = "";
           this.articleGrade = "";
+          this.articleImage = null;
 
           alert("Article created successfully!");
         }

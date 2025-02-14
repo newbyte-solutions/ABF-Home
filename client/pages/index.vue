@@ -1,29 +1,3 @@
-<script setup>
-const news = [
-  {
-    title: "Nyhet 1",
-    description: "Dette er en beskrivelse av nyhet 1",
-    date: "2024-01-01",
-    imagePath: "https://placehold.co/600x400",
-    articlePath: "/articles/nyhet-1",
-  },
-  {
-    title: "Nyhet 2",
-    description: "Dette er en beskrivelse av nyhet 2",
-    date: "2024-01-02",
-    imagePath: "https://placehold.co/600x400",
-    articlePath: "/articles/nyhet-2",
-  },
-  {
-    title: "Nyhet 3",
-    description: "Dette er en beskrivelse av nyhet 3",
-    date: "2024-01-03",
-    imagePath: "https://placehold.co/600x400",
-    articlePath: "/articles/nyhet-3",
-  },
-];
-</script>
-
 <template>
   <div
     class="w-full min-h-screen absolute -z-10 bg-gradient-to-br from-purple-700 to-blue-500"
@@ -73,20 +47,20 @@ const news = [
       >
         <div class="relative h-64">
           <img
-            :src="item.imagePath"
+            :src="item.articleImageUrl"
             alt="News image"
             class="absolute w-full h-full object-cover rounded-t-lg"
           />
         </div>
         <div class="p-6 flex flex-col flex-grow">
-          <h3 class="text-xl font-bold mb-2">{{ item.title }}</h3>
-          <p class="text-gray-600 mb-4 flex-grow">{{ item.description }}</p>
+          <h3 class="text-xl font-bold mb-2">{{ item.articleTitle }}</h3>
+          <p class="text-gray-600 mb-4 flex-grow">{{ item.articleDescription }}</p>
           <div class="mt-auto">
             <span class="text-sm text-gray-500 block mb-4">{{
               item.date
             }}</span>
             <a
-              :href="item.articlePath"
+              :href="`/article/${item._id}`"
               class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors w-full text-center"
               >Les mer</a
             >
@@ -96,3 +70,20 @@ const news = [
     </div>
   </div>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
+const news = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:5000/news/');
+    news.value = response.data;
+  } catch (error) {
+    console.error('Error fetching news:', error);
+    news.value = [];
+  }
+});
+</script>

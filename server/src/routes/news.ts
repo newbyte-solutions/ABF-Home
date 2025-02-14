@@ -3,6 +3,7 @@ import Article from "../models/article";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import mongoose from "mongoose";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads
@@ -42,7 +43,7 @@ router.post(
   async (req: Request, res: Response): Promise<void> => {
     const data = req.body;
 
-    const imageUrl = req.file ? `/uploads/${req.file.filename}` : req.body.articleImageUrl;
+    const imageUrl = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : req.body.articleImageUrl;
 
     const newArticle = new Article({
       articleTitle: req.body.articleTitle,
@@ -75,12 +76,18 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-// Get article by ID
+// Get article by ID (_id or id)
 router.get(
   "/article/:id",
   async (req: Request, res: Response): Promise<void> => {
+    const normalizedId = req.params.id;
+    if (!normalizedId) {
+      res.status(400).json({ message: "Invalid article ID" });
+      return;
+    }
+
     try {
-      const article = await Article.findById(req.params.id);
+      const article = await Article.findById(normalizedId);
       if (!article) {
         res.status(404).json({ message: "Article not found" });
         return;
@@ -89,15 +96,20 @@ router.get(
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch the article" });
     }
-  },
-);
+  },);
 
-// Delete article
+// Delete article by ID (_id or id)
 router.delete(
-  "/article/:id",
+  "/article/:_id",
   async (req: Request, res: Response): Promise<void> => {
+    const normalizedId = req.params.id;
+    if (!normalizedId) {
+      res.status(400).json({ message: "Invalid article ID" });
+      return;
+    }
+
     try {
-      const article = await Article.findById(req.params.id);
+      const article = await Article.findById(normalizedId);
       if (!article) {
         res.status(404).json({ message: "Article not found" });
         return;
@@ -107,7 +119,7 @@ router.delete(
     } catch (error) {
       res.status(500).json({ message: "Failed to delete the article" });
     }
-  },
-);
+  },);
+
 
 export default router;

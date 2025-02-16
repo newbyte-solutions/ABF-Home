@@ -2,9 +2,12 @@
     <div class="w-full min-h-screen bg-white drop-shadow-2xl relative flex flex-col justify-center items-center p-4">
       <div class="container mx-auto px-4 py-8">
         <div v-if="article">
-          <h1 class="text-4xl font-bold mb-6 text-gray-900">{{ article.articleTitle }}</h1>
+          <div class="mb-8 flex justify-center">
+            <img :src="article.articleImageUrl" alt="Article Image" class="h-3/4 w-3/4 md:h-2/4 md:w-2/4  object-cover rounded-lg">
+          </div>
+          <h1 class="text-4xl font-bold mb-6 text-gray-900 text-center">{{ article.articleTitle }}</h1>
           <div class="prose lg:prose-xl max-w-none mb-8 text-gray-700">
-            {{ article.articleContent }}
+            <div v-html="renderedContent"></div>
           </div>
           <div class="flex flex-wrap gap-4 text-sm text-gray-600">
             <span class="flex items-center">
@@ -13,7 +16,7 @@
             </span>
             <span class="flex items-center">
               <span class="font-semibold mr-1">Published:</span>
-              {{ article.articlePublishedDate }}
+              {{ formatDate(article.articlePublishedDate) }}
             </span>
           </div>
         </div>
@@ -29,12 +32,24 @@
 
   <script>
   import axios from 'axios'
+  import { marked } from 'marked'
 
   export default {
     data() {
       return {
         article: null,
         error: null
+      }
+    },
+    computed: {
+      renderedContent() {
+        return this.article ? marked(this.article.articleContent) : ''
+      }
+    },
+    methods: {
+      formatDate(dateString) {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        return new Date(dateString).toLocaleDateString('en-US', options);
       }
     },
     async mounted() {

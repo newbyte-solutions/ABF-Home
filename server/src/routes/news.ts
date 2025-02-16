@@ -3,7 +3,6 @@ import Article from "../models/article";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import mongoose from "mongoose";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads

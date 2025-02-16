@@ -3,97 +3,83 @@ import { isAdmin } from "../middleware/auth";
 import Company from "../models/company";
 import multer from "multer";
 import path from "path";
+import fs from "fs";
 
 const router = express.Router();
 
-// Set up file upload folder
-const uploadDir = path.join(__dirname, "../uploads");
+// Multer storage configuration for handling file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, uploadDir);
+    const uploadPath = "./uploads";
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+    cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
+    const fileName = Date.now() + "-" + file.originalname;
+    cb(null, fileName);
   },
 });
 
-const upload = multer({ storage });
-
-// Ensure the uploads directory exists
-import fs from "fs";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Register a new company (Admin Only)
-router.post(
-  "/register-company",
-  isAdmin,
-  upload.single("companyLogo"),
-  async (req: Request, res: Response): Promise<void> => {
-    const {
-      companyName,
-      email,
-      phone,
-      contactPerson,
-      registrationDate,
-      grade,
-    } = req.body;
-    const companyLogo = req.file ? req.file.filename : null;
-
-    if (
-      !companyName ||
-      !email ||
-      !phone ||
-      !contactPerson ||
-      !registrationDate ||
-      !grade
-    ) {
-      res.status(400).json({ message: "All fields are required" });
-      return;
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB limit
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedTypes.test(
+      path.extname(file.originalname).toLowerCase(),
+    );
+    const mimetype = allowedTypes.test(file.mimetype);
+    if (extname && mimetype) {
+      return cb(null, true);
     }
-
-    try {
-      const existingCompany = await Company.findOne({ email });
-      if (existingCompany) {
-        res.status(400).json({ message: "Company already exists" });
-        return;
-      }
-
-      const newCompany = new Company({
-        companyName,
-        email,
-        phone,
-        contactPerson,
-        registrationDate,
-        grade,
-        companyLogo,
-      });
-
-      await newCompany.save();
-      res.status(201).json({
-        message: "Company registered successfully",
-        company: newCompany,
-      });
-    } catch (error) {
-      console.error("Company registration error:", error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
+    cb(new Error("Only image files are allowed!"));
   },
-);
+});
 
-// Get all companies
-router.get("/companies", async (req: Request, res: Response): Promise<void> => {
+router.get("/", async (req: Request, res: Response): Promise<void> => {
   try {
     const companies = await Company.find();
-    res.status(200).json(companies);
+    res.json(companies);
   } catch (error) {
-    console.error("Error fetching companies:", error);
-    res.status(500).json({ message: "Internal Server Error" });
+    console.error(error);
+    res.status(500).json({ message: "Error fetching companies" });
   }
 });
 
-// Serve uploaded files statically
-router.use("/uploads", express.static(uploadDir));
+router.post(
+  "/new_company",
+  upload.single("companyLogo"),
+  async (req: Request, res: Response): Promise<void> => {
+    const data = req.body;
+
+    const companyLogo = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : req.body.companyLogo;
+
+      const newCompany = new Company({
+        companyName: data.companyName,
+        companyEmail: data.companyEmail,
+        companyPhone: data.companyPhone,
+        companyContactPerson: data.companyContactPerson,
+        companyFounded: data.companyFounded,
+        companyGrade: data.companyGrade,
+        companyLogo: companyLogo,
+        companyStudents: data.companyStudents,
+        companyWebsite: data.companyWebsite,
+        companyDescription: data.companyDescription,
+        companyContent: data.companyContent,
+        companyTags: data.companyTags,
+        companyCreatedAt: new Date()
+      });
+
+    try {
+      const company = await newCompany.save();
+      res.status(201).json(company);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error creating the company" });
+    }
+  },
+);
 
 export default router;

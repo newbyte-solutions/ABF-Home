@@ -5,12 +5,13 @@ interface ICompany extends Document {
   companyEmail: string;
   companyPhone: string;
   companyContactPerson: string;
-  companyRegistrationDate: Date;
   companyGrade: Int32;
   companyLogo: string;
   companyStudents: string[];
   companyWebsite: string;
   companyDescription: string;
+  companyContent: string;
+  companyFounded: Date;
   companyTags: string[];
   companyCreatedAt: Date;
 }
@@ -23,7 +24,12 @@ const CompanySchema: Schema = new Schema({
   },
   companyDescription: {
     type: String,
-    required: true,
+    required: false,
+    trim: true,
+  },
+  companyContent: {
+    type: String,
+    required: false,
     trim: true,
   },
   companyStudents: [
@@ -34,13 +40,12 @@ const CompanySchema: Schema = new Schema({
   ],
   companyWebsite: {
     type: String,
-    required: true,
+    required: false,
     trim: true,
   },
   companyLogo: {
     type: String,
-    required: false,
-    trim: true,
+    required: true,
   },
   companyTags: [
     {
@@ -50,22 +55,22 @@ const CompanySchema: Schema = new Schema({
   ],
   companyPhone: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
   },
   companyEmail: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
   },
   companyContactPerson: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
   },
   companyGrade: {
     type: Number,
-    required: false,
+    required: true,
   },
   companyFounded: {
     type: Date,

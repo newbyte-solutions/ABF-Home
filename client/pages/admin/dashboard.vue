@@ -121,9 +121,9 @@
         <input
           required
           type="date"
-          v-model="companyRegistrationDate"
-          id="companyRegistrationDate"
-          name="companyRegistrationDate"
+          v-model="companyFounded"
+          id="companyFounded"
+          name="companyFounded"
           class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <input
@@ -199,7 +199,7 @@
             :key="company._id"
             :value="company._id"
           >
-            {{ company.name }}
+            {{ company.companyName }}
           </option>
           <option value="global">Global</option>
         </select>
@@ -257,7 +257,7 @@ export default {
       companyEmail: "",
       companyPhone: "",
       contactPerson: "",
-      companyRegistrationDate: "",
+      companyFounded: "",
       companyGrade: "",
       companyLogo: null,
       articleTitle: "",
@@ -284,7 +284,7 @@ export default {
       }
       // Fetch companies for the dropdown
       const companiesResponse = await axios.get(
-        "http://localhost:5000/company/companies",
+        "http://localhost:5000/company/",
         {
           withCredentials: true,
         },
@@ -339,8 +339,8 @@ export default {
         formData.append("companyPhone", this.companyPhone);
         formData.append("companyContactPerson", this.contactPerson);
         formData.append(
-          "companyRegistrationDate",
-          this.companyRegistrationDate,
+          "companyFounded",
+          this.companyFounded,
         );
         formData.append("companyGrade", this.companyGrade);
 
@@ -349,7 +349,7 @@ export default {
         }
 
         const response = await axios.post(
-          "http://localhost:5000/company/register_company",
+          "http://localhost:5000/company/new_company",
           formData,
           {
             withCredentials: true,
@@ -362,7 +362,7 @@ export default {
           this.companyEmail = "";
           this.companyPhone = "";
           this.companyContactPerson = "";
-          this.companyRegistrationDate = "";
+          this.companyFounded = "";
           this.companyGrade = "";
           this.companyLogo = null;
 

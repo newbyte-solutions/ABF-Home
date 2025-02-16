@@ -9,7 +9,7 @@ import MongoStore from "connect-mongo";
 
 // App Config
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Connect to MongoDB
 connectDB();

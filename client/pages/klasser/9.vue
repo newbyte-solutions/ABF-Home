@@ -47,56 +47,9 @@
         </div>
       </div>
     </div>
-    <h2 class="text-center text-2xl font-semibold my-4">Nyheter</h2>
-    <div
-      class="w-full h-fit px-0 md:px-10 flex flex-col md:flex-row items-center justify-center md:space-x-20"
-    >
-      <router-link to="/nyheter/_id">
-        <div class="w-56 h-80 bg-gray-200 hover:scale-110 transition">
-          <img
-            src="https://placehold.co/300x200"
-            alt="Placeholder image for news cards."
-            class="max-w-full max-h-[200px] drop-shadow-xl"
-          />
-          <h1 class="text-xl font-semibold text-center my-4">Tittel</h1>
-          <p class="px-2">
-            En kort beskrivelse eller forhåndsvisning av artikkelen.
-          </p>
-        </div>
-      </router-link>
-      <router-link to="/nyheter/_id">
-        <div class="w-56 h-80 bg-gray-200 hover:scale-110 transition">
-          <img
-            src="https://placehold.co/300x200"
-            alt="Placeholder image for news cards."
-            class="max-w-full max-h-[200px] drop-shadow-xl"
-          />
-          <h1 class="text-xl font-semibold text-center my-4">Tittel</h1>
-          <p class="px-2">
-            En kort beskrivelse eller forhåndsvisning av artikkelen.
-          </p>
-        </div>
-      </router-link>
-      <router-link to="/nyheter/_id">
-        <div class="w-56 h-80 bg-gray-200 hover:scale-110 transition">
-          <img
-            src="https://placehold.co/300x200"
-            alt="Placeholder image for news cards."
-            class="max-w-full max-h-[200px] drop-shadow-xl"
-          />
-          <h1 class="text-xl font-semibold text-center my-4">Tittel</h1>
-          <p class="px-2">
-            En kort beskrivelse eller forhåndsvisning av artikkelen.
-          </p>
-        </div>
-      </router-link>
+    <div class="w-full flex flex-col justify-center items-center">
+      <NewsSection grade="9" />
     </div>
-    <router-link
-      to="/nyheter"
-      class="w-fit px-10 py-4 mt-10 border-2 border-green-400 bg-transparent hover:bg-green-400 transition mx-auto"
-    >
-      Se mer
-    </router-link>
     <h2 class="text-center text-2xl font-semibold my-10">Klasseliste</h2>
     <div class="w-full px-4 md:px-20">
       <p class="text-center">Liste, Over, Elever, I, Klassen, .</p>

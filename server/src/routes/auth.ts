@@ -177,36 +177,30 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.get("/make_admin" , async (req: Request, res: Response) => {
+router.get("/make_admin", async (req: Request, res: Response): Promise<void> => {
   const email = process.env.ADMIN_EMAIL;
   const password = process.env.ADMIN_PASSWORD;
 
   if (!email || !password) {
-    res.status(500).json({ message: "Admin credentials not set" });
+    res.status(400).json({ message: "Admin email and password are required" });
     return;
   }
 
-  try {
-      const existingUser = await User.findOne({ email });
-      
-      if (existingUser) {
-        res.status(400).json({ message: "Admin user already exists" });
-        return;
-      }
-  
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({
-        email,
-        password: hashedPassword,
-        role: "admin"
-      });
-  
-      await newUser.save();
-      res.status(201).json({ message: "Admin user created successfully" });
-    } catch (error) {
-      console.error("Error creating admin user:", error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
+  try {    
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newUser = new User({
+      email,
+      username: "admin",
+      password: hashedPassword,
+      role: "admin"
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: "Admin user created successfully" });
+  } catch (error) {
+    console.error("Error creating admin user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 export default router;

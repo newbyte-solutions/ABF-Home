@@ -6,7 +6,7 @@
             <img :src="article.articleImageUrl" alt="Article Image" class="h-3/4 w-3/4 md:h-2/4 md:w-2/4  object-cover rounded-lg">
           </div>
           <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900 text-center">{{ article.articleTitle }}</h1>
-          <div class="prose lg:prose-2xl max-w-none mb-8 text-gray-700">
+          <div class="prose max-w-none mb-8 text-gray-700 text-xl">
             <div v-html="renderedContent"></div>
           </div>
           <div class="flex flex-wrap gap-4 text-sm md:text-base text-gray-600 flex absolute bottom-4 left-1/2 -translate-x-1/2">

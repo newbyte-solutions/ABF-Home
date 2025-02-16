@@ -3,6 +3,7 @@ import Article from "../models/article";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { isAdmin, isStudent } from "../middleware/auth";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads
@@ -38,8 +39,8 @@ const upload = multer({
 
 router.post(
   "/new_article",
-  upload.single("articleImage"),
-  async (req: Request, res: Response): Promise<void> => {
+  [isAdmin, isStudent],
+  upload.single("articleImage"),  async (req: Request, res: Response): Promise<void> => {
     const data = req.body;
 
     const imageUrl = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : req.body.articleImageUrl;
@@ -100,6 +101,7 @@ router.get(
 // Delete article by ID (_id or id)
 router.delete(
   "/article/:_id",
+  [isAdmin],
   async (req: Request, res: Response): Promise<void> => {
     const normalizedId = req.params.id;
     if (!normalizedId) {

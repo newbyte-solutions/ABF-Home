@@ -11,4 +11,10 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: "2025-01-13",
+  
+  runtimeConfig: {
+    public: {
+      apiBase: "http://abf-home-server-1:5000",
+    },
+  },
 });

@@ -33,6 +33,7 @@
   <script>
   import axios from 'axios'
   import { marked } from 'marked'
+  const { public: publicConfig } = useRuntimeConfig();
 
   export default {
     data() {
@@ -54,7 +55,7 @@
     },
     async mounted() {
       try {
-        const response = await axios.get(`http://localhost:5000/news/article/${this.$route.params._id}`);
+        const response = await axios.get(`${publicConfig.apiBase}/news/article/${this.$route.params._id}`);
         this.article = response.data;
       } catch (error) {
         console.error('Error fetching article:', error);

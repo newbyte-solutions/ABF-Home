@@ -53,6 +53,7 @@
 
 <script>
 import axios from "axios";
+const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -66,7 +67,7 @@ export default {
     async handleLogin() {
       try {
         const response = await axios.post(
-          "http://localhost:5000/auth/admin_login",
+          `${publicConfig.apiBase}/auth/admin_login`,
           {
             email: this.email,
             password: this.password,

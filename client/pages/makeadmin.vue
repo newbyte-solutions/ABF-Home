@@ -6,10 +6,12 @@
 <script setup>
 import axios from 'axios';
 import { onMounted } from 'vue';
+const { public: publicConfig } = useRuntimeConfig();
+
 
 onMounted(async () => {
   try {
-    const request = await axios.get('http://localhost:5000/auth/make_admin');
+    const request = await axios.get(`${publicConfig.apiBase}/auth/make_admin`);
   } catch (error) {
     console.error('Error making user', error);
   }

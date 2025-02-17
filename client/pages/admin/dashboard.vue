@@ -243,6 +243,7 @@
 
 <script>
 import axios from "axios";
+const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -274,7 +275,7 @@ export default {
   async created() {
     try {
       const response = await axios.get(
-        "http://localhost:5000/auth/check_admin",
+        `${publicConfig.apiBase}/auth/check_admin`,
         {
           withCredentials: true,
         },
@@ -284,7 +285,7 @@ export default {
       }
       // Fetch companies for the dropdown
       const companiesResponse = await axios.get(
-        "http://localhost:5000/company/",
+        `${publicConfig.apiBase}/company/`,
         {
           withCredentials: true,
         },
@@ -299,7 +300,7 @@ export default {
     async handleRegistration() {
       try {
         const response = await axios.post(
-          "http://localhost:5000/auth/register",
+          `${publicConfig.apiBase}/auth/register`,
           {
             username: this.username,
             email: this.email,
@@ -349,7 +350,7 @@ export default {
         }
 
         const response = await axios.post(
-          "http://localhost:5000/company/new_company",
+          `${publicConfig.apiBase}/company/new_company`,
           formData,
           {
             withCredentials: true,
@@ -392,7 +393,7 @@ export default {
 
       try {
         const response = await axios.post(
-          "http://localhost:5000/news/new_article",
+          `${publicConfig.apiBase}/news/new_article`,
           formData,
           { headers: { "Content-Type": "multipart/form-data" } },
         );

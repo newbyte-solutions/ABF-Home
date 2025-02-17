@@ -74,12 +74,13 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+const { public: publicConfig } = useRuntimeConfig();
 
 const news = ref([]);
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:5000/news/');
+    const response = await axios.get(`${publicConfig.apiBase}/news/`);
     news.value = response.data;
   } catch (error) {
     console.error('Error fetching news:', error);

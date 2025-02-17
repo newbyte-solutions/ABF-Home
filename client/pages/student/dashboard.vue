@@ -30,6 +30,7 @@
 
 <script>
 import axios from "axios";
+const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -46,7 +47,7 @@ export default {
   async mounted() {
     try {
       const response = await axios.get(
-        "http://localhost:5000/company/get_company",
+        `${publicConfig.apiBase}/company/get_company`,
         {
           withCredentials: true,
         },
@@ -57,7 +58,7 @@ export default {
       console.error("Error fetching company:", error);
     }
     try {
-      const response = await axios.get("http://localhost:5000/auth/me", {
+      const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
         withCredentials: true,
       });
       this.name = response.data.name;

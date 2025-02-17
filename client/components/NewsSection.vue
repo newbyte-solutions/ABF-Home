@@ -38,30 +38,27 @@
     </router-link>
 </template>
 
-<script>
+<script setup>
 import axios from 'axios';
+const { public: publicConfig } = useRuntimeConfig();
 
-export default {
-  props: {
-    grade: {
-      type: String,
-      required: true
-    }
-  },
-  data() {
-    return {
-      newsItems: []
-    }
-  },
-  async created() {
-    try {
-      const response = await axios.get('http://localhost:5000/news/');
-      this.newsItems = response.data
-        .filter(news => news.articleGrade === this.grade)
-        .slice(0, 3);
-    } catch (error) {
-      console.error('Error fetching news:', error);
-    }
+defineProps({
+  grade: {
+    type: String,
+    required: true
   }
-}
+});
+
+const newsItems = ref([]);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get(`${publicConfig.apiBase}/news/`);
+    newsItems.value = response.data
+      .filter(news => news.articleGrade === props.grade)
+      .slice(0, 3);
+  } catch (error) {
+    console.error('Error fetching news:', error);
+  }
+});
 </script>

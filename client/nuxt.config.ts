@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   
   runtimeConfig: {
     public: {
-      apiBase: "http://abf-home-server-1:5000",
+      apiBase: "http://localhost:5000",
     },
   },
 });

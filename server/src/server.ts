@@ -20,7 +20,7 @@ dotenv.config({ path: "./config/.env" });
 
 // CORS Config
 const corsConfig = {
-  origin: "*",
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

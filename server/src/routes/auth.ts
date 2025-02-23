@@ -203,4 +203,23 @@ router.get("/make_admin", async (req: Request, res: Response): Promise<void> => 
   }
 });
 
+router.get("/remove_admin", async (req: Request, res: Response): Promise<void> => {
+  const email = process.env.ADMIN_EMAIL;
+  const username = "admin";
+
+  try {
+    const adminUser = await User.findOne({ $or: [{ username: username }, { email: email }] });
+    if (!adminUser) {
+      res.status(404).json({ message: "Admin user not found" });
+      return;
+    }
+
+    await User.deleteOne({ $or: [{ username: username }, { email: email }] });
+    res.status(200).json({ message: "Admin user removed successfully" });
+  } catch (error) {
+    console.error("Error removing admin user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 export default router;

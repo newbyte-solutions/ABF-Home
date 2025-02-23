@@ -20,7 +20,7 @@ dotenv.config({ path: "./config/.env" });
 
 // CORS Config
 const corsConfig = {
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3000", // Becomes https://husarbeidslivsfag.com in production
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

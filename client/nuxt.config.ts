@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   
   runtimeConfig: {
     public: {
-      apiBase: "/api",
+      apiBase: "http://localhost:5000", // Becomes /api in production
     },
   },
 });

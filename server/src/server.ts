@@ -18,9 +18,11 @@ connectDB();
 // ENV Config
 dotenv.config({ path: "./config/.env" });
 
+const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
+
 // CORS Config
 const corsConfig = {
-  origin: "http://localhost:3000", // Becomes https://husarbeidslivsfag.com in production
+  origin: "http://localhost:3000", 
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

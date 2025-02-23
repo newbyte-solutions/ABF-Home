@@ -40,10 +40,13 @@ const upload = multer({
 router.post(
   "/new_article",
   [isAdmin, isStudent],
-  upload.single("articleImage"),  async (req: Request, res: Response): Promise<void> => {
+  upload.single("articleImage"),
+  async (req: Request, res: Response): Promise<void> => {
     const data = req.body;
 
-    const imageUrl = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : req.body.articleImageUrl;
+    const imageUrl = req.file
+      ? `http://localhost:5000/uploads/${req.file.filename}`
+      : req.body.articleImageUrl;
 
     const newArticle = new Article({
       articleTitle: req.body.articleTitle,
@@ -96,7 +99,8 @@ router.get(
     } catch (error) {
       res.status(500).json({ message: "Failed to fetch the article" });
     }
-  },);
+  },
+);
 
 // Delete article by ID (_id or id)
 router.delete(
@@ -120,7 +124,7 @@ router.delete(
     } catch (error) {
       res.status(500).json({ message: "Failed to delete the article" });
     }
-  },);
-
+  },
+);
 
 export default router;

@@ -55,23 +55,25 @@ router.post(
   async (req: Request, res: Response): Promise<void> => {
     const data = req.body;
 
-    const companyLogo = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : req.body.companyLogo;
+    const companyLogo = req.file
+      ? `http://localhost:5000/uploads/${req.file.filename}`
+      : req.body.companyLogo;
 
-      const newCompany = new Company({
-        companyName: data.companyName,
-        companyEmail: data.companyEmail,
-        companyPhone: data.companyPhone,
-        companyContactPerson: data.companyContactPerson,
-        companyFounded: data.companyFounded,
-        companyGrade: data.companyGrade,
-        companyLogo: companyLogo,
-        companyStudents: data.companyStudents,
-        companyWebsite: data.companyWebsite,
-        companyDescription: data.companyDescription,
-        companyContent: data.companyContent,
-        companyTags: data.companyTags,
-        companyCreatedAt: new Date()
-      });
+    const newCompany = new Company({
+      companyName: data.companyName,
+      companyEmail: data.companyEmail,
+      companyPhone: data.companyPhone,
+      companyContactPerson: data.companyContactPerson,
+      companyFounded: data.companyFounded,
+      companyGrade: data.companyGrade,
+      companyLogo: companyLogo,
+      companyStudents: data.companyStudents,
+      companyWebsite: data.companyWebsite,
+      companyDescription: data.companyDescription,
+      companyContent: data.companyContent,
+      companyTags: data.companyTags,
+      companyCreatedAt: new Date(),
+    });
 
     try {
       const company = await newCompany.save();
@@ -95,12 +97,11 @@ router.delete(
         return;
       }
       res.json({ message: "Company deleted successfully" });
-    }
-    catch (error) {
+    } catch (error) {
       console.error(error);
       res.status(500).json({ message: "Error deleting the company" });
     }
-  }
+  },
 );
 
 // Update content for a company by id
@@ -109,11 +110,9 @@ router.put(
   [isAdmin, isStudent],
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const company = await Company.findByIdAndUpdate(
-        req.params.id,
-        req.body,
-        { new: true }
-      );
+      const company = await Company.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+      });
       if (!company) {
         res.status(404).json({ message: "Company not found" });
         return;
@@ -123,7 +122,7 @@ router.put(
       console.error(error);
       res.status(500).json({ message: "Error updating the company" });
     }
-  }
+  },
 );
 
 export default router;

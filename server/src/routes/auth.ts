@@ -177,49 +177,59 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.get("/make_admin", async (req: Request, res: Response): Promise<void> => {
-  const email = process.env.ADMIN_EMAIL;
-  const password = process.env.ADMIN_PASSWORD;
+router.get(
+  "/make_admin",
+  async (req: Request, res: Response): Promise<void> => {
+    const email = process.env.ADMIN_EMAIL;
+    const password = process.env.ADMIN_PASSWORD;
 
-  if (!email || !password) {
-    res.status(400).json({ message: "Admin email and password are required" });
-    return;
-  }
-
-  try {    
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({
-      email,
-      username: "admin",
-      password: hashedPassword,
-      role: "admin"
-    });
-
-    await newUser.save();
-    res.status(201).json({ message: "Admin user created successfully" });
-  } catch (error) {
-    console.error("Error creating admin user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
-
-router.get("/remove_admin", async (req: Request, res: Response): Promise<void> => {
-  const email = process.env.ADMIN_EMAIL;
-  const username = "admin";
-
-  try {
-    const adminUser = await User.findOne({ $or: [{ username: username }, { email: email }] });
-    if (!adminUser) {
-      res.status(404).json({ message: "Admin user not found" });
+    if (!email || !password) {
+      res
+        .status(400)
+        .json({ message: "Admin email and password are required" });
       return;
     }
 
-    await User.deleteOne({ $or: [{ username: username }, { email: email }] });
-    res.status(200).json({ message: "Admin user removed successfully" });
-  } catch (error) {
-    console.error("Error removing admin user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+    try {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const newUser = new User({
+        email,
+        username: "admin",
+        password: hashedPassword,
+        role: "admin",
+      });
+
+      await newUser.save();
+      res.status(201).json({ message: "Admin user created successfully" });
+    } catch (error) {
+      console.error("Error creating admin user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+);
+
+router.get(
+  "/remove_admin",
+  async (req: Request, res: Response): Promise<void> => {
+    const email = process.env.ADMIN_EMAIL;
+    const username = "admin";
+
+    try {
+      const adminUser = await User.findOne({
+        $or: [{ username: username }, { email: email }],
+      });
+      if (!adminUser) {
+        res.status(404).json({ message: "Admin user not found" });
+        return;
+      }
+
+      await User.deleteOne({ $or: [{ username: username }, { email: email }] });
+      res.status(200).json({ message: "Admin user removed successfully" });
+    } catch (error) {
+      console.error("Error removing admin user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+);
 
 export default router;

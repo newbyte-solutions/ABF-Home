@@ -39,13 +39,12 @@ const upload = multer({
 
 router.post(
   "/new_article",
-  [isAdmin, isStudent],
   upload.single("articleImage"),
   async (req: Request, res: Response): Promise<void> => {
     const data = req.body;
 
     const imageUrl = req.file
-      ? `http://localhost:5000/uploads/${req.file.filename}`
+      ? `https://husarbeidslivsfag.com/api/uploads/${req.file.filename}`
       : req.body.articleImageUrl;
 
     const newArticle = new Article({

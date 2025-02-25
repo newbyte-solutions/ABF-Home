@@ -56,7 +56,7 @@ declare module "express-session" {
 console.log("Configuring static file serving");
 app.use("/uploads", express.static("./uploads"), (req, res, next) => {
   console.log(`Serving static file: ${req.url}`);
-  res.set("Access-Control-Allow-Origin", "*");
+  res.set("Access-Control-Allow-Origin", "https://husarbeidslivsfag.com");
   res.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.set("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
@@ -77,5 +77,5 @@ app.use("/news", newsRoute);
 
 // Start Server
 app.listen(port, () => {
-  console.log(`App running on http://localhost:${port}`);
+  console.log(`App running on sumth:${port}`);
 });

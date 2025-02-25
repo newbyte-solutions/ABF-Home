@@ -104,7 +104,7 @@ router.get(
 
 // Delete article by ID (_id or id)
 router.delete(
-  "/article/:_id",
+  "/article/:id",
   [isAdmin],
   async (req: Request, res: Response): Promise<void> => {
     const normalizedId = req.params.id;

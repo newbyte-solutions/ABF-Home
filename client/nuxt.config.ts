@@ -11,7 +11,7 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: "2025-01-13",
-  
+
   runtimeConfig: {
     public: {
       apiBase: "/api", // Becomes /api in production

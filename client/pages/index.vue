@@ -54,7 +54,9 @@
         </div>
         <div class="p-6 flex flex-col flex-grow">
           <h3 class="text-xl font-bold mb-2">{{ item.articleTitle }}</h3>
-          <p class="text-gray-600 mb-4 flex-grow">{{ item.articleDescription }}</p>
+          <p class="text-gray-600 mb-4 flex-grow">
+            {{ item.articleDescription }}
+          </p>
           <div class="mt-auto">
             <span class="text-sm text-gray-500 block mb-4">{{
               item.date
@@ -72,8 +74,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import { ref, onMounted } from "vue";
+import axios from "axios";
 const { public: publicConfig } = useRuntimeConfig();
 
 const news = ref([]);
@@ -83,7 +85,7 @@ onMounted(async () => {
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
     news.value = response.data;
   } catch (error) {
-    console.error('Error fetching news:', error);
+    console.error("Error fetching news:", error);
     news.value = [];
   }
 });

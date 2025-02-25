@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import NewsSection from '~/components/NewsSection.vue';
-
+import NewsSection from "~/components/NewsSection.vue";
 </script>
 
 <template>

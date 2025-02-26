@@ -58,9 +58,12 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get(`${config.public.apiBase}/news`, {
+      const response = await axios.get(
+        `${publicConfig.apiBase}/news/`,
+        {
         withCredentials: true,
-      });
+      }
+    );
       this.articles = response.data;
     } catch (error) {
       console.error("Error fetching articles:", error);

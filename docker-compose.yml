@@ -9,7 +9,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - /etc/letsencrypt:/etc/letsencrypt
-      - ./uploads:/uploads 
+      - ./uploads:/uploads  
     depends_on:
       - client
       - server

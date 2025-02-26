@@ -44,7 +44,7 @@ router.post(
     const data = req.body;
 
     const imageUrl = req.file
-      ? `https://husarbeidslivsfag.com/api/uploads/${req.file.filename}`
+      ? `https://husarbeidslivsfag.com/uploads/${req.file.filename}`
       : req.body.articleImageUrl;
 
     const newArticle = new Article({

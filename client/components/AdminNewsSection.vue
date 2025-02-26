@@ -46,7 +46,7 @@ export default {
     async deleteArticle(id) {
       try {
         await axios.delete(
-          `${publicConfig.apiBase}/news/article/${id}`,
+          `${publicConfig.apiBase}/news/article/${article.id}`,
           {
           withCredentials: true,
         });

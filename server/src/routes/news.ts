@@ -4,6 +4,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { isAdmin, isStudent } from "../middleware/auth";
+import { promises } from "dns";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads
@@ -101,29 +102,20 @@ router.get(
   },
 );
 
-// Delete article by ID (_id or id)
-router.delete(
-  "/article/:id",
-  [isAdmin],
-  async (req: Request, res: Response): Promise<void> => {
-    const normalizedId = req.params.id;
-    if (!normalizedId) {
-      res.status(400).json({ message: "Invalid article ID" });
+// Delete article by id
+router.delete("/article/:id", [isAdmin], async (req: Request, res: Response): Promise<void> => {
+  try {
+    const article = await Article.findByIdAndDelete(req.params.id);
+    if (!article) {
+      res.status(404).json({ message: "Article not found" });
       return;
     }
 
-    try {
-      const article = await Article.findById(normalizedId);
-      if (!article) {
-        res.status(404).json({ message: "Article not found" });
-        return;
-      }
-      await article.deleteOne();
-      res.json({ message: "Article deleted successfully" });
-    } catch (error) {
-      res.status(500).json({ message: "Failed to delete the article" });
-    }
-  },
-);
+    res.json({ message: "Article deleted successfully" });
+  } catch {
+    res.status(500).json({ message: "Failed to delete the article" });
+  }
+});
+
 
 export default router;

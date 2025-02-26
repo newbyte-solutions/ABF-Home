@@ -45,7 +45,9 @@ export default {
   methods: {
     async deleteArticle(id) {
       try {
-        await axios.delete(`${config.public.apiBase}/news/article/${id}`, {
+        await axios.delete(
+          `${publicConfig.apiBase}/news/article/${id}`,
+          {
           withCredentials: true,
         });
         this.articles = this.articles.filter((article) => article.id !== id);

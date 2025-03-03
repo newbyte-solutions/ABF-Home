@@ -43,7 +43,6 @@
 <script>
 import axios from "axios";
 import { marked } from "marked";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -70,6 +69,7 @@ export default {
     },
   },
   async mounted() {
+    const { public: publicConfig } = useRuntimeConfig();
     try {
       const response = await axios.get(
         `${publicConfig.apiBase}/news/article/${this.$route.params._id}`,

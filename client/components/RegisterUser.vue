@@ -77,7 +77,6 @@
 
 <script>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -92,6 +91,7 @@ export default {
   },
   methods: {
     async handleRegistration() {
+      const { public: publicConfig } = useRuntimeConfig();
       try {
         const response = await axios.post(
           `${publicConfig.apiBase}/auth/register`,

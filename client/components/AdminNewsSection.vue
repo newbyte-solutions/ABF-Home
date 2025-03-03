@@ -29,7 +29,6 @@
 
 <script>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -44,6 +43,7 @@ export default {
   },
   methods: {
     async deleteArticle(id) {
+      const { public: publicConfig } = useRuntimeConfig();
       try {
         await axios.delete(
           `${publicConfig.apiBase}/news/article/${id}`,
@@ -58,6 +58,7 @@ export default {
   },
   async created() {
     try {
+      const { public: publicConfig } = useRuntimeConfig();
       const response = await axios.get(
         `${publicConfig.apiBase}/news/`,
         {

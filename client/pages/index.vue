@@ -76,11 +76,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 const news = ref([]);
 
 onMounted(async () => {
+  const { public: publicConfig } = useRuntimeConfig();
   try {
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
     news.value = response.data;

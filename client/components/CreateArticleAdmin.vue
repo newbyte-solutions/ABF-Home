@@ -91,7 +91,6 @@
 
 <script>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -112,6 +111,7 @@ export default {
   },
   methods: {
     async fetchCompanies() {
+      const { public: publicConfig } = useRuntimeConfig();
       try {
         const response = await axios.get(`${publicConfig.apiBase}/companies`);
         this.companies = response.data;
@@ -123,6 +123,7 @@ export default {
       this.articleImage = event.target.files[0];
     },
     async handleNewArticle() {
+      const { public: publicConfig } = useRuntimeConfig();
       const formData = new FormData();
       formData.append("articleTitle", this.articleTitle);
       formData.append("articleDescription", this.articleDescription);

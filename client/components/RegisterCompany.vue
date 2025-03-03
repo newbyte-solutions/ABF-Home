@@ -82,7 +82,6 @@
 
 <script>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -101,6 +100,7 @@ export default {
       this.companyLogo = event.target.files[0];
     },
     async handleNewCompany() {
+      const { public: publicConfig } = useRuntimeConfig();
       try {
         const formData = new FormData();
         formData.append("companyName", this.companyName);

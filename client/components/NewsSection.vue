@@ -50,7 +50,6 @@
 
 <script setup>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 defineProps({
   grade: {
@@ -63,10 +62,11 @@ const newsItems = ref([]);
 
 onMounted(async () => {
   try {
+    const { public: publicConfig } = useRuntimeConfig();
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
     newsItems.value = response.data
-      .filter((news) => news.articleGrade === props.grade)
-      .slice(0, 3);
+    .filter((news) => news.articleGrade === props.grade)
+    .slice(0, 3);
   } catch (error) {
     console.error("Error fetching news:", error);
   }

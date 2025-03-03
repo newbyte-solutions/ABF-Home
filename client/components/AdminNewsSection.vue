@@ -18,7 +18,7 @@
             {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
           </div>
           <form @submit.prevent="deleteArticle(article.id)">
-            <input type="hidden" name="id" value="article.id" id="id" />
+            <input type="hidden" name="id" :value="article.id" id="id" />
             <button type="submit">Delete</button>
           </form>
         </li>
@@ -46,7 +46,7 @@ export default {
     async deleteArticle(id) {
       try {
         await axios.delete(
-          `${publicConfig.apiBase}/news/article/${article.id}`,
+          `${publicConfig.apiBase}/news/article/${id}`,
           {
           withCredentials: true,
         });

@@ -22,17 +22,16 @@
 
 <script>
 import axios from "axios";
+import { onMounted, ref } from "vue";
+import { useRuntimeConfig } from "#app";
 
 export default {
-  data() {
-    return {
-      articles: [],
-    };
-  },
-  methods: {
-    async deleteArticle(id) {
+  setup() {
+    const articles = ref([]);
+
+    const deleteArticle = async (id) => {
       const { public: publicConfig } = useRuntimeConfig();
-      console.log("Attempting to delete article with ID:", id); // Debugging step
+      console.log("Attempting to delete article with ID:", id);
 
       if (!id) {
         console.error("Error: Article ID is undefined.");
@@ -41,20 +40,27 @@ export default {
 
       try {
         await axios.delete(`${publicConfig.apiBase}/news/article/${id}`, { withCredentials: true });
-        this.articles = this.articles.filter((article) => article.id !== id);
+        articles.value = articles.value.filter((article) => article.id !== id);
       } catch (error) {
         console.error("Error deleting article:", error);
       }
-    },
-  },
-  async created() {
-    const { public: publicConfig } = useRuntimeConfig();
-    try {
-      const response = await axios.get(`${publicConfig.apiBase}/news`, { withCredentials: true });
-      this.articles = response.data;
-    } catch (error) {
-      console.error("Error fetching articles:", error);
-    }
-  },
+    };
+
+    onMounted(async () => {
+      const { public: publicConfig } = useRuntimeConfig();
+      try {
+        const response = await axios.get(`${publicConfig.apiBase}/news/`);
+        articles.value = response.data;
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        articles.value = [];
+      }
+    });
+
+    return {
+      articles,
+      deleteArticle
+    };
+  }
 };
 </script>

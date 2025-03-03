@@ -31,6 +31,7 @@ export default {
   },
   methods: {
     async deleteArticle(id) {
+      const { public: publicConfig } = useRuntimeConfig();
       console.log("Attempting to delete article with ID:", id); // Debugging step
 
       if (!id) {
@@ -39,7 +40,7 @@ export default {
       }
 
       try {
-        await axios.delete(`/news/article/${id}`, { withCredentials: true });
+        await axios.delete(`${publicConfig.apiBase}/news/article/${id}`, { withCredentials: true });
         this.articles = this.articles.filter((article) => article.id !== id);
       } catch (error) {
         console.error("Error deleting article:", error);
@@ -47,8 +48,9 @@ export default {
     },
   },
   async created() {
+    const { public: publicConfig } = useRuntimeConfig();
     try {
-      const response = await axios.get("/news/", { withCredentials: true });
+      const response = await axios.get(`${publicConfig.apiBase}/news`, { withCredentials: true });
       this.articles = response.data;
     } catch (error) {
       console.error("Error fetching articles:", error);

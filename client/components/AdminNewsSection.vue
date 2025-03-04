@@ -2,7 +2,7 @@
   <div class="w-full min-h-screen flex">
     <div class="container mx-auto p-4">
       <ul class="divide-y divide-gray-200 border-t border-b">
-        <li v-for="article in articles" :key="article.id" class="mb-6 prose py-6">
+        <li v-for="article in articles" :key="article._id" class="mb-6 prose py-6">
           <h2 class="text-2xl font-bold mb-2">{{ article.articleTitle }}</h2>
           <div>{{ article.articleDescription }}</div>
           <div v-html="article.articleContent"></div>
@@ -13,7 +13,7 @@
             Published: {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
           </div>
           <!-- Changed form to direct button click -->
-          <button @click="deleteArticle(article.id)" class="text-red-500">Delete</button>
+          <button @click="deleteArticle(article._id)" class="text-red-500">Delete</button>
         </li>
       </ul>
     </div>

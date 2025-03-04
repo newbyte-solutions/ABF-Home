@@ -1,6 +1,8 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { Schema, model, InferSchemaType, Document } from "mongoose";
 
 interface IArticle extends Document {
+  _id: mongoose.Types.ObjectId;
+  id: string;
   articleTitle: string;
   articleDescription: string;
   articleContent: string;
@@ -22,6 +24,13 @@ const ArticleSchema: Schema = new Schema({
   articleImageUrl: { type: String, required: true },
   articleCompany: { type: String, required: true },
   articleGrade: { type: String, required: true },
+}, {
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true }
+});
+
+ArticleSchema.virtual('id').get(function(this: IArticle) {
+  return this._id.toString();
 });
 
 const Article = mongoose.model<IArticle>("Article", ArticleSchema);

@@ -71,10 +71,13 @@
         this.id = response.data.id;
 
         if (this.role !== 'student') {
+          alert('You are not authorized to access this page');
           this.$router.push('/');
         }
       } catch (error) {
         console.error("error fetching user:", error);
+        alert('Not authorized - please log in');
+        this.$router.push('/');
       }
     },  
   };

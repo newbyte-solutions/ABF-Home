@@ -40,6 +40,7 @@
         this.companyId = response.data.companyId;
       } catch (error) {
         console.error("Error fetching company:", error);
+        alert("Failed to fetch company information. Please check your credentials.");
       }
       try {
         const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
@@ -55,9 +56,11 @@
 
         if (this.role !== 'admin') {
           this.$router.push('/');
+          alert("Access denied. Admin privileges required.");
         }
       } catch (error) {
         console.error("error fetching user:", error);
+        alert("Failed to authenticate user. Please check your credentials.");
       }
     },  
   };

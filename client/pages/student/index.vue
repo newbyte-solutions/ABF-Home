@@ -32,6 +32,7 @@
               required
               class="appearance-none relative block w-full px-3 mt-2 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
               placeholder="Passord"
+              autocomplete="current-password"
             />
           </div>
         </div>
@@ -50,7 +51,6 @@
 
 <script>
 import axios from "axios";
-const { public: publicConfig } = useRuntimeConfig();
 
 export default {
   data() {
@@ -61,6 +61,7 @@ export default {
   },
   methods: {
     async handleLogin() {
+      const { public: publicConfig } = useRuntimeConfig();
       try {
         const response = await axios.post(
           `${publicConfig.apiBase}/auth/student_login`,
@@ -78,7 +79,7 @@ export default {
         }
       } catch (error) {
         console.error("Login failed:", error);
-        this.loginError = true; // Display error if login fails
+        this.loginError = true;
       }
     },
   },

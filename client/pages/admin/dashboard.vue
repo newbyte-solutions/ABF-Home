@@ -10,3 +10,55 @@
     <AdminNewsSection />
   </div>
 </template>
+
+<script>
+  import axios from "axios";
+
+  export default {
+    data() {
+      return {
+        username: "",
+        email: "",
+        grade: "",
+        phone: "",
+        role: "",
+        id: "",
+        company: "",
+        companyId: "",
+      };
+    },
+    async mounted() {
+      const { public: publicConfig } = useRuntimeConfig();
+      try {
+        const response = await axios.get(
+          `${publicConfig.apiBase}/company/get_company`,
+          {
+            withCredentials: true,
+          },
+        );
+        this.company = response.data.company;
+        this.companyId = response.data.companyId;
+      } catch (error) {
+        console.error("Error fetching company:", error);
+      }
+      try {
+        const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
+          withCredentials: true,
+        });
+        this.name = response.data.name;
+        this.email = response.data.email;
+        this.username = response.data.username;
+        this.grade = response.data.grade;
+        this.phone = response.data.phone;
+        this.role = response.data.role;
+        this.id = response.data.id;
+
+        if (this.role !== 'admin') {
+          this.$router.push('/');
+        }
+      } catch (error) {
+        console.error("error fetching user:", error);
+      }
+    },  
+  };
+</script>

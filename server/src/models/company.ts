@@ -1,6 +1,7 @@
 import mongoose, { Schema, Document, Int32 } from "mongoose";
 
 interface ICompany extends Document {
+  _id: string;
   companyName: string;
   companyEmail: string;
   companyPhone: string;
@@ -17,6 +18,10 @@ interface ICompany extends Document {
 }
 
 const CompanySchema: Schema = new Schema({
+  _id: {
+    type: Schema.Types.ObjectId,
+    auto: true
+  },
   companyName: {
     type: String,
     required: true,

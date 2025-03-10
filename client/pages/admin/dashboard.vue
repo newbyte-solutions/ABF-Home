@@ -9,6 +9,9 @@
   <div class="w-full min-h-screen bg-gray-900 text-white flex flex-col space-y-6 items center justify-center p-4">
     <AdminNewsSection />
   </div>
+  <div class="w-full min-h-screen bg-gray-900 text-white flex flex-col space-y-6 items center justify-center p-4">
+    <AdminCompanySection />
+  </div>
 </template>
 
 <script>

@@ -1,19 +1,4 @@
 services:
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-      - /etc/letsencrypt:/etc/letsencrypt
-      - ./uploads:/uploads  
-    depends_on:
-      - client
-      - server
-    networks:
-      - abf-network
-
   client:
     build:
       context: ./client

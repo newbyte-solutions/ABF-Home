@@ -103,7 +103,7 @@ router.get(
 );
 
 // Delete article by id
-router.delete("/article/:id", [isAdmin], async (req: Request, res: Response): Promise<void> => {
+router.delete("/article/:id", async (req: Request, res: Response): Promise<void> => {
   try {
     const article = await Article.findByIdAndDelete(req.params.id);
     if (!article) {

@@ -57,10 +57,10 @@
         this.role = response.data.role;
         this.id = response.data.id;
 
-        if (this.role !== 'admin') {
-          this.$router.push('/');
-          alert("Access denied. Admin privileges required.");
-        }
+        // if (this.role !== 'admin') {
+        //  this.$router.push('/');
+        //  alert("Access denied. Admin privileges required.");
+        // }
       } catch (error) {
         console.error("error fetching user:", error);
         alert("Failed to authenticate user. Please check your credentials.");

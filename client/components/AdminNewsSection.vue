@@ -23,7 +23,6 @@
 <script>
 import axios from "axios";
 import { onMounted, ref } from "vue";
-import { useRuntimeConfig } from "#app";
 
 export default {
   setup() {

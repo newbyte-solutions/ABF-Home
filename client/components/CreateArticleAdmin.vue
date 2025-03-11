@@ -113,7 +113,7 @@ export default {
     async fetchCompanies() {
       const { public: publicConfig } = useRuntimeConfig();
       try {
-        const response = await axios.get(`${publicConfig.apiBase}/companies`);
+        const response = await axios.get(`${publicConfig.apiBase}/`);
         this.companies = response.data;
       } catch (error) {
         console.error("Error fetching companies:", error);

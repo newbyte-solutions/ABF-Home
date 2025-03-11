@@ -33,7 +33,7 @@
             try {
                 const { public: publicConfig } = useRuntimeConfig();
                 const response = await axios.get(
-                    `${publicConfig.apiBase}/`,
+                    `${publicConfig.apiBase}/company/`,
                     {
                         withCredentials: true
                     }

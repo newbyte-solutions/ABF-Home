@@ -87,7 +87,7 @@ router.post(
 
 // Delete company by id
 router.delete(
-  "/delete_company/:id",
+  "/:id",
   isAdmin,
   async (req: Request, res: Response): Promise<void> => {
     try {

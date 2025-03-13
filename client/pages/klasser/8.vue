@@ -1,56 +1,15 @@
 <script setup lang="ts">
+import AdminCompanySection from "~/components/AdminCompanySection.vue";
+import GradeCompanySection from "~/components/GradeCompanySection.vue";
 import NewsSection from "~/components/NewsSection.vue";
 </script>
 
 <template>
-  <div
-    class="w-full mt h-fit py-10 flex justify-center items-center bg-gradient-to-br from-lime-400 to-green-500 drop-shadow-2xl -z-20"
-  >
+  <div class="w-full mt h-fit py-10 flex justify-center items-center bg-gradient-to-br from-lime-400 to-green-500 drop-shadow-2xl -z-20">
     <h1 class="mt-20 font-bold text-5xl text-white">8. Klasse</h1>
   </div>
   <div class="w-full min-h-screen py-4 bg-white text-black flex flex-col">
-    <h2 class="text-center text-2xl font-semibold mb-4">Elevbedrifter</h2>
-    <div class="w-full px-0 md:px-10">
-      <div
-        class="w-full rounded-lg bg-gray-200 h-56 flex flex-row justify-between items-center px-4"
-      >
-        <div class="max-w-[200px] max-h-[200px]">
-          <router-link to="/company/_id" class=""
-            ><img
-              src="https://placehold.co/200x200"
-              alt="Placeholder image for student company."
-          /></router-link>
-        </div>
-        <div class="max-w-[200px] max-h-[200px]">
-          <router-link to="/company/_id" class=""
-            ><img
-              src="https://placehold.co/200x200"
-              alt="Placeholder image for student company."
-          /></router-link>
-        </div>
-        <div class="max-w-[200px] max-h-[200px]">
-          <router-link to="/company/_id" class=""
-            ><img
-              src="https://placehold.co/200x200"
-              alt="Placeholder image for student company."
-          /></router-link>
-        </div>
-        <div class="max-w-[200px] max-h-[200px]">
-          <router-link to="/company/_id" class=""
-            ><img
-              src="https://placehold.co/200x200"
-              alt="Placeholder image for student company."
-          /></router-link>
-        </div>
-        <div class="max-w-[200px] max-h-[200px]">
-          <router-link to="/company/_id" class=""
-            ><img
-              src="https://placehold.co/200x200"
-              alt="Placeholder image for student company."
-          /></router-link>
-        </div>
-      </div>
-    </div>
+    <GradeCompanySection grade="8"/>
     <div class="w-full flex flex-col justify-center items-center">
       <NewsSection grade="8" />
     </div>

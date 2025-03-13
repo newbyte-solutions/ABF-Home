@@ -56,7 +56,7 @@ router.post(
     const data = req.body;
 
     const companyLogo = req.file
-      ? `http://localhost:5000/uploads/${req.file.filename}`
+      ? `https://husarbeidslivsfag.com:5000/uploads/${req.file.filename}`
       : req.body.companyLogo;
 
     const newCompany = new Company({

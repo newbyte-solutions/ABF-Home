@@ -4,7 +4,6 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 import { isAdmin, isStudent } from "../middleware/auth";
-import { promises } from "dns";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads
@@ -42,6 +41,7 @@ router.post(
   "/new_article",
   upload.single("articleImage"),
   async (req: Request, res: Response): Promise<void> => {
+    console.log(`Creating new article with title: ${req.body.articleTitle}`);
     const data = req.body;
 
     const imageUrl = req.file
@@ -61,9 +61,10 @@ router.post(
 
     try {
       const article = await newArticle.save();
+      console.log(`Article created successfully with ID: ${article._id}`);
       res.status(201).json(article);
     } catch (error) {
-      console.error(error);
+      console.error('Error creating article:', error);
       res.status(500).json({ message: "Error saving the article" });
     }
   },
@@ -71,10 +72,13 @@ router.post(
 
 // Get all articles
 router.get("/", async (req: Request, res: Response): Promise<void> => {
+  console.log('Fetching all articles');
   try {
     const articles = await Article.find();
+    console.log(`Found ${articles.length} articles`);
     res.json(articles);
   } catch (error) {
+    console.error('Error fetching articles:', error);
     res.status(500).json({ message: "Failed to fetch articles" });
   }
 });
@@ -84,7 +88,9 @@ router.get(
   "/article/:id",
   async (req: Request, res: Response): Promise<void> => {
     const normalizedId = req.params.id;
+    console.log(`Fetching article with ID: ${normalizedId}`);
     if (!normalizedId) {
+      console.log('Invalid article ID provided');
       res.status(400).json({ message: "Invalid article ID" });
       return;
     }
@@ -92,11 +98,14 @@ router.get(
     try {
       const article = await Article.findById(normalizedId);
       if (!article) {
+        console.log(`Article with ID ${normalizedId} not found`);
         res.status(404).json({ message: "Article not found" });
         return;
       }
+      console.log(`Successfully retrieved article: ${article.articleTitle}`);
       res.json(article);
     } catch (error) {
+      console.error('Error fetching article:', error);
       res.status(500).json({ message: "Failed to fetch the article" });
     }
   },
@@ -104,15 +113,19 @@ router.get(
 
 // Delete article by id
 router.delete("/article/:id", async (req: Request, res: Response): Promise<void> => {
+  console.log(`Attempting to delete article with ID: ${req.params.id}`);
   try {
     const article = await Article.findByIdAndDelete(req.params.id);
     if (!article) {
+      console.log(`Article with ID ${req.params.id} not found for deletion`);
       res.status(404).json({ message: "Article not found" });
       return;
     }
 
+    console.log(`Successfully deleted article with ID: ${req.params.id}`);
     res.json({ message: "Article deleted successfully" });
-  } catch {
+  } catch (error) {
+    console.error('Error deleting article:', error);
     res.status(500).json({ message: "Failed to delete the article" });
   }
 });

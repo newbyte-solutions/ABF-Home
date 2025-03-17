@@ -12,6 +12,7 @@ router.post(
     const { email, password } = req.body;
 
     if (!email || !password) {
+      console.log("[Auth] Login attempt failed: Missing email or password");
       res.status(400).json({ message: "Email and password are required" });
       return;
     }
@@ -19,12 +20,14 @@ router.post(
     try {
       const user = await User.findOne({ email });
       if (!user || user.role !== "admin") {
+        console.log("[Auth] Admin login failed: Invalid credentials for", email);
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
+        console.log("[Auth] Admin login failed: Invalid password for", email);
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
@@ -36,6 +39,7 @@ router.post(
           console.error("[Auth] Error saving session:", err);
           res.status(500).json({ message: "Internal Server Error" });
         } else {
+          console.log("[Auth] Admin login successful:", email);
           res.status(200).json({
             message: "Login successful",
             user: { email: user.email, role: user.role },
@@ -56,6 +60,7 @@ router.post(
     const { email, password } = req.body;
 
     if (!email || !password) {
+      console.log("[Auth] Student login attempt failed: Missing email or password");
       res.status(400).json({ message: "Email and password are required" });
       return;
     }
@@ -63,12 +68,14 @@ router.post(
     try {
       const user = await User.findOne({ email });
       if (!user || user.role !== "student") {
+        console.log("[Auth] Student login failed: Invalid credentials for", email);
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
+        console.log("[Auth] Student login failed: Invalid password for", email);
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
@@ -76,8 +83,10 @@ router.post(
       req.session.user = { email: user.email, role: user.role };
       req.session.save((err) => {
         if (err) {
+          console.error("[Auth] Error saving session:", err);
           res.status(500).json({ message: "Internal Server Error" });
         } else {
+          console.log("[Auth] Student login successful:", email);
           res.status(200).json({
             message: "Login successful",
             user: { email: user.email, role: user.role },
@@ -85,6 +94,7 @@ router.post(
         }
       });
     } catch (error) {
+      console.error("[Auth] Error during student login:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   },
@@ -98,6 +108,7 @@ router.post(
     const { username, email, password, role } = req.body;
 
     if (!username || !email || !password || !role) {
+      console.log("[Auth] Registration failed: Missing required fields");
       res.status(400).json({ message: "All fields required" });
       return;
     }
@@ -105,6 +116,7 @@ router.post(
     try {
       const existingUser = await User.findOne({ email });
       if (existingUser) {
+        console.log("[Auth] Registration failed: User already exists -", email);
         res.status(400).json({ message: "User already exists" });
         return;
       }
@@ -120,11 +132,13 @@ router.post(
       });
       await newUser.save();
 
+      console.log("[Auth] New user registered successfully:", email);
       res.status(201).json({
         message: "User registered successfully",
         user: { email: newUser.email, role: newUser.role },
       });
     } catch (error) {
+      console.error("[Auth] Error during user registration:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   },
@@ -132,29 +146,38 @@ router.post(
 
 // Logout
 router.post("/logout", (req: Request, res: Response) => {
+  const userEmail = req.session.user?.email;
   req.session.destroy((err) => {
-    if (err) return res.status(500).json({ message: "Internal Server Error" });
+    if (err) {
+      console.error("[Auth] Error during logout:", err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+    console.log("[Auth] User logged out successfully:", userEmail);
     res.status(200).json({ message: "Logout successful" });
   });
 });
 
 // Check admin
 router.get("/check_admin", isAdmin, (req: Request, res: Response) => {
+  console.log("[Auth] Admin authentication check passed for:", req.session.user?.email);
   res.status(200).json({ message: "Admin authenticated", role: "admin" });
 });
 
 // Check student
 router.get("/check_student", isStudent, (req: Request, res: Response) => {
+  console.log("[Auth] Student authentication check passed for:", req.session.user?.email);
   res.status(200).json({ message: "Student authenticated", role: "student" });
 });
 
 // Check if user is logged in
 router.get("/check_login", (req: Request, res: Response) => {
   if (req.session.user) {
+    console.log("[Auth] Login check: User is logged in -", req.session.user.email);
     res
       .status(200)
       .json({ message: "User is logged in", user: req.session.user });
   } else {
+    console.log("[Auth] Login check: User is not logged in");
     res.status(401).json({ message: "User is not logged in" });
   }
 });
@@ -165,14 +188,18 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
     try {
       const user = await User.findOne({ email: req.session.user.email });
       if (!user) {
+        console.log("[Auth] User not found in database:", req.session.user.email);
         res.status(404).json({ message: "User not found" });
         return;
       }
+      console.log("[Auth] User info retrieved successfully:", user.email);
       res.status(200).json({ user: { email: user.email, role: user.role } });
     } catch (error) {
+      console.error("[Auth] Error retrieving user info:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   } else {
+    console.log("[Auth] Unauthorized access to /me endpoint");
     res.status(401).json({ message: "User not authenticated" });
   }
 });
@@ -184,6 +211,7 @@ router.get(
     const password = process.env.ADMIN_PASSWORD;
 
     if (!email || !password) {
+      console.log("[Auth] Make admin failed: Missing environment variables");
       res
         .status(400)
         .json({ message: "Admin email and password are required" });
@@ -200,9 +228,10 @@ router.get(
       });
 
       await newUser.save();
+      console.log("[Auth] Admin user created successfully:", email);
       res.status(201).json({ message: "Admin user created successfully" });
     } catch (error) {
-      console.error("Error creating admin user:", error);
+      console.error("[Auth] Error creating admin user:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   },
@@ -219,14 +248,16 @@ router.get(
         $or: [{ username: username }, { email: email }],
       });
       if (!adminUser) {
+        console.log("[Auth] Remove admin failed: Admin user not found");
         res.status(404).json({ message: "Admin user not found" });
         return;
       }
 
       await User.deleteOne({ $or: [{ username: username }, { email: email }] });
+      console.log("[Auth] Admin user removed successfully:", email);
       res.status(200).json({ message: "Admin user removed successfully" });
     } catch (error) {
-      console.error("Error removing admin user:", error);
+      console.error("[Auth] Error removing admin user:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   },

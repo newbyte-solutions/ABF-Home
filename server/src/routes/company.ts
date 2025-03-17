@@ -14,10 +14,12 @@ const storage = multer.diskStorage({
     if (!fs.existsSync(uploadPath)) {
       fs.mkdirSync(uploadPath, { recursive: true });
     }
+    console.log(`Saving file to upload path: ${uploadPath}`);
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
     const fileName = Date.now() + "-" + file.originalname;
+    console.log(`Generated filename: ${fileName}`);
     cb(null, fileName);
   },
 });
@@ -31,19 +33,23 @@ const upload = multer({
       path.extname(file.originalname).toLowerCase(),
     );
     const mimetype = allowedTypes.test(file.mimetype);
+    console.log(`File upload attempt - Filename: ${file.originalname}, Mimetype: ${file.mimetype}`);
     if (extname && mimetype) {
       return cb(null, true);
     }
+    console.error(`File upload rejected - Invalid file type: ${file.originalname}`);
     cb(new Error("Only image files are allowed!"));
   },
 });
 
 router.get("/", async (req: Request, res: Response): Promise<void> => {
+  console.log("GET /companies - Fetching all companies");
   try {
     const companies = await Company.find();
+    console.log(`Successfully retrieved ${companies.length} companies`);
     res.json(companies);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching companies:", error);
     res.status(500).json({ message: "Error fetching companies" });
   }
 });
@@ -53,11 +59,14 @@ router.post(
   isAdmin,
   upload.single("companyLogo"),
   async (req: Request, res: Response): Promise<void> => {
+    console.log("POST /companies/new_company - Creating new company");
     const data = req.body;
 
     const companyLogo = req.file
       ? `http://localhost:5000/uploads/${req.file.filename}`
       : req.body.companyLogo;
+
+    console.log(`Company logo path: ${companyLogo}`);
 
     const newCompany = new Company({
       companyName: data.companyName,
@@ -77,49 +86,54 @@ router.post(
 
     try {
       const company = await newCompany.save();
+      console.log(`Successfully created company: ${company._id}`);
       res.status(201).json(company);
     } catch (error) {
-      console.error(error);
+      console.error("Error creating company:", error);
       res.status(500).json({ message: "Error creating the company" });
     }
   },
 );
 
-// Delete company by id
 router.delete(
   "/delete_company/:id",
   isAdmin,
   async (req: Request, res: Response): Promise<void> => {
+    console.log(`DELETE /companies/delete_company/${req.params.id}`);
     try {
       const company = await Company.findByIdAndDelete(req.params.id);
       if (!company) {
+        console.log(`Company not found with ID: ${req.params.id}`);
         res.status(404).json({ message: "Company not found" });
         return;
       }
+      console.log(`Successfully deleted company: ${req.params.id}`);
       res.json({ message: "Company deleted successfully" });
     } catch (error) {
-      console.error(error);
+      console.error(`Error deleting company ${req.params.id}:`, error);
       res.status(500).json({ message: "Error deleting the company" });
     }
   },
 );
 
-// Update content for a company by id
 router.put(
   "/update_company/:id",
   [isAdmin, isStudent],
   async (req: Request, res: Response): Promise<void> => {
+    console.log(`PUT /companies/update_company/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
       });
       if (!company) {
+        console.log(`Company not found with ID: ${req.params.id}`);
         res.status(404).json({ message: "Company not found" });
         return;
       }
+      console.log(`Successfully updated company: ${req.params.id}`);
       res.json(company);
     } catch (error) {
-      console.error(error);
+      console.error(`Error updating company ${req.params.id}:`, error);
       res.status(500).json({ message: "Error updating the company" });
     }
   },

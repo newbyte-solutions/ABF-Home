@@ -22,7 +22,7 @@ const clientUrl = process.env.CLIENT_URL || "http://localhost:3000";
 
 // CORS Config
 const corsConfig = {
-  origin: "https://husarbeidslivsfag.com",
+  origin: `${clientUrl}`,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,

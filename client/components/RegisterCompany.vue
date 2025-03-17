@@ -107,8 +107,8 @@ export default {
         formData.append("companyEmail", this.companyEmail);
         formData.append("companyPhone", this.companyPhone);
         formData.append("companyContactPerson", this.contactPerson);
-        formData.append("companyFounded", this.companyFounded);
         formData.append("companyGrade", this.companyGrade);
+        formData.append("companyFounded", this.companyFounded);
 
         if (this.companyLogo) {
           formData.append("companyLogo", this.companyLogo);

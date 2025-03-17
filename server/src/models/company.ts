@@ -7,12 +7,12 @@ interface ICompany extends Document {
   companyPhone: string;
   companyContactPerson: string;
   companyGrade: Int32;
+  companyFounded: Date;
   companyLogo: string;
   companyStudents: string[];
   companyWebsite: string;
   companyDescription: string;
   companyContent: string;
-  companyFounded: Date;
   companyTags: string[];
   companyCreatedAt: Date;
 }

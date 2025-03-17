@@ -33,19 +33,6 @@
     async mounted() {
       const { public: publicConfig } = useRuntimeConfig();
       try {
-        const response = await axios.get(
-          `${publicConfig.apiBase}/company/get_company`,
-          {
-            withCredentials: true,
-          },
-        );
-        this.company = response.data.company;
-        this.companyId = response.data.companyId;
-      } catch (error) {
-        console.error("Error fetching company:", error);
-        alert("Failed to fetch company information. Please check your credentials.");
-      }
-      try {
         const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
           withCredentials: true,
         });

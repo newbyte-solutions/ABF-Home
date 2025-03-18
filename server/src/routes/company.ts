@@ -54,6 +54,24 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
+// get company by id
+router.get("/:id", async (req: Request, res: Response): Promise<void> => {
+  console.log(`GET /companies/${req.params.id} - Fetching company by ID`);
+  try {
+    const company = await Company.findById(req.params.id);
+    if (!company) {
+      console.log(`Company not found with ID: ${req.params.id}`);
+      res.status(404).json({ message: "Company not found" });
+      return;
+    }
+    console.log(`Successfully retrieved company: ${req.params.id}`);
+    res.json(company);
+  } catch (error) {
+    console.error(`Error fetching company ${req.params.id}:`, error);
+    res.status(500).json({ message: "Error fetching the company" });
+  }
+});
+
 router.post(
   "/new_company",
   isAdmin,

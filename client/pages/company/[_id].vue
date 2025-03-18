@@ -14,9 +14,9 @@
             <p class="text-gray-700">{{ company.companyGrade }}</p>
           </div>
         </div>
-        <div class="prose max-w-none" v-html="marked(company.companyContent)"></div>
-        <CompanyNewsSection />
-      </div>
+        <div class="prose max-w-none" v-html="marked(company.companyContent || '')"></div>
+        <CompanyNewsSection :_id="company._id" v-if="company" />
+    </div>
     </div>
 </template>
 

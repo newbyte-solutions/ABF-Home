@@ -7,7 +7,7 @@ PROJECT_PATH="./"
 COMPOSE_FILE="docker-compose.yml"
 
 # Define the path to the uploads directory
-UPLOADS_DIR="server/uploads"
+UPLOADS_DIR="./server/uploads"
 BACKUP_DIR="/tmp/uploads_backup"
 
 # Navigate to the project directory

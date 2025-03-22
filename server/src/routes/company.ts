@@ -81,7 +81,7 @@ router.post(
     const data = req.body;
 
     const companyLogo = req.file
-      ? `https://husarbeidslivsfag.com/api/uploads/${req.file.filename}`
+      ? `https://husarbeidslivsfag.com/uploads/${req.file.filename}`
       : req.body.companyLogo;
 
     console.log(`Company logo path: ${companyLogo}`);

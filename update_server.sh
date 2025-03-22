@@ -8,11 +8,22 @@ COMPOSE_FILE="docker-compose.yml"
 
 # Define the path to the uploads directory
 UPLOADS_DIR="./server/uploads"
-BACKUP_DIR="/tmp/uploads_backup"
 
 # Navigate to the project directory
 cd "$PROJECT_PATH" || {
     echo "Error: Unable to access the project directory: $PROJECT_PATH"
+    exit 1
+}
+
+# Backup MongoDB data and uploads directory
+echo "Creating backup of MongoDB data and uploads directory..."
+BACKUP_DATE=$(date +%Y%m%d_%H%M%S)
+docker-compose exec -T mongodb mongodump --out=/data/backup_${BACKUP_DATE} || {
+    echo "Error: Failed to backup MongoDB data"
+    exit 1
+}
+cp -r "$UPLOADS_DIR" "${UPLOADS_DIR}_backup_${BACKUP_DATE}" || {
+    echo "Error: Failed to backup uploads directory"
     exit 1
 }
 
@@ -22,18 +33,6 @@ git pull || {
     echo "Error: Failed to pull updates. Check your git configuration."
     exit 1
 }
-
-# Backup uploads directory if it exists
-if [ -d "$UPLOADS_DIR" ]; then
-    echo "Backing up uploads directory..."
-    mkdir -p "$BACKUP_DIR"
-    cp -r "$UPLOADS_DIR" "$BACKUP_DIR" || {
-        echo "Error: Failed to back up uploads directory."
-        exit 1
-    }
-else
-    echo "No existing uploads directory to back up."
-fi
 
 # Restart the Docker containers
 echo "Restarting the Docker containers..."
@@ -47,19 +46,16 @@ else
     exit 1
 fi
 
-# Restore uploads directory
-echo "Restoring uploads directory..."
-if [ -d "$BACKUP_DIR/uploads" ]; then
-    mv "$BACKUP_DIR/uploads" "$UPLOADS_DIR" || {
-        echo "Error: Failed to restore uploads directory."
-        exit 1
-    }
-    echo "Uploads directory restored successfully."
-else
-    echo "No backup found to restore."
-fi
-
-# Cleanup backup
-rm -rf "$BACKUP_DIR"
+# Restore MongoDB data and uploads directory
+echo "Restoring MongoDB data and uploads directory..."
+docker-compose exec -T mongodb mongorestore /data/backup_${BACKUP_DATE} || {
+    echo "Error: Failed to restore MongoDB data"
+    exit 1
+}
+rm -rf "$UPLOADS_DIR"
+cp -r "${UPLOADS_DIR}_backup_${BACKUP_DATE}" "$UPLOADS_DIR" || {
+    echo "Error: Failed to restore uploads directory"
+    exit 1
+}
 
 echo "Update and container restart completed successfully!"

@@ -49,7 +49,6 @@ git clone "$REPO_URL"
 # Step 5.1: Copy local .env into the project
 if [ -f "/root/config/.env" ]; then
     echo "Copying local .env into project..."
-    mkdir "$PROJECT_DIR/server/config/" 
     cp /root/config/.env "$PROJECT_DIR/server/config/.env"
 else
     echo "Error: .env file not found in /root/config/"

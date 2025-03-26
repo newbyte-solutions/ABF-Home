@@ -7,7 +7,7 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
       - /etc/letsencrypt:/etc/letsencrypt:ro
-      - ./uploads:/app/uploads
+      - ./uploads:/uploads
     depends_on:
       - client
       - server
@@ -38,7 +38,7 @@ services:
     networks:
       - abf-network
     volumes:
-      - ./uploads:/app/uploads
+      - ./uploads:/uploads
 
   mongodb:
     image: mongo:latest

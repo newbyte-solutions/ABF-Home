@@ -8,15 +8,15 @@
             :to="`/company/${company._id}`" 
             class="transform hover:scale-105 transition-transform duration-200"
             >
-            <div class="relative bg-white rounded-lg shadow-md overflow-hidden max-w-[16rem] h-full max-h-[24rem] relative">
+            <div class="relative bg-white rounded-lg shadow-md overflow-hidden max-w-[16rem] h-full max-h-[24rem] flex flex-col">
                 <img
-                :src="company.companyLogo || 'https://placehold.co/400x300'"
+                :src="company.companyLogo || 'https://placehold.co/400x400'"
                 :alt="company.companyName"
-                class="w-full h-[12rem] object-cover"
+                class="w-full h-[16rem] object-cover"
                 />
-                <div class="p-4">
-                <h3 class="font-semibold text-lg">{{ company.companyName }}</h3>
-                <span class="inline-block mt-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded absolute bottom-4 right-4">
+                <div class="p-4 flex flex-col items-center">
+                <h3 class="font-semibold text-lg text-center">{{ company.companyName }}</h3>
+                <span class="mt-2 text-sm bg-blue-100 text-blue-800 px-2 py-1 rounded">
                     Klasse {{ company.companyGrade }}
                 </span>
                 </div>
@@ -28,7 +28,6 @@
       </div>
     </div>
   </template>
-  
 <script setup>
     import axios from "axios";
     

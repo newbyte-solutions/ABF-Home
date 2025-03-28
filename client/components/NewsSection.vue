@@ -6,7 +6,7 @@
     <router-link
       v-for="news in newsItems"
       :key="news._id"
-      :to="`/nyheter/${news._id}`"
+      :to="`/article/${news._id}`"
     >
       <div class="w-56 h-80 bg-gray-200 hover:scale-110 transition relative">
         <img

@@ -51,6 +51,8 @@
 <script setup>
 import axios from "axios";
 
+const newsItems = ref([]);
+
 const props = defineProps({
   grade: {
     type: String,

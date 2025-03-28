@@ -40,53 +40,7 @@
     <div
       class="w-full md:w-3/4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
     >
-      <div
-        v-for="item in news"
-        :key="item.title"
-        class="flex flex-col bg-gray-100 rounded-lg shadow-xl h-full"
-      >
-        <div class="relative h-64">
-          <img
-            :src="item.articleImageUrl"
-            alt="News image"
-            class="absolute w-full h-full object-cover rounded-t-lg"
-          />
-        </div>
-        <div class="p-6 flex flex-col flex-grow">
-          <h3 class="text-xl font-bold mb-2">{{ item.articleTitle }}</h3>
-          <p class="text-gray-600 mb-4 flex-grow">
-            {{ item.articleDescription }}
-          </p>
-          <div class="mt-auto">
-            <span class="text-sm text-gray-500 block mb-4">{{
-              item.date
-            }}</span>
-            <a
-              :href="`/article/${item._id}`"
-              class="inline-block bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors w-full text-center"
-              >Les mer</a
-            >
-          </div>
-        </div>
-      </div>
+      <NewsSection />
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from "vue";
-import axios from "axios";
-
-const news = ref([]);
-
-onMounted(async () => {
-  const { public: publicConfig } = useRuntimeConfig();
-  try {
-    const response = await axios.get(`${publicConfig.apiBase}/news/`);
-    news.value = response.data;
-  } catch (error) {
-    console.error("Error fetching news:", error);
-    news.value = [];
-  }
-});
-</script>

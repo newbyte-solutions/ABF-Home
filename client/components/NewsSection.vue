@@ -39,9 +39,9 @@
     to="/nyheter"
     :class="{
       'w-fit px-10 py-4 mt-10 border-2 bg-transparent transition mx-auto': true,
-      'border-green-400 hover:bg-green-400': grade === '8',
-      'border-indigo-400 hover:bg-indigo-400': grade === '9',
-      'border-orange-400 hover:bg-orange-400': grade === '10',
+      'border-green-400 hover:bg-green-400': grade === 'eight',
+      'border-indigo-400 hover:bg-indigo-400': grade === 'nine',
+      'border-orange-400 hover:bg-orange-400': grade === 'ten',
     }"
   >
     Se mer
@@ -54,7 +54,7 @@ import axios from "axios";
 defineProps({
   grade: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 

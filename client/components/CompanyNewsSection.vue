@@ -37,7 +37,7 @@
         const { public: publicConfig } = useRuntimeConfig();
         try {
           const response = await axios.get(`${publicConfig.apiBase}/news/`)
-          this.articles = response.data.filter(item => item.companyId === this.companyId)
+          this.articles = response.data.filter(item => item.articleCompany === this.companyId)
         } catch (error) {
           console.error('Error fetching news:', error)
         }

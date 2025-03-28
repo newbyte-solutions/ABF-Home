@@ -12,11 +12,12 @@
 
   <script>
   import axios from 'axios'
+  import { useRuntimeConfig } from '#app'
 
   export default {
     name: 'CompanyNewsSection',
     props: {
-      _id: {
+      companyId: {
         type: String,
         required: true
       }
@@ -36,7 +37,7 @@
         const { public: publicConfig } = useRuntimeConfig();
         try {
           const response = await axios.get(`${publicConfig.apiBase}/news/`)
-          this.articles = response.data.filter(item => item._id === this._id)
+          this.articles = response.data.filter(item => item.companyId === this.companyId)
         } catch (error) {
           console.error('Error fetching news:', error)
         }

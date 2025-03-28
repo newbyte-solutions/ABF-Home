@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="prose max-w-none" v-html="marked(company.companyContent || '')"></div>
-        <CompanyNewsSection :_id="company._id" v-if="company" />
+        <CompanyNewsSection companyId="company._id" v-if="company" />
     </div>
     </div>
 </template>

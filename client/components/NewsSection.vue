@@ -39,9 +39,9 @@
     to="/nyheter"
     :class="{
       'w-fit px-10 py-4 mt-10 border-2 bg-transparent transition mx-auto': true,
-      'border-green-400 hover:bg-green-400': grade === 'eight',
-      'border-indigo-400 hover:bg-indigo-400': grade === 'nine',
-      'border-orange-400 hover:bg-orange-400': grade === 'ten',
+      'border-green-400 hover:bg-green-400': grade === '8',
+      'border-indigo-400 hover:bg-indigo-400': grade === '9',
+      'border-orange-400 hover:bg-orange-400': grade === '10',
     }"
   >
     Se mer
@@ -64,9 +64,9 @@ onMounted(async () => {
   try {
     const { public: publicConfig } = useRuntimeConfig();
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
-    newsItems.value = response.data
-    .filter((news) => news.articleGrade === props.grade)
-    .slice(0, 3);
+    newsItems.value = props.grade 
+      ? response.data.filter((news) => news.articleGrade === props.grade).slice(0, 3)
+      : response.data.slice(0, 3);
   } catch (error) {
     console.error("Error fetching news:", error);
   }

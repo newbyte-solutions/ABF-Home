@@ -11,7 +11,7 @@ import NewsSection from "~/components/NewsSection.vue";
   <div class="w-full min-h-screen py-4 bg-white text-black flex flex-col">
     <GradeCompanySection grade="8"/>
     <div class="w-full flex flex-col justify-center items-center">
-      <NewsSection grade="eight" />
+      <NewsSection grade="8" />
     </div>
     <h2 class="text-center text-2xl font-semibold my-10">Klasseliste</h2>
     <div class="w-full px-4 md:px-20">

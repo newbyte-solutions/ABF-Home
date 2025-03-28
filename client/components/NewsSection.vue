@@ -51,14 +51,12 @@
 <script setup>
 import axios from "axios";
 
-defineProps({
+const props = defineProps({
   grade: {
     type: String,
     required: false,
   },
 });
-
-const newsItems = ref([]);
 
 onMounted(async () => {
   try {
@@ -71,4 +69,5 @@ onMounted(async () => {
     console.error("Error fetching news:", error);
   }
 });
+
 </script>

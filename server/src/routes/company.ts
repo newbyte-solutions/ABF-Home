@@ -4,6 +4,7 @@ import Company from "../models/company";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import User from "../models/user";
 
 const router = express.Router();
 
@@ -43,7 +44,7 @@ const upload = multer({
 });
 
 router.get("/", async (req: Request, res: Response): Promise<void> => {
-  console.log("GET /companies - Fetching all companies");
+  console.log("GET /company - Fetching all companies");
   try {
     const companies = await Company.find();
     console.log(`Successfully retrieved ${companies.length} companies`);
@@ -56,7 +57,7 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 
 // get company by id
 router.get("/:id", async (req: Request, res: Response): Promise<void> => {
-  console.log(`GET /companies/${req.params.id} - Fetching company by ID`);
+  console.log(`GET /company/${req.params.id} - Fetching company by ID`);
   try {
     const company = await Company.findById(req.params.id);
     if (!company) {
@@ -77,7 +78,7 @@ router.post(
   isAdmin,
   upload.single("companyLogo"),
   async (req: Request, res: Response): Promise<void> => {
-    console.log("POST /companies/new_company - Creating new company");
+    console.log("POST /company/new_company - Creating new company");
     const data = req.body;
 
     const companyLogo = req.file
@@ -117,7 +118,7 @@ router.delete(
   "/:id",
   isAdmin,
   async (req: Request, res: Response): Promise<void> => {
-    console.log(`DELETE /companies/delete_company/${req.params.id}`);
+    console.log(`DELETE /company/delete_company/${req.params.id}`);
     try {
       const company = await Company.findByIdAndDelete(req.params.id);
       if (!company) {
@@ -135,7 +136,7 @@ router.delete(
 );
 
 router.put("/update_content/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`PUT /companies/update_content/${req.params.id}`);
+    console.log(`PUT /company/update_content/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
@@ -157,7 +158,7 @@ router.put("/update_content/:id", async (req: Request, res: Response): Promise<v
 );
 
 router.put("/update_students/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`PUT /companies/update_students/${req.params.id}`);
+    console.log(`PUT /company/update_students/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
@@ -179,7 +180,7 @@ router.put("/update_students/:id", async (req: Request, res: Response): Promise<
 );
 
 router.put("/update_tags/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`PUT /companies/update_tags/${req.params.id}`);
+    console.log(`PUT /company/update_tags/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
@@ -201,7 +202,7 @@ router.put("/update_tags/:id", async (req: Request, res: Response): Promise<void
 );
 
 router.put("/update_description/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`PUT /companies/update_description/${req.params.id}`);
+    console.log(`PUT /company/update_description/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
@@ -222,4 +223,26 @@ router.put("/update_description/:id", async (req: Request, res: Response): Promi
   },
 );
 
-export default router;
+router.get("/user_company/:id", async (req: Request, res: Response): Promise<void> => {
+    console.log(`GET /company/user_company/${req.params.id}`);
+    try {
+      const user = await User.findById(req.params.id);
+      if (!user) {
+        console.log(`User not found with ID: ${req.params.id}`);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      const companies = await Company.find({ companyStudents: user.username });
+      if (!companies || companies.length === 0) {
+        console.log(`Company not found for user with username: ${user.username}`);
+        res.status(404).json({ message: "Company not found" });
+        return;
+      }
+      console.log(`Successfully retrieved company for user: ${user.username}`);
+      res.json(companies);
+    } catch (error) {
+      console.error(`Error fetching company for user ${req.params.id}:`, error);
+      res.status(500).json({ message: "Error fetching the company" });
+    }
+  },
+);export default router;

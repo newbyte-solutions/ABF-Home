@@ -75,7 +75,7 @@
         this.company = response.data.company;
       } catch (error) {
         console.error("Error fetching company:", error);
-      },
+      }
     },  
   };
 </script>

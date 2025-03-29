@@ -232,17 +232,19 @@ router.get("/user_company/:id", async (req: Request, res: Response): Promise<voi
         res.status(404).json({ message: "User not found" });
         return;
       }
-      const companies = await Company.find({ companyStudents: user.username });
-      if (!companies || companies.length === 0) {
+      const company = await Company.findOne({ companyStudents: user.username });
+      if (!company) {
         console.log(`Company not found for user with username: ${user.username}`);
         res.status(404).json({ message: "Company not found" });
         return;
       }
       console.log(`Successfully retrieved company for user: ${user.username}`);
-      res.json(companies);
+      res.json(company);
     } catch (error) {
       console.error(`Error fetching company for user ${req.params.id}:`, error);
       res.status(500).json({ message: "Error fetching the company" });
     }
   },
-);export default router;
+);
+
+export default router;

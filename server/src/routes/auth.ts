@@ -193,7 +193,7 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
         return;
       }
       console.log("[Auth] User info retrieved successfully:", user.email);
-      res.status(200).json({ user: { email: user.email, role: user.role } });
+      res.status(200).json({ user: { email: user.email, role: user.role, username: user.username, phone: user.phone, grade: user.grade } });
     } catch (error) {
       console.error("[Auth] Error retrieving user info:", error);
       res.status(500).json({ message: "Internal Server Error" });

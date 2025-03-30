@@ -37,7 +37,7 @@ const sessionConfig = {
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.RUNNING_MODE === "production",
     maxAge: 86400000,
   },
   store: MongoStore.create({

@@ -64,8 +64,8 @@
         this.role = response.data.role;
         this.id = response.data.id;
 
-        print ("User ID:", this.id);
-        print ("User Role:", this.role);
+        console.log("User ID:", this.id);
+        console.log("User Role:", this.role);
 
         if (this.role !== "student") {
           alert("Not authorized - please log in as a student");

@@ -53,7 +53,7 @@
 
         console.log("Full Axios response:", response);
         console.log("Response data:", response.data);
-        console.log("Role received:", response.data?.role);
+        console.log("Role received:", response.role);
         
         // Assign data after passing the check
         this.name = response.data.name;
@@ -61,7 +61,7 @@
         this.username = response.data.username;
         this.grade = response.data.grade;
         this.phone = response.data.phone;
-        this.role = userRole; // Use the stored role
+        this.role = response.data.role;
         this.id = response.data.id;
 
         if (this.role !== "student") {
@@ -69,11 +69,7 @@
           this.$router.push("/");
           return; // Prevent further execution
         }
-
-        console.console.log(this.username);
-        console.console.log(this.email);
         
-
         try {
           const companyResponse = await axios.get(
             `${publicConfig.apiBase}/company/user_company/${this.id}`,

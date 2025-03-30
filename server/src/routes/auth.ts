@@ -5,6 +5,31 @@ import { isAdmin, isStudent } from "../middleware/auth";
 
 const router = express.Router();
 
+// get all users
+router.get("/", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (error) {
+    console.error("[Auth] Error fetching users:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// get user by id
+router.get("/:id", async (req: Request, res: Response): Promise<void> => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    console.error("[Auth] Error fetching user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 // Admin Login Route
 router.post(
   "/admin_login",
@@ -80,7 +105,7 @@ router.post(
         return;
       }
 
-      req.session.user = { email: user.email, role: user.role };
+      req.session.user = { email: user.email, role: user.role, studentId: user.id };
       req.session.save((err) => {
         if (err) {
           console.error("[Auth] Error saving session:", err);
@@ -185,6 +210,7 @@ router.get("/check_login", (req: Request, res: Response) => {
 // Me
 router.get("/me", async (req: Request, res: Response): Promise<void> => {
   if (req.session.user) {
+    console.log(req.session.user); // Debugging the session data
     try {
       const user = await User.findOne({ email: req.session.user.email });
       if (!user) {
@@ -193,7 +219,7 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
         return;
       }
       console.log("[Auth] User info retrieved successfully:", user.email);
-      res.status(200).json({ user: { email: user.email, role: user.role, username: user.username, phone: user.phone, grade: user.grade } });
+      res.status(200).json({ user: { email: user.email, id: user._id, role: user.role, username: user.username, phone: user.phone, grade: user.grade } });
     } catch (error) {
       console.error("[Auth] Error retrieving user info:", error);
       res.status(500).json({ message: "Internal Server Error" });

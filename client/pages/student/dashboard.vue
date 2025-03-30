@@ -10,7 +10,7 @@
       class="mx-10 p-10 min-h-96 bg-white text-black rounded-lg shadow-lg relative"
     >
       <h2 class="font-semibold text-xl">
-        Navn: <span class="font-normal">{{ name || "Ikke autorisert" }}</span>
+        Navn: <span class="font-normal">{{ username || "Ikke autorisert" }}</span>
       </h2>
       <p class="font-semibold text-xl">
         Din bedrift:

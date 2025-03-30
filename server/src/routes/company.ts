@@ -158,26 +158,40 @@ router.put("/update_content/:id", async (req: Request, res: Response): Promise<v
 );
 
 router.put("/update_students/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`PUT /company/update_students/${req.params.id}`);
-    try {
-      const company = await Company.findByIdAndUpdate(
-        req.params.id,
-        { companyStudents: req.body.companyStudents },
-        { new: true }
-      );
+  console.log(`PUT /company/update_students/${req.params.id}`);
+  try {
+      const company = await Company.findById(req.params.id);
+
       if (!company) {
-        console.log(`Company not found with ID: ${req.params.id}`);
-        res.status(404).json({ message: "Company not found" });
-        return;
+          console.log(`Company not found with ID: ${req.params.id}`);
+          res.status(404).json({ message: "Company not found" });
+          return;
       }
+
+      let updatedCompany;
+      if (company.companyStudents.includes(req.body.studentId)) {
+          updatedCompany = await Company.findByIdAndUpdate(
+              req.params.id,
+              { $pull: { companyStudents: req.body.studentId } },
+              { new: true }
+          );
+          console.log(`Student ${req.body.studentId} removed from company ${req.params.id}`);
+      } else {
+          updatedCompany = await Company.findByIdAndUpdate(
+              req.params.id,
+              { $push: { companyStudents: req.body.studentId } },
+              { new: true }
+          );
+          console.log(`Student ${req.body.studentId} added to company ${req.params.id}`);
+      }
+
       console.log(`Successfully updated company: ${req.params.id}`);
-      res.json(company);
-    } catch (error) {
+      res.json(updatedCompany);
+  } catch (error) {
       console.error(`Error updating company ${req.params.id}:`, error);
       res.status(500).json({ message: "Error updating the company" });
-    }
-  },
-);
+  }
+});
 
 router.put("/update_tags/:id", async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_tags/${req.params.id}`);

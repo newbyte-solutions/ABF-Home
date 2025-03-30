@@ -50,37 +50,43 @@
         const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
           withCredentials: true,
         });
+
+        console.log("User data:", response.data); // Debugging output
+
+        // Store role immediately before setting `this.role`
+        const userRole = response.data.role;
+        
+        if (userRole !== "student") {
+          alert("Not authorized - please log in as a student");
+          this.$router.push("/");
+          return; // Prevent further execution
+        }
+
+        // Assign data after passing the check
         this.name = response.data.name;
         this.email = response.data.email;
         this.username = response.data.username;
         this.grade = response.data.grade;
         this.phone = response.data.phone;
-        this.role = response.data.role;
+        this.role = userRole; // Use the stored role
         this.id = response.data.id;
 
-        console.log(response.data);
-
-        if (this.role !== "student") {
-          alert("Not authorized - please log in as a student");
-          this.$router.push("/");
-        } else {
-          try {
-            const companyResponse = await axios.get(
-              `${publicConfig.apiBase}/company/user_company/${this.id}`,
-              {
-                withCredentials: true,
-              },
-            );
-            this.company = companyResponse.data.company;
-          } catch (error) {
-            console.error("Error fetching company:", error);
-          }
+        try {
+          const companyResponse = await axios.get(
+            `${publicConfig.apiBase}/company/user_company/${this.id}`,
+            {
+              withCredentials: true,
+            }
+          );
+          this.company = companyResponse.data.company;
+        } catch (error) {
+          console.error("Error fetching company:", error);
         }
       } catch (error) {
-        console.error("error fetching user:", error);
-        alert('Not authorized - please log in');
-        this.$router.push('/');
+        console.error("Error fetching user:", error);
+        alert("Not authorized - please log in");
+        this.$router.push("/");
       }
-    },  
+    },
   };
 </script>

@@ -62,13 +62,11 @@
         this.role = response.data.user.role;
         this.id = response.data.user.id;
 
-        console.log("User ID:", this.id);
-        console.log("User Role:", this.role);
 
         if (response.data.user.role !== "student") {
           alert("Not authorized - please log in as a student");
           this.$router.push("/");
-          return; // Prevent further execution
+          return;
         }
         
         try {

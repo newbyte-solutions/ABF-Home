@@ -36,18 +36,19 @@
         const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
           withCredentials: true,
         });
-        this.name = response.data.name;
-        this.email = response.data.email;
-        this.username = response.data.username;
-        this.grade = response.data.grade;
-        this.phone = response.data.phone;
-        this.role = response.data.role;
-        this.id = response.data.id;
+        this.name = response.data.user.name;
+        this.email = response.data.user.email;
+        this.username = response.data.user.username;
+        this.grade = response.data.user.grade;
+        this.phone = response.data.user.phone;
+        this.role = response.data.user.role;
+        this.id = response.data.user.id;
 
-        // if (this.role !== 'admin') {
-        //  this.$router.push('/');
-        //  alert("Access denied. Admin privileges required.");
-        // }
+        if (response.data.user.role !== "admin") {
+          alert("Not authorized - please log in as an admin");
+          this.$router.push("/");
+          return;
+        }
       } catch (error) {
         console.error("error fetching user:", error);
         alert("Failed to authenticate user. Please check your credentials.");

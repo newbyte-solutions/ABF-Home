@@ -51,8 +51,9 @@
           withCredentials: true,
         });
 
-        console.log("Full user response:", response.data);
-        console.log("Role received:", response.data.role);
+        console.log("Full Axios response:", response);
+        console.log("Response data:", response.data);
+        console.log("Role received:", response.data?.role);
 
         // Store role immediately before setting `this.role`
         const userRole = response.data.role;
@@ -71,6 +72,10 @@
         this.phone = response.data.phone;
         this.role = userRole; // Use the stored role
         this.id = response.data.id;
+
+        console.console.log(this.username);
+        console.console.log(this.email);
+        
 
         try {
           const companyResponse = await axios.get(

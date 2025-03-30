@@ -58,12 +58,6 @@
         // Store role immediately before setting `this.role`
         const userRole = response.data.role;
         
-        if (userRole !== "student") {
-          alert("Not authorized - please log in as a student");
-          this.$router.push("/");
-          return; // Prevent further execution
-        }
-
         // Assign data after passing the check
         this.name = response.data.name;
         this.email = response.data.email;
@@ -72,6 +66,12 @@
         this.phone = response.data.phone;
         this.role = userRole; // Use the stored role
         this.id = response.data.id;
+
+        if (userRole !== "student") {
+          alert("Not authorized - please log in as a student");
+          this.$router.push("/");
+          return; // Prevent further execution
+        }
 
         console.console.log(this.username);
         console.console.log(this.email);

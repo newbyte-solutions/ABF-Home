@@ -60,21 +60,26 @@
 
         console.log(response.data);
 
+        if (this.role !== "student") {
+          alert("Not authorized - please log in as a student");
+          this.$router.push("/");
+        } else {
+          try {
+            const companyResponse = await axios.get(
+              `${publicConfig.apiBase}/company/user_company/${this.id}`,
+              {
+                withCredentials: true,
+              },
+            );
+            this.company = companyResponse.data.company;
+          } catch (error) {
+            console.error("Error fetching company:", error);
+          }
+        }
       } catch (error) {
         console.error("error fetching user:", error);
         alert('Not authorized - please log in');
         this.$router.push('/');
-      }
-      try {
-        const response = await axios.get(
-          `${publicConfig.apiBase}/company/user_company/${this.id}`,
-          {
-            withCredentials: true,
-          },
-        );
-        this.company = response.data.company;
-      } catch (error) {
-        console.error("Error fetching company:", error);
       }
     },  
   };

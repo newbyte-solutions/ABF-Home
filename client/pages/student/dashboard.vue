@@ -51,23 +51,21 @@
           withCredentials: true,
         });
 
-        console.log("Full Axios response:", response);
         console.log("Response data:", response.data);
-        console.log("Role received:", response.role);
         
         // Assign data after passing the check
-        this.name = response.data.name;
-        this.email = response.data.email;
-        this.username = response.data.username;
-        this.grade = response.data.grade;
-        this.phone = response.data.phone;
-        this.role = response.data.role;
-        this.id = response.data.id;
+        this.name = response.data.user.name;
+        this.email = response.data.user.email;
+        this.username = response.data.user.username;
+        this.grade = response.data.user.grade;
+        this.phone = response.data.user.phone;
+        this.role = response.data.user.role;
+        this.id = response.data.user.id;
 
         console.log("User ID:", this.id);
         console.log("User Role:", this.role);
 
-        if (response.data.role !== "student") {
+        if (response.data.user.role !== "student") {
           alert("Not authorized - please log in as a student");
           this.$router.push("/");
           return; // Prevent further execution

@@ -67,7 +67,7 @@
         console.log("User ID:", this.id);
         console.log("User Role:", this.role);
 
-        if (this.role !== "student") {
+        if (response.data.role !== "student") {
           alert("Not authorized - please log in as a student");
           this.$router.push("/");
           return; // Prevent further execution

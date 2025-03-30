@@ -54,9 +54,6 @@
         console.log("Full Axios response:", response);
         console.log("Response data:", response.data);
         console.log("Role received:", response.data?.role);
-
-        // Store role immediately before setting `this.role`
-        const userRole = response.data.role;
         
         // Assign data after passing the check
         this.name = response.data.name;
@@ -67,7 +64,7 @@
         this.role = userRole; // Use the stored role
         this.id = response.data.id;
 
-        if (userRole !== "student") {
+        if (this.role !== "student") {
           alert("Not authorized - please log in as a student");
           this.$router.push("/");
           return; // Prevent further execution

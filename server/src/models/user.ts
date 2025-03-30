@@ -20,7 +20,7 @@ type IUser = {
   username: string;
   email: string;
   password: string;
-  role: "admin" | "student";
+  role: string;
   phone?: string;
   grade?: number;
   id?: string;

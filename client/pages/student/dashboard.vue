@@ -51,7 +51,8 @@
           withCredentials: true,
         });
 
-        console.log("User data:", response.data); // Debugging output
+        console.log("Full user response:", response.data);
+        console.log("Role received:", response.data.role);
 
         // Store role immediately before setting `this.role`
         const userRole = response.data.role;

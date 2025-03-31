@@ -237,28 +237,25 @@ router.put("/update_description/:id", async (req: Request, res: Response): Promi
   },
 );
 
-router.get("/user_company/:id", async (req: Request, res: Response): Promise<void> => {
-    console.log(`GET /company/user_company/${req.params.id}`);
-    try {
-      const user = await User.findById(req.params.id);
-      if (!user) {
-        console.log(`User not found with ID: ${req.params.id}`);
-        res.status(404).json({ message: "User not found" });
-        return;
-      }
-      const company = await Company.findOne({ companyStudents: user.username });
+router.get("/user_company/:username", async (req: Request, res: Response): Promise<void> => {
+  console.log(`GET /company/user_company/${req.params.username}`);
+  try {
+      const user = req.params.username;
+      
+      const company = await Company.findOne({ companyStudents: user });
       if (!company) {
-        console.log(`Company not found for user with username: ${user.username}`);
-        res.status(404).json({ message: "Company not found" });
-        return;
+          console.log(`Company not found for user with ID: ${user}`);
+          res.status(404).json({ message: "Company not found" });
+          return;
       }
-      console.log(`Successfully retrieved company for user: ${user.username}`);
+      
+      console.log(`Successfully retrieved company for user: ${user}`);
       res.json(company);
-    } catch (error) {
-      console.error(`Error fetching company for user ${req.params.id}:`, error);
+  } catch (error) {
+      console.error(`Error fetching company for user ${req.params.username}:`, error);
       res.status(500).json({ message: "Error fetching the company" });
-    }
-  },
-);
+  }
+});
+
 
 export default router;

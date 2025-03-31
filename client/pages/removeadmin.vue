@@ -11,6 +11,7 @@ onMounted(async () => {
   try {
     const request = await axios.get(
       `${publicConfig.apiBase}/auth/remove_admin`,
+      { withCredentials: true }
     );
   } catch (error) {
     console.error("Error removing user", error);

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AdminCompanySection from "~/components/AdminCompanySection.vue";
-import GradeCompanySection from "~/components/GradeCompanySection.vue";
-import NewsSection from "~/components/NewsSection.vue";
+import AdminCompanySection from "~/components/Admin Panel/AdminCompanySection.vue";
+import GradeCompanySection from "~/components/Public/GradeCompanySection.vue";
+import NewsSection from "~/components/Public/NewsSection.vue";
 </script>
 
 <template>

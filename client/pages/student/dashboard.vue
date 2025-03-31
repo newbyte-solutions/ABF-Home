@@ -19,6 +19,7 @@
         }}</span>
       </p>
       <button
+        v-if="companyId"
         @click="$router.push(`/student/company/${companyId}`)"
         class="px-6 py-2 border-4 border-blue-500 absolute bottom-10 font-semibold"
       >
@@ -29,62 +30,66 @@
 </template>
 
 <script>
-  import axios from "axios";
+import axios from "axios";
 
-  export default {
-    data() {
-      return {
-        username: "",
-        email: "",
-        grade: "",
-        phone: "",
-        role: "",
-        id: "",
-        company: "",
-        companyId: "",
-      };
-    },
-    async mounted() {
-      const { public: publicConfig } = useRuntimeConfig();
+export default {
+  data() {
+    return {
+      username: "",
+      email: "",
+      grade: "",
+      phone: "",
+      role: "",
+      id: "",
+      company: "",
+      companyId: "",
+    };
+  },
+  async mounted() {
+    const { public: publicConfig } = useRuntimeConfig();
+    
+    try {
+      const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
+        withCredentials: true,
+      });
+
+      console.log("Response data:", response.data);
+
+      const user = response.data.user;
+
+      if (!user || user.role !== "student") {
+        alert("Not authorized - please log in as a student");
+        this.$router.push("/");
+        return;
+      }
+
+      // Assign user data
+      this.username = user.username;
+      this.email = user.email;
+      this.grade = user.grade;
+      this.phone = user.phone;
+      this.role = user.role;
+      this.id = user.id;
+
+      // Fetch company details
       try {
-        const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
-          withCredentials: true,
-        });
+        const companyResponse = await axios.get(
+          `${publicConfig.apiBase}/company/user_company/${this.id}`,
+          { withCredentials: true }
+        );
 
-        console.log("Response data:", response.data);
-        
-        // Assign data after passing the check
-        this.name = response.data.user.name;
-        this.email = response.data.user.email;
-        this.username = response.data.user.username;
-        this.grade = response.data.user.grade;
-        this.phone = response.data.user.phone;
-        this.role = response.data.user.role;
-        this.id = response.data.user.id;
-
-
-        if (response.data.user.role !== "student") {
-          alert("Not authorized - please log in as a student");
-          this.$router.push("/");
-          return;
-        }
-        
-        try {
-          const companyResponse = await axios.get(
-            `${publicConfig.apiBase}/company/user_company/${this.id}`,
-            {
-              withCredentials: true,
-            }
-          );
-          this.company = companyResponse.data.company;
-        } catch (error) {
-          console.error("Error fetching company:", error);
+        if (companyResponse.data) {
+          this.company = companyResponse.data.companyName;
+          this.companyId = companyResponse.data._id; // Assign company ID
         }
       } catch (error) {
-        console.error("Error fetching user:", error);
-        alert("Not authorized - please log in");
-        this.$router.push("/");
+        console.error("Error fetching company:", error);
       }
-    },
-  };
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      alert("Not authorized - please log in");
+      this.$router.push("/");
+    }
+  },
+};
 </script>

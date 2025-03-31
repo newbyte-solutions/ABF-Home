@@ -2,13 +2,16 @@ import express, { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
 import { isAdmin, isStudent } from "../middleware/auth";
+import mongoose from "mongoose";
 
 const router = express.Router();
 
 // get all users
 router.get("/", async (req: Request, res: Response): Promise<void> => {
+  console.log("[Auth] Attempting to fetch all users");
   try {
     const users = await User.find();
+    console.log("[Auth] Successfully fetched all users");
     res.status(200).json(users);
   } catch (error) {
     console.error("[Auth] Error fetching users:", error);
@@ -17,19 +20,32 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 });
 
 // get user by id
-router.get("/:id", async (req: Request, res: Response): Promise<void> => {
+router.get("/get_user/:id", async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  console.log("[Auth] Attempting to fetch user by ID:", id);
+
+  // Check if ID is a valid ObjectId
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    console.log("[Auth] Invalid user ID format:", id);
+    res.status(400).json({ message: "Invalid user ID format" });
+    return;
+  }
+
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById(id);
     if (!user) {
+      console.log("[Auth] User not found with ID:", id);
       res.status(404).json({ message: "User not found" });
       return;
     }
+    console.log("[Auth] Successfully fetched user:", id);
     res.status(200).json(user);
   } catch (error) {
     console.error("[Auth] Error fetching user:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
 // Admin Login Route
 router.post(
   "/admin_login",
@@ -131,6 +147,7 @@ router.post(
   isAdmin,
   async (req: Request, res: Response): Promise<void> => {
     const { username, email, password, role } = req.body;
+    console.log("[Auth] Attempting to register new user:", email);
 
     if (!username || !email || !password || !role) {
       console.log("[Auth] Registration failed: Missing required fields");
@@ -172,6 +189,7 @@ router.post(
 // Logout
 router.post("/logout", (req: Request, res: Response) => {
   const userEmail = req.session.user?.email;
+  console.log("[Auth] Attempting to logout user:", userEmail);
   req.session.destroy((err) => {
     if (err) {
       console.error("[Auth] Error during logout:", err);
@@ -210,7 +228,7 @@ router.get("/check_login", (req: Request, res: Response) => {
 // Me
 router.get("/me", async (req: Request, res: Response): Promise<void> => {
   if (req.session.user) {
-    console.log(req.session.user); // Debugging the session data
+    console.log("[Auth] Attempting to fetch user info for:", req.session.user.email);
     try {
       const user = await User.findOne({ email: req.session.user.email });
       if (!user) {
@@ -235,6 +253,7 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     const email = process.env.ADMIN_EMAIL;
     const password = process.env.ADMIN_PASSWORD;
+    console.log("[Auth] Attempting to create admin user");
 
     if (!email || !password) {
       console.log("[Auth] Make admin failed: Missing environment variables");
@@ -268,6 +287,7 @@ router.get(
   async (req: Request, res: Response): Promise<void> => {
     const email = process.env.ADMIN_EMAIL;
     const username = "admin";
+    console.log("[Auth] Attempting to remove admin user");
 
     try {
       const adminUser = await User.findOne({

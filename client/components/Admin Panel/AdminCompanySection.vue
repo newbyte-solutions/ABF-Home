@@ -64,8 +64,8 @@ export default {
     data() {
         return {
             companies: [],
-            users: [], // Stores users fetched from API
-            userMap: {}, // Maps user ID to username
+            users: [],
+            userMap: {},
         };
     },
     methods: {
@@ -79,6 +79,7 @@ export default {
             });
         },
         async deleteCompany(companyId) {
+            console.log('Attempting to delete company:', companyId);
             try {
                 const { public: publicConfig } = useRuntimeConfig();
                 await axios.delete(
@@ -86,12 +87,14 @@ export default {
                     { withCredentials: true }
                 );
                 this.companies = this.companies.filter(company => company._id !== companyId);
+                console.log('Successfully deleted company:', companyId);
             } catch (error) {
                 console.error('Error deleting company:', error);
             }
         },
         async assignStudent(companyId, studentId) {
             if (!studentId) return;
+            console.log('Attempting to assign student:', studentId, 'to company:', companyId);
             try {
                 const { public: publicConfig } = useRuntimeConfig();
                 const response = await axios.put(
@@ -104,18 +107,21 @@ export default {
                 if (company) {
                     company.companyStudents = response.data.companyStudents;
                     this.fetchStudentNames(response.data.companyStudents);
+                    console.log('Successfully assigned student to company. Updated student list:', response.data.companyStudents);
                 }
             } catch (error) {
                 console.error('Error assigning student:', error);
             }
         },
         async fetchStudentNames(studentIds) {
+            console.log('Fetching student names for IDs:', studentIds);
             for (const id of studentIds) {
                 if (!this.userMap[id]) { // Only fetch if not already retrieved
                     try {
                         const { public: publicConfig } = useRuntimeConfig();
-                        const response = await axios.get(`${publicConfig.apiBase}/auth/${id}`, { withCredentials: true });
+                        const response = await axios.get(`${publicConfig.apiBase}/auth/get_user/${id}`, { withCredentials: true });
                         this.userMap = { ...this.userMap, [id]: response.data.username };
+                        console.log('Retrieved username for ID:', id, ':', response.data.username);
                     } catch (error) {
                         console.error(`Error fetching user ${id}:`, error);
                     }
@@ -123,24 +129,30 @@ export default {
             }
         },
         async fetchData() {
+            console.log('Starting to fetch all data');
             try {
                 const { public: publicConfig } = useRuntimeConfig();
                 
+                console.log('Fetching companies...');
                 const companyResponse = await axios.get(`${publicConfig.apiBase}/company/`, { withCredentials: true });
                 this.companies = companyResponse.data;
+                console.log('Successfully fetched', this.companies.length, 'companies');
                 
                 for (const company of this.companies) {
                     await this.fetchStudentNames(company.companyStudents);
                 }
                 
+                console.log('Fetching users...');
                 const userResponse = await axios.get(`${publicConfig.apiBase}/auth`, { withCredentials: true });
                 this.users = userResponse.data;
+                console.log('Successfully fetched', this.users.length, 'users');
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         }
     },
     async mounted() {
+        console.log('Component mounted, initiating data fetch');
         await this.fetchData();
     },
 };

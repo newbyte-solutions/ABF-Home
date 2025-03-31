@@ -1,9 +1,3 @@
-<script setup lang="ts">
-import AdminCompanySection from "~/components/Admin Panel/AdminCompanySection.vue";
-import GradeCompanySection from "~/components/Public/GradeCompanySection.vue";
-import NewsSection from "~/components/Public/NewsSection.vue";
-</script>
-
 <template>
   <div class="w-full mt h-fit py-10 flex justify-center items-center bg-gradient-to-br from-lime-400 to-green-500 drop-shadow-2xl -z-20">
     <h1 class="mt-20 font-bold text-5xl text-white">8. Klasse</h1>

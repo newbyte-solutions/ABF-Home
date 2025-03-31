@@ -58,12 +58,16 @@
           </div>
         </div>
       </div>
+      <div class="mt-6">
+        <EditCompanyStudent  :companyId="companyId" />
+      </div>
     </div>
   </template>
   
   <script>
-  import axios from "axios";
-  
+  import axios from "axios";  
+  import EditCompanyStudent from "~/components/EditCompanyStudent.vue";
+
   export default {
     data() {
       return {

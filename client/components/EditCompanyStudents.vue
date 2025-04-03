@@ -25,7 +25,6 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import axios from 'axios';
-import { useRuntimeConfig } from '#app';
 
 const props = defineProps({
     companyId: {
@@ -34,12 +33,12 @@ const props = defineProps({
     }
 });
 
-const config = useRuntimeConfig();
 const students = ref([]);
 const assignedStudents = ref([]);
 const userMap = ref({});
 
 const fetchStudents = async () => {
+    const { public: publicConfig } = useRuntimeConfig();
     try {
         const response = await axios.get(`${config.public.apiBase}/auth/`);
         students.value = response.data.filter(user => user.role === 'student');
@@ -56,6 +55,7 @@ const fetchAssignedStudents = async () => {
         return;
     }
     try {
+        const { public: publicConfig } = useRuntimeConfig();
         const response = await axios.get(`${config.public.apiBase}/company/${props.companyId}`);
         console.log("API Response:", response.data);
         assignedStudents.value = response.data.companyStudents || [];
@@ -68,6 +68,7 @@ const fetchAssignedStudents = async () => {
 const assignStudent = async (companyId, studentId) => {
     if (!studentId) return;
     try {
+        const { public: publicConfig } = useRuntimeConfig();
         const response = await axios.put(`${config.public.apiBase}/company/update_students/${companyId}`, {
             studentId
         });
@@ -83,6 +84,7 @@ const fetchStudentNames = async (studentIds) => {
     for (const id of studentIds) {
         if (!userMap.value[id]) {
             try {
+                const { public: publicConfig } = useRuntimeConfig();
                 const response = await axios.get(`${config.public.apiBase}/auth/get_user/${id}`);
                 userMap.value = { ...userMap.value, [id]: response.data.username };
             } catch (error) {

@@ -59,7 +59,7 @@
         </div>
       </div>
       <div class="mt-6 flex">
-        <EditCompanyStudent :companyId="company._id" />
+        <EditCompanyStudents :companyId="company._id" />
       </div>
     </div>
   </template>

@@ -58,9 +58,10 @@
           </div>
         </div>
       </div>
-      <div class="mt-6 flex">
+      <div class="mt-6 flex" v-if="company && company._id">
         <EditCompanyStudents :companyId="company._id" />
-      </div>
+        <EditCompanyDescription :companyId="company._id" />
+    </div>
     </div>
   </template>
   
@@ -84,7 +85,7 @@
       async fetchStudentNames(studentIds) {
         console.log("Fetching student names for IDs:", studentIds);
         for (const id of studentIds) {
-          if (!this.userMap[id]) { // Only fetch if not already retrieved
+          if (!this.userMap[id]) { 
             try {
               const { public: publicConfig } = useRuntimeConfig();
               const response = await axios.get(`${publicConfig.apiBase}/auth/get_user/${id}`, { withCredentials: true });

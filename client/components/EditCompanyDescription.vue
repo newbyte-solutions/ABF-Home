@@ -1,16 +1,16 @@
 <template>
-    <div class="edit-company-description">
-        <div class="edit-form">
-            <h3 class="text-lg font-semibold mb-2">Edit Description</h3>
+    <div class="w-full max-w-4xl mx-auto px-4 md:px-10 flex flex-col md:flex-row items-center justify-center">
+        <div class="w-full md:w-3/4 lg:w-2/3 flex flex-col">
+            <h3 class="text-lg md:text-xl font-semibold mb-2">Edit Description</h3>
             <textarea
                 v-model="newDescription"
-                class="w-full p-2 border rounded-md mb-4 text-black"
+                class="w-full p-2 border rounded-md mb-4 text-black resize-y min-h-[100px]"
                 rows="4"
                 placeholder="Enter new company description"
             ></textarea>
             <button
                 @click="updateDescription"
-                class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+                class="w-full md:w-auto bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
             >
                 Update Description
             </button>

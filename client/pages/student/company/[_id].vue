@@ -58,10 +58,10 @@
           </div>
         </div>
       </div>
-      <div class="mt-6 flex" v-if="company && company._id">
+      <div class="mt-6 flex flex-col space-y-32 md:space-y-0 md:flex-row w-full justify-center space-x-0 md:space-x-40" v-if="company && company._id">
         <EditCompanyStudents :companyId="company._id" />
         <EditCompanyDescription :companyId="company._id" />
-    </div>
+      </div>
     </div>
   </template>
   

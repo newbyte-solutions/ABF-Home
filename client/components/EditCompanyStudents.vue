@@ -1,9 +1,9 @@
 <template>
-    <div class="w-full md:px-10 px-0 flex flex-col md:flex-row items-center justify-center">
-        <div class="w-fit flex flex-col">
+    <div class="w-full max-w-md mx-auto md:px-10 px-4 flex flex-col md:flex-row items-center justify-center">
+        <div class="w-full flex flex-col">
             <div class="form-group">
-                <label class="font-semibold">Select Student:</label>
-                <select @change="assignStudent(companyId, $event.target.value)" class="mt-2 border border-gray-300 rounded px-4 py-2 w-full text-black">
+                <label class="font-semibold text-sm md:text-base">Select Student:</label>
+                <select @change="assignStudent(companyId, $event.target.value)" class="mt-2 border border-gray-300 rounded px-4 py-2 w-full text-black text-sm md:text-base">
                     <option value="" disabled selected>Select a student</option>
                     <option v-for="student in students" :key="student.id" :value="student.id" class="text-black">
                         {{ student.username }}
@@ -11,9 +11,9 @@
                 </select>
             </div>
             <div class="mt-4">
-                <p><span class="font-semibold">Assigned Students:</span></p>
-                <ul>
-                    <li v-for="studentId in assignedStudents" :key="studentId">
+                <p><span class="font-semibold text-sm md:text-base">Assigned Students:</span></p>
+                <ul class="w-full space-y-2">
+                    <li v-for="studentId in assignedStudents" :key="studentId" class="text-sm md:text-base break-words">
                         {{ userMap[studentId] || 'Loading...' }}
                     </li>
                 </ul>
@@ -94,7 +94,6 @@ const fetchStudentNames = async (studentIds) => {
     }
 };
 
-// Watch for companyId changes and trigger fetch
 watch(
   () => props.companyId,
   (newCompanyId) => {
@@ -102,7 +101,7 @@ watch(
           fetchAssignedStudents();
       }
   },
-  { immediate: true } // Run immediately if companyId is already defined
+  { immediate: true }
 );
 
 onMounted(async () => {

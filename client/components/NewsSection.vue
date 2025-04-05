@@ -36,7 +36,7 @@
     </router-link>
   </div>
   <router-link
-    to="/nyheter"
+    to="/article"
     :class="{
       'w-fit px-10 py-4 mt-10 border-2 bg-transparent transition mx-auto': true,
       'border-green-400 hover:bg-green-400': grade === '8',

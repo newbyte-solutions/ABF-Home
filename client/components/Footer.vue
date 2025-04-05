@@ -7,7 +7,7 @@
         <h1>Helland Ungdomsskole (<strong>HUS</strong>)</h1>
       </div>
       <div class="flex-1 text-center">
-        <p>Website by: Newbyte Solutions</p>
+        <p>Nettside av: Newbyte Solutions EB</p>
       </div>
       <div class="flex-1 text-center md:text-right">
         <router-link to="/admin" class="text-blue-800 underline"
@@ -15,7 +15,7 @@
         >
         |
         <router-link to="/student" class="text-blue-800 underline"
-          >Student</router-link
+          >Elev</router-link
         >
       </div>
     </div>

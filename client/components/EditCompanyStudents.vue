@@ -40,7 +40,7 @@ const userMap = ref({});
 const fetchStudents = async () => {
     const { public: publicConfig } = useRuntimeConfig();
     try {
-        const response = await axios.get(`${config.public.apiBase}/auth/`);
+        const response = await axios.get(`${publicConfig.apiBase}/auth/`);
         students.value = response.data.filter(user => user.role === 'student');
         console.log("Fetched students:", students.value);
     } catch (error) {
@@ -56,7 +56,7 @@ const fetchAssignedStudents = async () => {
     }
     try {
         const { public: publicConfig } = useRuntimeConfig();
-        const response = await axios.get(`${config.public.apiBase}/company/${props.companyId}`);
+        const response = await axios.get(`${publicConfig.apiBase}/company/${props.companyId}`);
         console.log("API Response:", response.data);
         assignedStudents.value = response.data.companyStudents || [];
         fetchStudentNames(response.data.companyStudents || []);
@@ -69,7 +69,7 @@ const assignStudent = async (companyId, studentId) => {
     if (!studentId) return;
     try {
         const { public: publicConfig } = useRuntimeConfig();
-        const response = await axios.put(`${config.public.apiBase}/company/update_students/${companyId}`, {
+        const response = await axios.put(`${publicConfig.apiBase}/company/update_students/${companyId}`, {
             studentId
         });
         console.log("Updated assigned students:", response.data);
@@ -85,7 +85,7 @@ const fetchStudentNames = async (studentIds) => {
         if (!userMap.value[id]) {
             try {
                 const { public: publicConfig } = useRuntimeConfig();
-                const response = await axios.get(`${config.public.apiBase}/auth/get_user/${id}`);
+                const response = await axios.get(`${publicConfig.apiBase}/auth/get_user/${id}`);
                 userMap.value = { ...userMap.value, [id]: response.data.username };
             } catch (error) {
                 console.error(`Error fetching user ${id}:`, error);

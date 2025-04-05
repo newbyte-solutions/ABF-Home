@@ -1,8 +1,9 @@
 <template>
+    <div class="py-8"></div>
     <div class="min-h-screen py-8">
       <div v-if="company" class="container mx-auto px-4 py-8">
         <img :src="company.companyLogo" :alt="company.companyTitle" class="w-48 h-48 object-contain mx-auto mb-6">
-        <h1 class="text-4xl font-bold text-center mb-4">{{ company.companyTitle }}</h1>
+        <h1 class="text-4xl font-bold text-center mb-4">{{ company.companyName }}</h1>
         <p class="text-lg text-gray-600 text-center mb-8">{{ company.companyDescription }}</p>
         <div class="grid grid-cols-2 gap-8 mb-8">
           <div class="bg-gray-100 p-6 rounded-lg">

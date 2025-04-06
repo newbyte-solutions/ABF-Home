@@ -8,7 +8,11 @@
         <div class="grid grid-cols-2 gap-8 mb-8">
           <div class="bg-gray-100 p-6 rounded-lg">
             <h3 class="text-xl font-semibold mb-2">Students:</h3>
-            <p class="text-gray-700">{{ company.companyStudents }}</p>
+            <ul class="text-gray-700 flex flex-col md:flex-row md:space-y-0 space-x-0 md:space-x-2 space-y-2">
+              <li v-for="studentId in company.companyStudents" :key="studentId">
+                {{ userMap[studentId] || 'Loading...' }},
+              </li>
+            </ul>
           </div>
           <div class="bg-gray-100 p-6 rounded-lg">
             <h3 class="text-xl font-semibold mb-2">Grade:</h3>
@@ -33,15 +37,47 @@ import axios from "axios";
 import { marked } from "marked";
 
 const company = ref(null);
+const students = ref([]);
+const userMap = ref({});
 const route = useRoute();
+
+const fetchStudents = async () => {
+    const { public: publicConfig } = useRuntimeConfig();
+    try {
+        const response = await axios.get(`${publicConfig.apiBase}/auth/`);
+        students.value = response.data.filter(user => user.role === 'student');
+        console.log("Fetched students:", students.value);
+    } catch (error) {
+        console.error('Error fetching students:', error);
+    }
+};
+
+const fetchStudentNames = async (studentIds) => {
+    for (const id of studentIds) {
+        if (!userMap.value[id]) {
+            try {
+                const { public: publicConfig } = useRuntimeConfig();
+                const response = await axios.get(`${publicConfig.apiBase}/auth/get_user/${id}`);
+                userMap.value = { ...userMap.value, [id]: response.data.username };
+            } catch (error) {
+                console.error(`Error fetching user ${id}:`, error);
+            }
+        }
+    }
+};
 
 onMounted(async () => {
     const { public: publicConfig } = useRuntimeConfig();
+    await fetchStudents();
+
     try {
       const { data } = await axios.get(`${publicConfig.apiBase}/company/${route.params._id}`, {
         withCredentials: true
       });
       company.value = data;
+      if (company.value && company.value.companyStudents) {
+        await fetchStudentNames(company.value.companyStudents);
+      }
     } catch (error) {
       console.error('Error fetching company:', error);
     }

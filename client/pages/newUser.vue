@@ -1,23 +1,25 @@
 <template>
-    <form @submit.prevent="submit">
-      <div>
-        <label>Email</label>
-        <input type="email" v-model="email" required />
-      </div>
-      <div>
-        <label>Old Password</label>
-        <input type="password" v-model="oldPassword" required />
-      </div>
-      <div>
-        <label>New Password</label>
-        <input type="password" v-model="newPassword" required />
-      </div>
-      <div>
-        <label>Confirm New Password</label>
-        <input type="password" v-model="confirmPassword" required />
-      </div>
-      <button type="submit">Update Password</button>
-    </form>
+    <div class="w-full min-h-screen flex items-center justify-center bg-gray-100">
+        <form @submit.prevent="submit" class="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md md:w-96 w-fit">
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Email</label>
+            <input type="email" v-model="email" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Old Password</label>
+            <input type="password" v-model="oldPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">New Password</label>
+            <input type="password" v-model="newPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 text-sm font-bold mb-2">Confirm New Password</label>
+            <input type="password" v-model="confirmPassword" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <button type="submit" class="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500">Update Password</button>
+        </form>
+    </div>
   </template>
   
   <script setup>
@@ -48,4 +50,3 @@
     }
   };
   </script>
-  

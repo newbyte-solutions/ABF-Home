@@ -65,6 +65,9 @@
       <div class="mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit" v-if="company && company._id">
         <EditCompanyContent :companyId="company._id" />
       </div>
+      <div class="mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit" v-if="company && company._id">
+        <CreateArticleStudents :companyId="company._id" />
+      </div>
     </div>
   </template>
   

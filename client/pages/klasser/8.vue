@@ -9,7 +9,7 @@
     </div>
     <h2 class="text-center text-2xl font-semibold my-10">Klasseliste</h2>
     <div class="w-full px-4 md:px-20">
-      <p class="text-center">Liste, Over, Elever, I, Klassen, .</p>
+      <GradeListComponent grade="8" />
     </div>
     <div class="my-20"></div>
   </div>

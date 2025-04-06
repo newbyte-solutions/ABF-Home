@@ -11,7 +11,7 @@
         <img
           :src="news.articleImageUrl || 'https://placehold.co/300x200'"
           alt="News image"
-          class="max-w-full max-h-[200px] drop-shadow-xl object-cover"
+          class="max-w-full max-h-[200px] drop-shadow-xl object-cover mx-auto"
         />
         <h1 class="text-xl font-semibold text-center my-4">
           {{ news.articleTitle }}
@@ -20,17 +20,6 @@
           {{ news.articleDescription }}
         </p>
         <div class="absolute bottom-4 left-1/2 -translate-x-1/2">
-          <button
-            :class="[
-              'px-4 py-2 border-2 transition',
-              grade === '8' ? 'border-green-400 hover:bg-green-400' :
-              grade === '9' ? 'border-indigo-400 hover:bg-indigo-400' :
-              grade === '10' ? 'border-orange-400 hover:bg-orange-400' :
-              'border-gray-400 hover:bg-gray-400'
-            ]"
-          >
-            Les Mer
-          </button>
         </div>
       </router-link>
     </div>

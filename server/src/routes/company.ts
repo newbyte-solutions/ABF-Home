@@ -135,7 +135,7 @@ router.delete(
   },
 );
 
-router.put("/update_content/:id", async (req: Request, res: Response): Promise<void> => {
+router.put("/update_content/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_content/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -157,7 +157,7 @@ router.put("/update_content/:id", async (req: Request, res: Response): Promise<v
   },
 );
 
-router.put("/update_students/:id", async (req: Request, res: Response): Promise<void> => {
+router.put("/update_students/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
   console.log(`PUT /company/update_students/${req.params.id}`);
   try {
       const company = await Company.findById(req.params.id);
@@ -193,7 +193,7 @@ router.put("/update_students/:id", async (req: Request, res: Response): Promise<
   }
 });
 
-router.put("/update_tags/:id", async (req: Request, res: Response): Promise<void> => {
+router.put("/update_tags/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_tags/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -215,7 +215,7 @@ router.put("/update_tags/:id", async (req: Request, res: Response): Promise<void
   },
 );
 
-router.put("/update_description/:id", async (req: Request, res: Response): Promise<void> => {
+router.put("/update_description/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_description/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -237,7 +237,7 @@ router.put("/update_description/:id", async (req: Request, res: Response): Promi
   },
 );
 
-router.get("/user_company/:username", async (req: Request, res: Response): Promise<void> => {
+router.get("/user_company/:username", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
   console.log(`GET /company/user_company/${req.params.username}`);
   try {
       const user = req.params.username;

@@ -39,6 +39,7 @@ const upload = multer({
 
 router.post(
   "/new_article",
+  [isAdmin, isStudent],
   upload.single("articleImage"),
   async (req: Request, res: Response): Promise<void> => {
     console.log(`Creating new article with title: ${req.body.articleTitle}`);
@@ -112,7 +113,7 @@ router.get(
 );
 
 // Delete article by id
-router.delete("/article/:id", async (req: Request, res: Response): Promise<void> => {
+router.delete("/article/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
   console.log(`Attempting to delete article with ID: ${req.params.id}`);
   try {
     const article = await Article.findByIdAndDelete(req.params.id);

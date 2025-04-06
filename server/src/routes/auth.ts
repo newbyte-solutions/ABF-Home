@@ -188,6 +188,38 @@ router.post(
   },
 );
 
+router.post('/update-password',   async (req: Request, res: Response): Promise<void> => {
+  const { email, oldPassword, newPassword } = req.body;
+  console.log("[Auth] Attempting to update password for user:", email);
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      console.log("[Auth] Password update failed: User not found -", email);
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    const isMatch = await bcrypt.compare(oldPassword, user.password);
+    if (!isMatch) {
+      console.log("[Auth] Password update failed: Incorrect old password -", email);
+      res.status(400).json({ message: 'Old password is incorrect' });
+      return;
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    await user.save();
+
+    console.log("[Auth] Password updated successfully for user:", email);
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('[Auth] Error updating password:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // Logout
 router.post("/logout", (req: Request, res: Response) => {
   const userEmail = req.session.user?.email;

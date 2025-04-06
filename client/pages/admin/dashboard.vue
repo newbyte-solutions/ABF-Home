@@ -45,13 +45,14 @@
         this.id = response.data.user.id;
 
         if (response.data.user.role !== "admin") {
-          alert("Not authorized - please log in as an admin");
           this.$router.push("/");
+          console.log("Not an admin, redirecting to home page.");
           return;
         }
       } catch (error) {
         console.error("error fetching user:", error);
-        alert("Failed to authenticate user. Please check your credentials.");
+        this.$router.push("/");
+        console.log("Error fetching user, redirecting to home page.");
       }
     },  
   };

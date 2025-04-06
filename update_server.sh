@@ -38,15 +38,16 @@ else
     echo "No docker-compose.yml found. Skipping docker compose down."
 fi
 
-# Step 4: Remove the old project folder
-echo "Removing old ABF-Home folder..."
-rm -rf "$PROJECT_DIR"
+# Step 4: Update project via git pull or clone if missing
+if [ -d "$PROJECT_DIR/.git" ]; then
+    echo "Project exists. Pulling latest changes..."
+    (cd "$PROJECT_DIR" && git reset --hard && git pull)
+else
+    echo "Project folder not found. Cloning repository..."
+    git clone "$REPO_URL" "$PROJECT_DIR"
+fi
 
-# Step 5: Clone the latest version from GitHub
-echo "Cloning the latest ABF-Home repo..."
-git clone "$REPO_URL"
-
-# Step 5.1: Copy local .env into the project
+# Step 4.1: Copy local .env into the project
 if [ -f "/root/config/.env" ]; then
     echo "Copying local .env into project..."
     cp /root/config/.env "$PROJECT_DIR/server/config/.env"
@@ -55,8 +56,9 @@ else
     exit 1
 fi
 
-# Step 7: Start new containers (including MongoDB if defined in compose)
+# Step 5: Start new containers (including MongoDB if defined in compose)
 echo "Starting docker compose with build..."
 (cd "$PROJECT_DIR" && docker compose up --build -d)
+
 
 echo "Update process completed successfully."

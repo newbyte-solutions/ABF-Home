@@ -146,7 +146,7 @@ router.post(
   "/register",
   isAdmin,
   async (req: Request, res: Response): Promise<void> => {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, phone, grade } = req.body;
     console.log("[Auth] Attempting to register new user:", email);
 
     if (!username || !email || !password || !role) {
@@ -171,6 +171,8 @@ router.post(
         email,
         password: hashedPassword,
         role,
+        phone,
+        grade,
       });
       await newUser.save();
 

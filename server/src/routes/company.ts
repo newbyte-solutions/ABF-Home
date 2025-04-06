@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
-import { isAdmin, isStudent } from "../middleware/auth";
+import { isAdmin, isStudent, isAdminOrStudent } from "../middleware/auth";
 import Company from "../models/company";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import User from "../models/user";
 
 const router = express.Router();
 
@@ -135,7 +134,7 @@ router.delete(
   },
 );
 
-router.put("/update_content/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.put("/update_content/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_content/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -157,7 +156,7 @@ router.put("/update_content/:id", [isAdmin, isStudent], async (req: Request, res
   },
 );
 
-router.put("/update_students/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.put("/update_students/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
   console.log(`PUT /company/update_students/${req.params.id}`);
   try {
       const company = await Company.findById(req.params.id);
@@ -193,7 +192,7 @@ router.put("/update_students/:id", [isAdmin, isStudent], async (req: Request, re
   }
 });
 
-router.put("/update_tags/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.put("/update_tags/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_tags/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -215,7 +214,7 @@ router.put("/update_tags/:id", [isAdmin, isStudent], async (req: Request, res: R
   },
 );
 
-router.put("/update_description/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.put("/update_description/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_description/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
@@ -237,7 +236,7 @@ router.put("/update_description/:id", [isAdmin, isStudent], async (req: Request,
   },
 );
 
-router.get("/user_company/:username", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.get("/user_company/:username", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
   console.log(`GET /company/user_company/${req.params.username}`);
   try {
       const user = req.params.username;

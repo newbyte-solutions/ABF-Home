@@ -3,7 +3,7 @@ import Article from "../models/article";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
-import { isAdmin, isStudent } from "../middleware/auth";
+import { isAdminOrStudent } from "../middleware/auth";
 const router = express.Router();
 
 // Multer storage configuration for handling file uploads
@@ -39,7 +39,7 @@ const upload = multer({
 
 router.post(
   "/new_article",
-  [isAdmin, isStudent],
+  isAdminOrStudent,
   upload.single("articleImage"),
   async (req: Request, res: Response): Promise<void> => {
     console.log(`Creating new article with title: ${req.body.articleTitle}`);
@@ -113,7 +113,7 @@ router.get(
 );
 
 // Delete article by id
-router.delete("/article/:id", [isAdmin, isStudent], async (req: Request, res: Response): Promise<void> => {
+router.delete("/article/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
   console.log(`Attempting to delete article with ID: ${req.params.id}`);
   try {
     const article = await Article.findByIdAndDelete(req.params.id);

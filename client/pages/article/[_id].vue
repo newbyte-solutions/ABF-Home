@@ -8,7 +8,7 @@
           <img
             :src="article.articleImageUrl"
             alt="Article Image"
-            class="h-3/4 w-3/4 md:h-2/4 md:w-2/4 object-cover rounded-lg"
+            class="h-1/4 w-1/4 md:max-w-96 object-cover rounded-lg"
           />
         </div>
         <h1
@@ -23,11 +23,11 @@
           class="flex flex-wrap gap-4 text-sm md:text-base text-gray-600 flex absolute bottom-4 left-1/2 -translate-x-1/2"
         >
           <span class="flex items-center">
-            <span class="font-semibold mr-1">Author:</span>
+            <span class="font-semibold mr-1">Forfatter:</span>
             {{ article.articleAuthor }}
           </span>
           <span class="flex items-center">
-            <span class="font-semibold mr-1">Published:</span>
+            <span class="font-semibold mr-1">Utgitt:</span>
             {{ formatDate(article.articlePublishedDate) }}
           </span>
         </div>

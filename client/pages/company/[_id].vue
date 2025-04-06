@@ -7,7 +7,7 @@
         <p class="text-lg text-gray-600 text-center mb-8">{{ company.companyDescription }}</p>
         <div class="grid grid-cols-2 gap-8 mb-8">
           <div class="bg-gray-100 p-6 rounded-lg">
-            <h3 class="text-xl font-semibold mb-2">Students:</h3>
+            <h3 class="text-xl font-semibold mb-2">Elever:</h3>
             <ul class="text-gray-700 flex flex-col md:flex-row md:space-y-0 space-x-0 md:space-x-2 space-y-2">
               <li v-for="studentId in company.companyStudents" :key="studentId">
                 {{ userMap[studentId] || 'Loading...' }},
@@ -15,8 +15,8 @@
             </ul>
           </div>
           <div class="bg-gray-100 p-6 rounded-lg">
-            <h3 class="text-xl font-semibold mb-2">Grade:</h3>
-            <p class="text-gray-700">{{ company.companyGrade }}</p>
+            <h3 class="text-xl font-semibold mb-2">Klasse:</h3>
+            <p class="text-gray-700">{{ company.companyGrade }}.</p>
           </div>
         </div>
         <div class="flex justify-center mb-8">

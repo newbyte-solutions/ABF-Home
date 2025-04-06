@@ -59,21 +59,4 @@ fi
 echo "Starting docker compose with build..."
 (cd "$PROJECT_DIR" && docker compose up --build -d)
 
-# Step 8: Restore MongoDB data if backup exists
-if [ -n "$MONGO_BACKUP" ]; then
-    echo "Restoring MongoDB data..."
-    # Give MongoDB some time to start
-    sleep 10
-    NEW_MONGO_CONTAINER=$(docker ps --filter "name=$MONGO_CONTAINER" --format "{{.Names}}")
-    if [ -n "$NEW_MONGO_CONTAINER" ]; then
-        docker cp "$MONGO_BACKUP/backup" "$NEW_MONGO_CONTAINER":/data/backup
-        docker exec "$NEW_MONGO_CONTAINER" mongorestore /data/backup
-        echo "MongoDB data restored."
-    else
-        echo "MongoDB container not found after compose up. Skipping MongoDB restore."
-    fi
-else
-    echo "No MongoDB backup found. Skipping MongoDB restore."
-fi
-
 echo "Update process completed successfully."

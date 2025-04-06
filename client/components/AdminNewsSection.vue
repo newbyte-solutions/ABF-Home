@@ -12,7 +12,6 @@
           <div class="text-sm text-gray-500 mt-2">
             Published: {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
           </div>
-          <!-- Changed form to direct button click -->
           <button @click="deleteArticle(article._id)" class="text-red-500">Delete</button>
         </li>
       </ul>

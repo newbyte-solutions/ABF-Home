@@ -188,7 +188,7 @@ router.post(
   },
 );
 
-router.post('/update-password',   async (req: Request, res: Response): Promise<void> => {
+router.post('/update_password',   async (req: Request, res: Response): Promise<void> => {
   const { email, oldPassword, newPassword } = req.body;
   console.log("[Auth] Attempting to update password for user:", email);
 

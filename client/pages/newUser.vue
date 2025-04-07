@@ -38,7 +38,7 @@
     }
   
     try {
-      const response = await axios.post(`${publicConfig.apibase}/auth/update_password`, {
+      const response = await axios.post(`${publicConfig.apiBase}/auth/update_password`, {
         email: email.value,
         oldPassword: oldPassword.value,
         newPassword: newPassword.value,

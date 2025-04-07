@@ -38,6 +38,7 @@
     }
   
     try {
+      const { public: publicConfig } = useRuntimeConfig();
       const response = await axios.post(`${publicConfig.apiBase}/auth/update_password`, {
         email: email.value,
         oldPassword: oldPassword.value,

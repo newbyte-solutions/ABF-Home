@@ -8,7 +8,7 @@
             :to="`/company/${company._id}`" 
             class="transform hover:scale-105 transition-transform duration-200"
             >
-            <div class="relative bg-white rounded-lg shadow-md overflow-hidden max-w-[16rem] h-full max-h-[24rem] flex flex-col">
+            <div class="relative bg-gray-100 rounded-lg shadow-md overflow-hidden max-w-[16rem] h-full max-h-[24rem] flex flex-col">
                 <img
                 :src="company.companyLogo || 'https://placehold.co/400x400'"
                 :alt="company.companyName"

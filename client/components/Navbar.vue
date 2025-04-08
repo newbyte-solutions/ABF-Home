@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-20 bg-white text-black absolute drop-shadow-2xl z-20">
+  <div class="w-full h-20 fixed top-0 transition-colors duration-300 text-black z-20" :class="{ 'bg-white drop-shadow-2xl': !isAtTop, 'bg-transparent': isAtTop }">
     <div class="w-full h-20 flex justify-center py-5 items-start">
       <div class="absolute left-10">
         <h1 class="tracking-wider text-3xl font-bold">HUS</h1>
@@ -92,7 +92,19 @@ export default {
   data() {
     return {
       isOpen: false,
+      isAtTop: true
     };
   },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.handleScroll);
+  },
+  methods: {
+    handleScroll() {
+      this.isAtTop = window.scrollY < 10;
+    }
+  }
 };
 </script>

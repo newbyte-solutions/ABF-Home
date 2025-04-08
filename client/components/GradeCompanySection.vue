@@ -1,6 +1,6 @@
 <template>
     <h2 class="text-center text-2xl font-semibold mb-4">Elevbedrifter</h2>
-    <div class="w-full px-0 md:px-10">
+    <div class="w-full px-0 md:px-10 flex flex-col items-center">
       <div v-if="companies.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         <router-link 
             v-for="company in companies" 

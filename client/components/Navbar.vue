@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-20 fixed top-0 transition-colors duration-300 text-black z-20" :class="{ 'bg-white drop-shadow-2xl': !isAtTop, 'bg-transparent': isAtTop }">
+  <div class="w-full h-20 fixed top-0 transition-colors duration-300 z-20 border-b-2 border-white" :class="{ 'bg-white drop-shadow-2xl text-black': !isAtTop, 'bg-transparent text-white': isAtTop }">
     <div class="w-full h-20 flex justify-center py-5 items-start">
       <div class="absolute left-10">
         <h1 class="tracking-wider text-3xl font-bold">HUS</h1>

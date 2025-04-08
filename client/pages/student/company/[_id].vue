@@ -30,7 +30,7 @@
           <div class="col-span-2">
             <p class="text-gray-400">Website:</p>
             <a :href="`https://husarbeidslivsfag.com/company/${company._id}`" target="_blank" class="text-blue-400 underline">
-              {{ company.companyWebsite }}
+              https://husarbeidslivsfag.com/company/{{ company._id }}
             </a>
           </div>
           <div class="col-span-2">

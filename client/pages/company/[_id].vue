@@ -26,7 +26,7 @@
             </svg>
           </div>
         </div>
-        <CompanyNewsSection companyId="company.id" v-if="company" />
+          <CompanyNewsSection :companyId="company.id" v-if="company" />
         <div class="prose max-w-none" v-html="marked(company.companyContent || '')"></div>
     </div>
   </div>

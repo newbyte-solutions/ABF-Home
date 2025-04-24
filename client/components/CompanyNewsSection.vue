@@ -30,6 +30,9 @@
 
   const fetchNews = async () => {
     const { public: publicConfig } = useRuntimeConfig()
+    console.log('Company ID from props:', props.companyId)
+    console.log('Raw articles from API:', response.data)
+
     console.log('Fetching news for company:', props.companyId)
     try {
       const response = await axios.get(`${publicConfig.apiBase}/news/`)

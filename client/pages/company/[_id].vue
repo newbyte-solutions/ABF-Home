@@ -69,6 +69,7 @@ const fetchStudentNames = async (studentIds) => {
 onMounted(async () => {
     const { public: publicConfig } = useRuntimeConfig();
     await fetchStudents();
+    console.log("Company loaded:", company.value)
 
     try {
       const { data } = await axios.get(`${publicConfig.apiBase}/company/${route.params._id}`, {

@@ -81,7 +81,6 @@
     data() {
       return {
         company: {},
-        user: {},
         userMap: {},
       };
     },
@@ -111,22 +110,8 @@
       const { public: publicConfig } = useRuntimeConfig();
   
       try {
-        const [userResponse, companyResponse] = await Promise.all([
-          axios.get(`${publicConfig.apiBase}/auth/me`, { withCredentials: true }),
-          axios.get(`${publicConfig.apiBase}/company/${this.$route.params._id}`, { withCredentials: true }),
-        ]);
-  
-        const user = userResponse.data.user;
-  
-        if (!user || user.role !== "student") {
-          alert("Not authorized - please log in as a student");
-          this.$router.push("/");
-          return;
-        }
-  
-        this.user = user;
+        const companyResponse = await axios.get(`${publicConfig.apiBase}/company/${this.$route.params._id}`, { withCredentials: true });
         this.company = companyResponse.data;
-  
         await this.fetchStudentNames(this.company.companyStudents);
       } catch (error) {
         console.error("Error fetching data:", error);

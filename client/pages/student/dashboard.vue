@@ -26,6 +26,9 @@
       >
         Bedrift portal
       </button>
+      <div class="absolute bottom-10 right-10">
+        <LogoutButton />
+      </div>
     </div>
   </div>
 </template>

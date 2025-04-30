@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { isAdmin, isStudent } from "../middleware/auth";
+import { isAdmin, isStudent, isAdminOrStudent, isLoggedIn } from "../middleware/auth";
 import mongoose from "mongoose";
 import { promises } from "dns";
 
@@ -362,4 +362,9 @@ router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+router.get("/checkAuth", isLoggedIn, (req: Request, res: Response): void => {
+  res.status(200).json({ message: "User is authenticated" });
+});
+
 export default router;

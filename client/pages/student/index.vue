@@ -59,6 +59,19 @@ export default {
       password: "",
     };
   },
+  async mounted() {
+    const { public: publicConfig } = useRuntimeConfig();
+    try {
+      const response = await axios.get(`${publicConfig.apiBase}/check_auth`, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        this.$router.push("/student/dashboard");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+    }
+  },
   methods: {
     async handleLogin() {
       const { public: publicConfig } = useRuntimeConfig();

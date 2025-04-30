@@ -63,6 +63,19 @@ export default {
       loginError: false,
     };
   },
+  async created() {
+    const { public: publicConfig } = useRuntimeConfig();
+    try {
+      const response = await axios.get(`${publicConfig.apiBase}/check_auth`, {
+        withCredentials: true,
+      });
+      if (response.status === 200) {
+        this.$router.push("/admin/dashboard");
+      }
+    } catch (error) {
+      console.error("Auth check failed:", error);
+    }
+  },
   methods: {
     async handleLogin() {
       const { public: publicConfig } = useRuntimeConfig();

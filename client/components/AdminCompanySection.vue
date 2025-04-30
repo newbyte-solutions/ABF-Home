@@ -11,7 +11,7 @@
                         <div class="w-full md:w-3/4">
                             <div class="flex justify-between items-start">
                                 <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ company.companyName }}</h2>
-                                <div class="flex flex-col space-y-4">
+                                <div class="flex flex-row space-x-4">
                                     <button @click="deleteCompany(company._id)" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
                                         Delete
                                     </button>

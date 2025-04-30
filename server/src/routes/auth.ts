@@ -363,7 +363,7 @@ router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
   }
 });
 
-router.get("/checkAuth", isLoggedIn, (req: Request, res: Response): void => {
+router.get("/check_auth", isLoggedIn, (req: Request, res: Response): void => {
   res.status(200).json({ message: "User is authenticated" });
 });
 

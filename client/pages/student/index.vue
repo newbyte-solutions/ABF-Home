@@ -62,7 +62,7 @@ export default {
   async mounted() {
     const { public: publicConfig } = useRuntimeConfig();
     try {
-      const response = await axios.get(`${publicConfig.apiBase}/check_auth`, {
+      const response = await axios.get(`${publicConfig.apiBase}/auth/check_auth`, {
         withCredentials: true,
       });
       if (response.status === 200) {

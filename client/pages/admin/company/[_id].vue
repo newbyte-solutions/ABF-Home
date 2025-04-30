@@ -1,4 +1,5 @@
 <template>
+  <CheckAdmin />
   <div class="container mx-auto p-4">
     <div v-if="company" class="max-w-2xl mx-auto">
       <h1 class="text-2xl font-bold mb-6">Edit Company</h1>

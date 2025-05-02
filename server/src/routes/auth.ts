@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
 import { isAdmin, isStudent, isAdminOrStudent, isLoggedIn } from "../middleware/auth";
@@ -361,10 +361,6 @@ router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
     console.error("[Auth] Error deleting user:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
-});
-
-router.get("/check_auth", isLoggedIn, (req: Request, res: Response): void => {
-  res.status(200).json({ message: "User is authenticated" });
 });
 
 export default router;

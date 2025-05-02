@@ -62,14 +62,14 @@ export default {
   async mounted() {
     const { public: publicConfig } = useRuntimeConfig();
     try {
-      const response = await axios.get(`${publicConfig.apiBase}/auth/check_auth`, {
+      const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
         withCredentials: true,
       });
-      if (response.status === 200) {
+      if (response.data && response.data.user.role === 'student') {
         this.$router.push("/student/dashboard");
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      console.error("Session check failed:", error);
     }
   },
   methods: {

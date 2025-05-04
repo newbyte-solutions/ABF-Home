@@ -49,10 +49,9 @@
         :companyId="company.id"
       />
       <div
-        class="prose max-w-none"
+        class="prose max-w-none md:max-w-4xl mx-auto w-full md:w-auto"
         v-html="marked(company.companyContent || '')"
-      ></div>
-    </div>
+      ></div>    </div>
   </div>
 </template>
 

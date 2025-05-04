@@ -19,8 +19,12 @@
           <ul
             class="text-gray-700 flex flex-col md:flex-row md:space-y-0 space-x-0 md:space-x-2 space-y-2"
           >
-            <li v-for="(studentId, index) in company.companyStudents" :key="studentId">
-              {{ userMap[studentId] }}{{ index !== company.companyStudents.length - 1 ? ',' : '' }}
+            <li
+              v-for="(studentId, index) in company.companyStudents"
+              :key="studentId"
+            >
+              {{ userMap[studentId]
+              }}{{ index !== company.companyStudents.length - 1 ? "," : "" }}
             </li>
           </ul>
         </div>
@@ -49,9 +53,9 @@
         :companyId="company._id"
       />
       <div
-        class=" mt-10 prose max-w-none md:max-w-4xl mx-auto w-full md:w-auto"
+        class="mt-10 prose max-w-none md:max-w-4xl mx-auto w-full md:w-auto"
         v-html="marked(company.companyContent || '')"
-      ></div>    
+      ></div>
     </div>
   </div>
 </template>
@@ -113,5 +117,4 @@ onMounted(async () => {
     console.error("Error fetching company:", error);
   }
 });
-
 </script>

@@ -1,4 +1,4 @@
-  <template>
+<template>
   <div class="w-full min-h-screen flex-col">
     <div
       class="w-full flex items-center justify-center py-4 bg-gray-800 text-white"
@@ -16,16 +16,22 @@
             <h2 class="text-2xl font-bold mb-4 text-gray-800">
               {{ article.articleTitle }}
             </h2>
-            <div class="text-gray-600 mb-4">{{ article.articleDescription }}</div>
+            <div class="text-gray-600 mb-4">
+              {{ article.articleDescription }}
+            </div>
             <div class="prose mb-4" v-html="article.articleContent"></div>
-            <div class="text-gray-600 mb-2">Tags: {{ article.articleTags }}</div>
-            <div class="text-gray-600 mb-2">Forfatter: {{ article.articleAuthor }}</div>
+            <div class="text-gray-600 mb-2">
+              Tags: {{ article.articleTags }}
+            </div>
+            <div class="text-gray-600 mb-2">
+              Forfatter: {{ article.articleAuthor }}
+            </div>
             <div class="text-sm text-gray-500 mb-4">
               Gitt ut:
               {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
             </div>
-            <button 
-              @click="deleteArticle(article._id)" 
+            <button
+              @click="deleteArticle(article._id)"
               class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-200"
             >
               Slett

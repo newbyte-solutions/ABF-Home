@@ -58,7 +58,11 @@ const fetchNews = async () => {
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
     console.log("Raw articles from API:", response.data);
 
-    console.log("News API response received:", response.data.length, "articles");
+    console.log(
+      "News API response received:",
+      response.data.length,
+      "articles",
+    );
     articles.value = response.data.filter(
       (item) => item.articleCompany === props.companyId,
     );

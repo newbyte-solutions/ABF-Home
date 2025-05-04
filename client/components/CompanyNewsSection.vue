@@ -1,20 +1,33 @@
 <template>
-  <div class="p-5">
-    <div
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto"
+  <h2 class="text-center text-2xl font-semibold my-4">Nyheter</h2>
+  <div
+    class="w-full h-fit px-4 md:px-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10"
+  >
+    <router-link
+      v-for="article in filteredNews"
+      :key="article._id"
+      :to="`/article/${article._id}`"
+      class="w-full md:w-auto"
     >
       <div
-        v-for="article in filteredNews"
-        :key="article._id"
-        class="bg-white rounded-lg p-5 shadow-md"
+        class="w-full md:w-56 h-auto md:max-h-96 bg-gray-50 hover:scale-105 transition-transform duration-300 rounded-lg shadow-lg border border-gray-200 p-4"
       >
-        <h3 class="mt-0 mb-2.5">{{ article.articleTitle }}</h3>
-        <p>{{ article.articleDescription }}</p>
-        <span class="text-gray-600 text-sm">{{
-          formatDate(article.articlePublishedDate)
-        }}</span>
+        <img
+          :src="article.articleImageUrl || 'https://placehold.co/300x200'"
+          alt="Article image"
+          class="w-full h-[200px] object-cover object-center rounded-md mb-4"
+        />
+        <h1 class="text-xl font-semibold text-center mb-2 line-clamp-2">
+          {{ article.articleTitle }}
+        </h1>
+        <p class="px-2 text-center text-sm text-gray-600 line-clamp-3 mb-6">
+          {{ article.articleDescription }}
+        </p>
+        <span class="block text-center text-xs text-gray-500">
+          {{ formatDate(article.articlePublishedDate) }}
+        </span>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -39,16 +52,13 @@ const filteredNews = computed(() => {
 const fetchNews = async () => {
   const { public: publicConfig } = useRuntimeConfig();
   console.log("Company ID from props:", props.companyId);
-  console.log("Raw articles from API:", response.data);
 
   console.log("Fetching news for company:", props.companyId);
   try {
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
-    console.log(
-      "News API response received:",
-      response.data.length,
-      "articles",
-    );
+    console.log("Raw articles from API:", response.data);
+
+    console.log("News API response received:", response.data.length, "articles");
     articles.value = response.data.filter(
       (item) => item.articleCompany === props.companyId,
     );

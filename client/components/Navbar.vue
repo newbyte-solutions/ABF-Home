@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full h-20 fixed top-0 transition-colors duration-300 z-20 bg-white text-black">
+  <div
+    class="w-full h-20 fixed top-0 transition-colors duration-300 z-20 bg-white text-black"
+  >
     <div class="w-full h-20 flex justify-center py-5 items-start">
       <div class="absolute left-10">
         <h1 class="tracking-wider text-3xl font-bold">HUS</h1>
@@ -92,19 +94,19 @@ export default {
   data() {
     return {
       isOpen: false,
-      isAtTop: true
+      isAtTop: true,
     };
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   },
   unmounted() {
-    window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   },
   methods: {
     handleScroll() {
       this.isAtTop = window.scrollY < 10;
-    }
-  }
+    },
+  },
 };
 </script>

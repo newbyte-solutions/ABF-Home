@@ -5,7 +5,7 @@
     <h1 class="mt-20 font-bold text-5xl text-white">9. Klasse</h1>
   </div>
   <div class="w-full min-h-screen py-4 bg-white text-black flex flex-col">
-   <GradeCompanySection grade="9"/>
+    <GradeCompanySection grade="9" />
     <div class="w-full flex flex-col justify-center items-center">
       <NewsSection grade="9" />
     </div>

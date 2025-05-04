@@ -9,7 +9,9 @@
       :to="`/article/${news._id}`"
       class="w-full md:w-auto"
     >
-      <div class="w-full md:w-56 h-auto md:h-80 bg-gray-100 hover:scale-105 transition-transform duration-300 rounded-lg shadow-md p-4">
+      <div
+        class="w-full md:w-56 h-auto md:h-80 bg-gray-100 hover:scale-105 transition-transform duration-300 rounded-lg shadow-md p-4"
+      >
         <img
           :src="news.articleImageUrl || 'https://placehold.co/300x200'"
           alt="News image"
@@ -31,7 +33,8 @@
         'px-6 py-3 border-2 rounded-md transition-colors duration-300': true,
         'border-green-400 hover:bg-green-400 hover:text-white': grade === '8',
         'border-indigo-400 hover:bg-indigo-400 hover:text-white': grade === '9',
-        'border-orange-400 hover:bg-orange-400 hover:text-white': grade === '10',
+        'border-orange-400 hover:bg-orange-400 hover:text-white':
+          grade === '10',
       }"
     >
       Se mer
@@ -55,12 +58,13 @@ onMounted(async () => {
   try {
     const { public: publicConfig } = useRuntimeConfig();
     const response = await axios.get(`${publicConfig.apiBase}/news/`);
-    newsItems.value = props.grade 
-      ? response.data.filter((news) => news.articleGrade === props.grade).slice(0, 3)
+    newsItems.value = props.grade
+      ? response.data
+          .filter((news) => news.articleGrade === props.grade)
+          .slice(0, 3)
       : response.data.slice(0, 3);
   } catch (error) {
     console.error("Error fetching news:", error);
   }
 });
-
 </script>

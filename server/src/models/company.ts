@@ -20,7 +20,7 @@ interface ICompany extends Document {
 const CompanySchema: Schema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    auto: true
+    auto: true,
   },
   companyName: {
     type: String,

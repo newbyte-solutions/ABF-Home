@@ -33,11 +33,15 @@ const upload = multer({
       path.extname(file.originalname).toLowerCase(),
     );
     const mimetype = allowedTypes.test(file.mimetype);
-    console.log(`File upload attempt - Filename: ${file.originalname}, Mimetype: ${file.mimetype}`);
+    console.log(
+      `File upload attempt - Filename: ${file.originalname}, Mimetype: ${file.mimetype}`,
+    );
     if (extname && mimetype) {
       return cb(null, true);
     }
-    console.error(`File upload rejected - Invalid file type: ${file.originalname}`);
+    console.error(
+      `File upload rejected - Invalid file type: ${file.originalname}`,
+    );
     cb(new Error("Only image files are allowed!"));
   },
 });
@@ -134,54 +138,61 @@ router.delete(
   },
 );
 
-router.put("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
-  console.log(`PUT /company/${req.params.id}`)
-  try {
-    const existingCompany = await Company.findById(req.params.id)
-    if (!existingCompany) {
-      res.status(404).json({ message: "Company not found" })
-      return
-    }
-
-    // Merge editable fields (or simply Object.assign for everything)
-    const updatableFields = [
-      "companyName",
-      "companyEmail",
-      "companyPhone",
-      "companyContactPerson",
-      "companyGrade",
-      "companyFounded",
-      "companyDescription",
-      "companyContent",
-      "companyTags",
-      "companyLogo",
-      "companyWebsite",
-      "companyStudents",
-      "companyCreatedAt"
-    ]
-
-    for (const field of updatableFields) {
-      if (field in req.body) {
-        existingCompany.set(field, req.body[field])
+router.put(
+  "/:id",
+  isAdmin,
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`PUT /company/${req.params.id}`);
+    try {
+      const existingCompany = await Company.findById(req.params.id);
+      if (!existingCompany) {
+        res.status(404).json({ message: "Company not found" });
+        return;
       }
+
+      // Merge editable fields (or simply Object.assign for everything)
+      const updatableFields = [
+        "companyName",
+        "companyEmail",
+        "companyPhone",
+        "companyContactPerson",
+        "companyGrade",
+        "companyFounded",
+        "companyDescription",
+        "companyContent",
+        "companyTags",
+        "companyLogo",
+        "companyWebsite",
+        "companyStudents",
+        "companyCreatedAt",
+      ];
+
+      for (const field of updatableFields) {
+        if (field in req.body) {
+          existingCompany.set(field, req.body[field]);
+        }
+      }
+
+      const updatedCompany = await existingCompany.save();
+      console.log(`Successfully updated company: ${req.params.id}`);
+      res.json(updatedCompany);
+    } catch (error) {
+      console.error(`Error updating company ${req.params.id}:`, error);
+      res.status(500).json({ message: "Error updating the company" });
     }
+  },
+);
 
-    const updatedCompany = await existingCompany.save()
-    console.log(`Successfully updated company: ${req.params.id}`)
-    res.json(updatedCompany)
-  } catch (error) {
-    console.error(`Error updating company ${req.params.id}:`, error)
-    res.status(500).json({ message: "Error updating the company" })
-  }
-})
-
-router.put("/update_content/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
+router.put(
+  "/update_content/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_content/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
         { companyContent: req.body.companyContent },
-        { new: true }
+        { new: true },
       );
       if (!company) {
         console.log(`Company not found with ID: ${req.params.id}`);
@@ -197,49 +208,60 @@ router.put("/update_content/:id", isAdminOrStudent, async (req: Request, res: Re
   },
 );
 
-router.put("/update_students/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
-  console.log(`PUT /company/update_students/${req.params.id}`);
-  try {
+router.put(
+  "/update_students/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`PUT /company/update_students/${req.params.id}`);
+    try {
       const company = await Company.findById(req.params.id);
 
       if (!company) {
-          console.log(`Company not found with ID: ${req.params.id}`);
-          res.status(404).json({ message: "Company not found" });
-          return;
+        console.log(`Company not found with ID: ${req.params.id}`);
+        res.status(404).json({ message: "Company not found" });
+        return;
       }
 
       let updatedCompany;
       if (company.companyStudents.includes(req.body.studentId)) {
-          updatedCompany = await Company.findByIdAndUpdate(
-              req.params.id,
-              { $pull: { companyStudents: req.body.studentId } },
-              { new: true }
-          );
-          console.log(`Student ${req.body.studentId} removed from company ${req.params.id}`);
+        updatedCompany = await Company.findByIdAndUpdate(
+          req.params.id,
+          { $pull: { companyStudents: req.body.studentId } },
+          { new: true },
+        );
+        console.log(
+          `Student ${req.body.studentId} removed from company ${req.params.id}`,
+        );
       } else {
-          updatedCompany = await Company.findByIdAndUpdate(
-              req.params.id,
-              { $push: { companyStudents: req.body.studentId } },
-              { new: true }
-          );
-          console.log(`Student ${req.body.studentId} added to company ${req.params.id}`);
+        updatedCompany = await Company.findByIdAndUpdate(
+          req.params.id,
+          { $push: { companyStudents: req.body.studentId } },
+          { new: true },
+        );
+        console.log(
+          `Student ${req.body.studentId} added to company ${req.params.id}`,
+        );
       }
 
       console.log(`Successfully updated company: ${req.params.id}`);
       res.json(updatedCompany);
-  } catch (error) {
+    } catch (error) {
       console.error(`Error updating company ${req.params.id}:`, error);
       res.status(500).json({ message: "Error updating the company" });
-  }
-});
+    }
+  },
+);
 
-router.put("/update_tags/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
+router.put(
+  "/update_tags/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_tags/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
         { companyTags: req.body.companyTags },
-        { new: true }
+        { new: true },
       );
       if (!company) {
         console.log(`Company not found with ID: ${req.params.id}`);
@@ -255,13 +277,16 @@ router.put("/update_tags/:id", isAdminOrStudent, async (req: Request, res: Respo
   },
 );
 
-router.put("/update_description/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
+router.put(
+  "/update_description/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_description/${req.params.id}`);
     try {
       const company = await Company.findByIdAndUpdate(
         req.params.id,
         { companyDescription: req.body.companyDescription },
-        { new: true }
+        { new: true },
       );
       if (!company) {
         console.log(`Company not found with ID: ${req.params.id}`);
@@ -277,25 +302,31 @@ router.put("/update_description/:id", isAdminOrStudent, async (req: Request, res
   },
 );
 
-router.get("/user_company/:username", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
-  console.log(`GET /company/user_company/${req.params.username}`);
-  try {
+router.get(
+  "/user_company/:username",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`GET /company/user_company/${req.params.username}`);
+    try {
       const user = req.params.username;
-      
+
       const company = await Company.findOne({ companyStudents: user });
       if (!company) {
-          console.log(`Company not found for user with ID: ${user}`);
-          res.status(404).json({ message: "Company not found" });
-          return;
+        console.log(`Company not found for user with ID: ${user}`);
+        res.status(404).json({ message: "Company not found" });
+        return;
       }
-      
+
       console.log(`Successfully retrieved company for user: ${user}`);
       res.json(company);
-  } catch (error) {
-      console.error(`Error fetching company for user ${req.params.username}:`, error);
+    } catch (error) {
+      console.error(
+        `Error fetching company for user ${req.params.username}:`,
+        error,
+      );
       res.status(500).json({ message: "Error fetching the company" });
-  }
-});
-
+    }
+  },
+);
 
 export default router;

@@ -11,7 +11,8 @@
       class="mx-10 p-10 min-h-96 bg-white text-black rounded-lg shadow-lg relative"
     >
       <h2 class="font-semibold text-xl">
-        Navn: <span class="font-normal">{{ username || "Ikke autorisert" }}</span>
+        Navn:
+        <span class="font-normal">{{ username || "Ikke autorisert" }}</span>
       </h2>
       <p class="font-semibold text-xl">
         Din bedrift:
@@ -49,7 +50,7 @@ export default {
   },
   async mounted() {
     const { public: publicConfig } = useRuntimeConfig();
-    
+
     try {
       const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
         withCredentials: true,
@@ -65,7 +66,7 @@ export default {
       try {
         const companyResponse = await axios.get(
           `${publicConfig.apiBase}/company/user_company/${this.id}`,
-          { withCredentials: true }
+          { withCredentials: true },
         );
 
         if (companyResponse.data) {

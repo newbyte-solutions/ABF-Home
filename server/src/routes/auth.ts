@@ -1,7 +1,12 @@
 import express, { Request, Response, NextFunction, response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { isAdmin, isStudent, isAdminOrStudent, isLoggedIn } from "../middleware/auth";
+import {
+  isAdmin,
+  isStudent,
+  isAdminOrStudent,
+  isLoggedIn,
+} from "../middleware/auth";
 import mongoose from "mongoose";
 import { promises } from "dns";
 
@@ -21,31 +26,34 @@ router.get("/", async (req: Request, res: Response): Promise<void> => {
 });
 
 // get user by id
-router.get("/get_user/:id", async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
-  console.log("[Auth] Attempting to fetch user by ID:", id);
+router.get(
+  "/get_user/:id",
+  async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    console.log("[Auth] Attempting to fetch user by ID:", id);
 
-  // Check if ID is a valid ObjectId
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    console.log("[Auth] Invalid user ID format:", id);
-    res.status(400).json({ message: "Invalid user ID format" });
-    return;
-  }
-
-  try {
-    const user = await User.findById(id);
-    if (!user) {
-      console.log("[Auth] User not found with ID:", id);
-      res.status(404).json({ message: "User not found" });
+    // Check if ID is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      console.log("[Auth] Invalid user ID format:", id);
+      res.status(400).json({ message: "Invalid user ID format" });
       return;
     }
-    console.log("[Auth] Successfully fetched user:", id);
-    res.status(200).json(user);
-  } catch (error) {
-    console.error("[Auth] Error fetching user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+
+    try {
+      const user = await User.findById(id);
+      if (!user) {
+        console.log("[Auth] User not found with ID:", id);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      console.log("[Auth] Successfully fetched user:", id);
+      res.status(200).json(user);
+    } catch (error) {
+      console.error("[Auth] Error fetching user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+    }
+  },
+);
 
 // Admin Login Route
 router.post(
@@ -64,7 +72,10 @@ router.post(
       console.log("[Auth] Attempting to find admin user with email:", email);
       const user = await User.findOne({ email });
       if (!user || user.role !== "admin") {
-        console.log("[Auth] Admin login failed: Invalid credentials for", email);
+        console.log(
+          "[Auth] Admin login failed: Invalid credentials for",
+          email,
+        );
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
@@ -107,7 +118,9 @@ router.post(
     const { email, password } = req.body;
 
     if (!email || !password) {
-      console.log("[Auth] Student login attempt failed: Missing email or password");
+      console.log(
+        "[Auth] Student login attempt failed: Missing email or password",
+      );
       res.status(400).json({ message: "Email and password are required" });
       return;
     }
@@ -116,7 +129,10 @@ router.post(
       console.log("[Auth] Attempting to find student user with email:", email);
       const user = await User.findOne({ email });
       if (!user || user.role !== "student") {
-        console.log("[Auth] Student login failed: Invalid credentials for", email);
+        console.log(
+          "[Auth] Student login failed: Invalid credentials for",
+          email,
+        );
         res.status(401).json({ message: "Invalid credentials" });
         return;
       }
@@ -130,7 +146,11 @@ router.post(
       }
 
       console.log("[Auth] Password verified, setting up session");
-      req.session.user = { email: user.email, role: user.role, studentId: user.id };
+      req.session.user = {
+        email: user.email,
+        role: user.role,
+        studentId: user.id,
+      };
       req.session.save((err) => {
         if (err) {
           console.error("[Auth] Error saving session:", err);
@@ -151,31 +171,35 @@ router.post(
 );
 
 // Update user
-router.put("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
-  const { id } = req.params;
-  const { username, email, password, role, phone, grade } = req.body;
-  console.log("[Auth] Attempting to update user with ID:", id);
-  try {
-    const user = await User.findById(id);
-    if (!user) {
-      console.log("[Auth] User not found with ID:", id);
-      res.status(404).json({ message: "User not found" });
-      return;
+router.put(
+  "/:id",
+  isAdmin,
+  async (req: Request, res: Response): Promise<void> => {
+    const { id } = req.params;
+    const { username, email, password, role, phone, grade } = req.body;
+    console.log("[Auth] Attempting to update user with ID:", id);
+    try {
+      const user = await User.findById(id);
+      if (!user) {
+        console.log("[Auth] User not found with ID:", id);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      if (username) user.username = username;
+      if (email) user.email = email;
+      if (password) user.password = password;
+      if (role) user.role = role;
+      if (phone) user.phone = phone;
+      if (grade) user.grade = grade;
+      await user.save();
+      console.log("[Auth] User updated successfully:", user);
+      res.status(200).json({ message: "User updated successfully", user });
+    } catch (error) {
+      console.error("[Auth] Error updating user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-    if (username) user.username = username;
-    if (email) user.email = email;
-    if (password) user.password = password;
-    if (role) user.role = role;
-    if (phone) user.phone = phone;
-    if (grade) user.grade = grade;
-    await user.save();
-    console.log("[Auth] User updated successfully:", user);
-    res.status(200).json({ message: "User updated successfully", user });
-  } catch (error) {
-    console.error("[Auth] Error updating user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+  },
+);
 
 // Register a new user (admin only)
 router.post(
@@ -224,37 +248,43 @@ router.post(
   },
 );
 
-router.post('/update_password',   async (req: Request, res: Response): Promise<void> => {
-  const { email, oldPassword, newPassword } = req.body;
-  console.log("[Auth] Attempting to update password for user:", email);
+router.post(
+  "/update_password",
+  async (req: Request, res: Response): Promise<void> => {
+    const { email, oldPassword, newPassword } = req.body;
+    console.log("[Auth] Attempting to update password for user:", email);
 
-  try {
-    const user = await User.findOne({ email });
+    try {
+      const user = await User.findOne({ email });
 
-    if (!user) {
-      console.log("[Auth] Password update failed: User not found -", email);
-      res.status(404).json({ message: 'User not found' });
-      return;
+      if (!user) {
+        console.log("[Auth] Password update failed: User not found -", email);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        console.log(
+          "[Auth] Password update failed: Incorrect old password -",
+          email,
+        );
+        res.status(400).json({ message: "Old password is incorrect" });
+        return;
+      }
+
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save();
+
+      console.log("[Auth] Password updated successfully for user:", email);
+      res.json({ message: "Password updated successfully" });
+    } catch (error) {
+      console.error("[Auth] Error updating password:", error);
+      res.status(500).json({ message: "Server error" });
     }
-
-    const isMatch = await bcrypt.compare(oldPassword, user.password);
-    if (!isMatch) {
-      console.log("[Auth] Password update failed: Incorrect old password -", email);
-      res.status(400).json({ message: 'Old password is incorrect' });
-      return;
-    }
-
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    user.password = hashedPassword;
-    await user.save();
-
-    console.log("[Auth] Password updated successfully for user:", email);
-    res.json({ message: 'Password updated successfully' });
-  } catch (error) {
-    console.error('[Auth] Error updating password:', error);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
+  },
+);
 
 // Logout
 router.post("/logout", (req: Request, res: Response) => {
@@ -272,20 +302,29 @@ router.post("/logout", (req: Request, res: Response) => {
 
 // Check admin
 router.get("/check_admin", isAdmin, (req: Request, res: Response) => {
-  console.log("[Auth] Admin authentication check passed for:", req.session.user?.email);
+  console.log(
+    "[Auth] Admin authentication check passed for:",
+    req.session.user?.email,
+  );
   res.status(200).json({ message: "Admin authenticated", role: "admin" });
 });
 
 // Check student
 router.get("/check_student", isStudent, (req: Request, res: Response) => {
-  console.log("[Auth] Student authentication check passed for:", req.session.user?.email);
+  console.log(
+    "[Auth] Student authentication check passed for:",
+    req.session.user?.email,
+  );
   res.status(200).json({ message: "Student authenticated", role: "student" });
 });
 
 // Check if user is logged in
 router.get("/check_login", (req: Request, res: Response) => {
   if (req.session.user) {
-    console.log("[Auth] Login check: User is logged in -", req.session.user.email);
+    console.log(
+      "[Auth] Login check: User is logged in -",
+      req.session.user.email,
+    );
     res
       .status(200)
       .json({ message: "User is logged in", user: req.session.user });
@@ -298,16 +337,33 @@ router.get("/check_login", (req: Request, res: Response) => {
 // Me
 router.get("/me", async (req: Request, res: Response): Promise<void> => {
   if (req.session.user) {
-    console.log("[Auth] Attempting to fetch user info for:", req.session.user.email);
+    console.log(
+      "[Auth] Attempting to fetch user info for:",
+      req.session.user.email,
+    );
     try {
       const user = await User.findOne({ email: req.session.user.email });
       if (!user) {
-        console.log("[Auth] User not found in database:", req.session.user.email);
+        console.log(
+          "[Auth] User not found in database:",
+          req.session.user.email,
+        );
         res.status(404).json({ message: "User not found" });
         return;
       }
       console.log("[Auth] User info retrieved successfully:", user.email);
-      res.status(200).json({ user: { email: user.email, id: user._id, role: user.role, username: user.username, phone: user.phone, grade: user.grade } });
+      res
+        .status(200)
+        .json({
+          user: {
+            email: user.email,
+            id: user._id,
+            role: user.role,
+            username: user.username,
+            phone: user.phone,
+            grade: user.grade,
+          },
+        });
     } catch (error) {
       console.error("[Auth] Error retrieving user info:", error);
       res.status(500).json({ message: "Internal Server Error" });

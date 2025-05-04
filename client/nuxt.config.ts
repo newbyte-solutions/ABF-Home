@@ -14,10 +14,13 @@ export default defineNuxtConfig({
 
   app: {
     head: {
-      title: 'HUS Arbeidslivsfag',
+      title: "HUS Arbeidslivsfag",
       meta: [
-        { name: 'description', content: `Offisell nettside for Helland Ungdomsskole's arbeidslivsfag.` },
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        {
+          name: "description",
+          content: `Offisell nettside for Helland Ungdomsskole's arbeidslivsfag.`,
+        },
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
       ],
     },
   },

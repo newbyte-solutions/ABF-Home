@@ -10,7 +10,7 @@ onMounted(async () => {
   const { public: publicConfig } = useRuntimeConfig();
   try {
     const request = await axios.get(`${publicConfig.apiBase}/auth/make_admin`, {
-      withCredentials: true
+      withCredentials: true,
     });
   } catch (error) {
     console.error("Error making user", error);

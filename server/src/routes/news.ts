@@ -65,7 +65,7 @@ router.post(
       console.log(`Article created successfully with ID: ${article._id}`);
       res.status(201).json(article);
     } catch (error) {
-      console.error('Error creating article:', error);
+      console.error("Error creating article:", error);
       res.status(500).json({ message: "Error saving the article" });
     }
   },
@@ -73,13 +73,13 @@ router.post(
 
 // Get all articles
 router.get("/", async (req: Request, res: Response): Promise<void> => {
-  console.log('Fetching all articles');
+  console.log("Fetching all articles");
   try {
     const articles = await Article.find();
     console.log(`Found ${articles.length} articles`);
     res.json(articles);
   } catch (error) {
-    console.error('Error fetching articles:', error);
+    console.error("Error fetching articles:", error);
     res.status(500).json({ message: "Failed to fetch articles" });
   }
 });
@@ -91,7 +91,7 @@ router.get(
     const normalizedId = req.params.id;
     console.log(`Fetching article with ID: ${normalizedId}`);
     if (!normalizedId) {
-      console.log('Invalid article ID provided');
+      console.log("Invalid article ID provided");
       res.status(400).json({ message: "Invalid article ID" });
       return;
     }
@@ -106,30 +106,33 @@ router.get(
       console.log(`Successfully retrieved article: ${article.articleTitle}`);
       res.json(article);
     } catch (error) {
-      console.error('Error fetching article:', error);
+      console.error("Error fetching article:", error);
       res.status(500).json({ message: "Failed to fetch the article" });
     }
   },
 );
 
 // Delete article by id
-router.delete("/article/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
-  console.log(`Attempting to delete article with ID: ${req.params.id}`);
-  try {
-    const article = await Article.findByIdAndDelete(req.params.id);
-    if (!article) {
-      console.log(`Article with ID ${req.params.id} not found for deletion`);
-      res.status(404).json({ message: "Article not found" });
-      return;
+router.delete(
+  "/article/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`Attempting to delete article with ID: ${req.params.id}`);
+    try {
+      const article = await Article.findByIdAndDelete(req.params.id);
+      if (!article) {
+        console.log(`Article with ID ${req.params.id} not found for deletion`);
+        res.status(404).json({ message: "Article not found" });
+        return;
+      }
+
+      console.log(`Successfully deleted article with ID: ${req.params.id}`);
+      res.json({ message: "Article deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting article:", error);
+      res.status(500).json({ message: "Failed to delete the article" });
     }
-
-    console.log(`Successfully deleted article with ID: ${req.params.id}`);
-    res.json({ message: "Article deleted successfully" });
-  } catch (error) {
-    console.error('Error deleting article:', error);
-    res.status(500).json({ message: "Failed to delete the article" });
-  }
-});
-
+  },
+);
 
 export default router;

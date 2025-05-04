@@ -69,7 +69,7 @@ export default {
       const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
         withCredentials: true,
       });
-      if (response.data && response.data.user.role === 'admin') {
+      if (response.data && response.data.user.role === "admin") {
         this.$router.push("/admin/dashboard");
       }
     } catch (error) {

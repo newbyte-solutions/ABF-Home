@@ -5,6 +5,8 @@
             <div v-for="user in users" :key="user._id" class="flex justify-between items-center p-2.5 border border-gray-300 rounded">
                 <div class="flex flex-col gap-1">
                     <span>{{ user.name }} {{ user.username }}</span>
+                    <span>Email: {{ user.email }}</span>
+                    <span>Role: {{ user.role }}</span>
                     <span>Created: {{ formatDate(user.createdAt) }}</span>
                 </div>
                 <button @click="deleteUser(user._id)" class="bg-red-500 text-white border-none px-4 py-2 rounded hover:bg-red-700 cursor-pointer">Delete User</button>

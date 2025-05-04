@@ -59,3 +59,16 @@ export const isAdminOrStudent = (
 
   next();
 };
+
+export const isLoggedIn = (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction,
+): void => {
+  if (!req.session?.user) {
+    console.log("[Auth] 401 - Unauthorized");
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+  next();
+};

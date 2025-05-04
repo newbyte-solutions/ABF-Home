@@ -1,8 +1,9 @@
-import express, { Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction, response } from "express";
 import bcrypt from "bcrypt";
 import User from "../models/user";
-import { isAdmin, isStudent } from "../middleware/auth";
+import { isAdmin, isStudent, isAdminOrStudent, isLoggedIn } from "../middleware/auth";
 import mongoose from "mongoose";
+import { promises } from "dns";
 
 const router = express.Router();
 
@@ -342,5 +343,24 @@ router.get(
     }
   },
 );
+
+router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
+  const userId = req.params.id;
+  console.log("[Auth] Attempting to delete user with ID:", userId);
+
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      console.log("[Auth] User not found with ID:", userId);
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    console.log("[Auth] User deleted successfully:", userId);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("[Auth] Error deleting user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 export default router;

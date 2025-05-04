@@ -1,4 +1,5 @@
 <template>
+  <CheckStudent />
   <div class="w-full min-h-screen bg-gray-900 text-white py-14">
     <div class="w-full h-fit py-10 flex flex-col items-center justify-center">
       <h1 class="text-4xl font-semibold border-b-2 border-blue-500 pb-2 px-4">
@@ -25,6 +26,9 @@
       >
         Bedrift portal
       </button>
+      <div class="absolute bottom-10 right-10">
+        <LogoutButton />
+      </div>
     </div>
   </div>
 </template>
@@ -37,8 +41,6 @@ export default {
     return {
       username: "",
       email: "",
-      grade: "",
-      phone: "",
       role: "",
       id: "",
       company: "",
@@ -53,25 +55,13 @@ export default {
         withCredentials: true,
       });
 
-      console.log("Response data:", response.data);
-
       const user = response.data.user;
 
-      if (!user || user.role !== "student") {
-        alert("Not authorized - please log in as a student");
-        this.$router.push("/");
-        return;
-      }
-
-      // Assign user data
       this.username = user.username;
       this.email = user.email;
-      this.grade = user.grade;
-      this.phone = user.phone;
       this.role = user.role;
       this.id = user.id;
 
-      // Fetch company details
       try {
         const companyResponse = await axios.get(
           `${publicConfig.apiBase}/company/user_company/${this.id}`,
@@ -80,7 +70,7 @@ export default {
 
         if (companyResponse.data) {
           this.company = companyResponse.data.companyName;
-          this.companyId = companyResponse.data._id; // Assign company ID
+          this.companyId = companyResponse.data._id;
         }
       } catch (error) {
         console.error("Error fetching company:", error);

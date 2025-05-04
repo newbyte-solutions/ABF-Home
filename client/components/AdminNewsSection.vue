@@ -1,18 +1,24 @@
 <template>
   <div class="w-full min-h-screen flex">
     <div class="container mx-auto p-4">
-      <ul class="divide-y divide-gray-200 border-t border-b">
-        <li v-for="article in articles" :key="article._id" class="mb-6 prose py-6">
-          <h2 class="text-2xl font-bold mb-2">{{ article.articleTitle }}</h2>
-          <div>{{ article.articleDescription }}</div>
-          <div v-html="article.articleContent"></div>
-          <div>{{ article.articleTags }}</div>
-          <div>{{ article.articleAuthor }}</div>
-          <div>{{ article.articleCompany }}</div>
-          <div class="text-sm text-gray-500 mt-2">
-            Published: {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
+      <ul class="space-y-6">
+        <li v-for="article in articles" :key="article._id" class="bg-white rounded-lg shadow-md overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="p-6 md:w-1/3">
+              <h2 class="text-2xl font-bold mb-4">{{ article.articleTitle }}</h2>
+              <div class="mb-3">{{ article.articleDescription }}</div>
+              <div class="text-sm text-gray-600 mb-2">Author: {{ article.articleAuthor }}</div>
+              <div class="text-sm text-gray-600 mb-2">Company: {{ article.articleCompany }}</div>
+              <div class="text-sm text-gray-600 mb-2">Tags: {{ article.articleTags }}</div>
+              <div class="text-sm text-gray-500 mb-4">
+                Published: {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
+              </div>
+              <button @click="deleteArticle(article._id)" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+            </div>
+            <div class="p-6 md:w-2/3 border-t md:border-t-0 md:border-l border-gray-200">
+              <div v-html="article.articleContent" class="prose max-w-none"></div>
+            </div>
           </div>
-          <button @click="deleteArticle(article._id)" class="text-red-500">Delete</button>
         </li>
       </ul>
     </div>

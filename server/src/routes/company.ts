@@ -134,6 +134,47 @@ router.delete(
   },
 );
 
+router.put("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
+  console.log(`PUT /company/${req.params.id}`)
+  try {
+    const existingCompany = await Company.findById(req.params.id)
+    if (!existingCompany) {
+      res.status(404).json({ message: "Company not found" })
+      return
+    }
+
+    // Merge editable fields (or simply Object.assign for everything)
+    const updatableFields = [
+      "companyName",
+      "companyEmail",
+      "companyPhone",
+      "companyContactPerson",
+      "companyGrade",
+      "companyFounded",
+      "companyDescription",
+      "companyContent",
+      "companyTags",
+      "companyLogo",
+      "companyWebsite",
+      "companyStudents",
+      "companyCreatedAt"
+    ]
+
+    for (const field of updatableFields) {
+      if (field in req.body) {
+        existingCompany.set(field, req.body[field])
+      }
+    }
+
+    const updatedCompany = await existingCompany.save()
+    console.log(`Successfully updated company: ${req.params.id}`)
+    res.json(updatedCompany)
+  } catch (error) {
+    console.error(`Error updating company ${req.params.id}:`, error)
+    res.status(500).json({ message: "Error updating the company" })
+  }
+})
+
 router.put("/update_content/:id", isAdminOrStudent, async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/update_content/${req.params.id}`);
     try {

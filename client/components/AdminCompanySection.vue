@@ -1,7 +1,7 @@
 <template>
     <div class="w-full min-h-screen bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <h1 class="text-4xl font-semibold text-gray-900 mb-8">Bedrifter</h1>
+            <h1 class="text-4xl text-center font-semibold text-gray-900 mb-8">Bedrifter</h1>
             <div class="grid gap-6">
                 <div v-for="company in companies" :key="company._id" class="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
                     <div class="flex flex-col md:flex-row md:items-start md:space-x-6">

@@ -45,13 +45,14 @@
         </div>
       </div>
       <CompanyNewsSection
-        v-if="company && company.id"
+        v-if="company"
         :companyId="company.id"
       />
       <div
         class="prose max-w-none md:max-w-4xl mx-auto w-full md:w-auto"
         v-html="marked(company.companyContent || '')"
-      ></div>    </div>
+      ></div>    
+    </div>
   </div>
 </template>
 
@@ -94,7 +95,6 @@ const fetchStudentNames = async (studentIds) => {
 onMounted(async () => {
   const { public: publicConfig } = useRuntimeConfig();
   await fetchStudents();
-  console.log("Company loaded:", company.value);
 
   try {
     const { data } = await axios.get(
@@ -107,8 +107,11 @@ onMounted(async () => {
     if (company.value && company.value.companyStudents) {
       await fetchStudentNames(company.value.companyStudents);
     }
+
+    console.log("Company loaded:", company.value);
   } catch (error) {
     console.error("Error fetching company:", error);
   }
 });
+
 </script>

@@ -44,6 +44,7 @@
             <option value="8">8</option>
             <option value="9">9</option>
             <option value="10">10</option>
+            <option value="100">Lærar</option>
           </select>
         </div>
         <div class="mb-8">

@@ -89,8 +89,9 @@
         </div>
       </div>
     </div>
+
     <div
-      class="mt-6 flex flex-col space-y-8 sm:space-y-32 md:space-y-0 md:flex-row w-full justify-center md:space-x-40"
+      class="mt-8 sm:mt-12 flex flex-col space-y-8 sm:space-y-12 md:space-y-0 md:flex-row w-full justify-center md:space-x-24"
       v-if="company && company._id"
     >
       <EditCompanyStudents :companyId="company._id" />
@@ -109,7 +110,7 @@
       <CreateArticleStudents :companyId="company._id" />
     </div>
     <div
-      class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"
+      class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full items-center justify-center h-fit"
       v-if="company && company._id"
     >
       <StudentArticleSection :companyId="company._id" />

@@ -10,7 +10,7 @@
       class="w-full md:w-auto"
     >
       <div
-        class="w-full md:w-56 h-auto md:h-80 bg-gray-100 hover:scale-105 transition-transform duration-300 rounded-lg shadow-md p-4"
+        class="w-full md:w-56 h-auto md:max-h-96 bg-gray-100 hover:scale-105 transition-transform duration-300 rounded-lg shadow-md p-4"
       >
         <img
           :src="news.articleImageUrl || 'https://placehold.co/300x200'"
@@ -20,7 +20,7 @@
         <h1 class="text-xl font-semibold text-center mb-2 line-clamp-2">
           {{ news.articleTitle }}
         </h1>
-        <p class="px-2 text-center text-sm text-gray-600 line-clamp-2 mb-8">
+        <p class="px-2 text-center text-sm text-gray-600 line-clamp-3 mb-8">
           {{ news.articleDescription }}
         </p>
       </div>

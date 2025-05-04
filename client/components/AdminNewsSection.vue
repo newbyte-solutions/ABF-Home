@@ -1,6 +1,7 @@
 <template>
   <div class="w-full min-h-screen flex">
-    <div class="container mx-auto p-4">
+    <div class="container mx-auto">
+      <h1 class="text-center text-3xl font-semibold mb-10">News</h1>
       <ul class="space-y-6">
         <li v-for="article in articles" :key="article._id" class="bg-white rounded-lg shadow-md overflow-hidden">
           <div class="flex flex-col md:flex-row">

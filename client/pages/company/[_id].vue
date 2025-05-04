@@ -19,8 +19,8 @@
           <ul
             class="text-gray-700 flex flex-col md:flex-row md:space-y-0 space-x-0 md:space-x-2 space-y-2"
           >
-            <li v-for="studentId in company.companyStudents" :key="studentId">
-              {{ userMap[studentId] || "Loading..." }},
+            <li v-for="(studentId, index) in company.companyStudents" :key="studentId">
+              {{ userMap[studentId] }}{{ index !== company.companyStudents.length - 1 ? ',' : '' }}
             </li>
           </ul>
         </div>

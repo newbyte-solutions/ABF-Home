@@ -51,6 +51,7 @@ router.get("/get_user/:id", async (req: Request, res: Response): Promise<void> =
 router.post(
   "/admin_login",
   async (req: Request, res: Response): Promise<void> => {
+    console.log("[Auth] Admin login attempt initiated");
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -60,6 +61,7 @@ router.post(
     }
 
     try {
+      console.log("[Auth] Attempting to find admin user with email:", email);
       const user = await User.findOne({ email });
       if (!user || user.role !== "admin") {
         console.log("[Auth] Admin login failed: Invalid credentials for", email);
@@ -67,6 +69,7 @@ router.post(
         return;
       }
 
+      console.log("[Auth] Admin user found, verifying password");
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         console.log("[Auth] Admin login failed: Invalid password for", email);
@@ -74,6 +77,7 @@ router.post(
         return;
       }
 
+      console.log("[Auth] Password verified, setting up session");
       // Set session after successful login
       req.session.user = { email: user.email, role: user.role };
       req.session.save((err) => {
@@ -99,6 +103,7 @@ router.post(
 router.post(
   "/student_login",
   async (req: Request, res: Response): Promise<void> => {
+    console.log("[Auth] Student login attempt initiated");
     const { email, password } = req.body;
 
     if (!email || !password) {
@@ -108,6 +113,7 @@ router.post(
     }
 
     try {
+      console.log("[Auth] Attempting to find student user with email:", email);
       const user = await User.findOne({ email });
       if (!user || user.role !== "student") {
         console.log("[Auth] Student login failed: Invalid credentials for", email);
@@ -115,6 +121,7 @@ router.post(
         return;
       }
 
+      console.log("[Auth] Student user found, verifying password");
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
         console.log("[Auth] Student login failed: Invalid password for", email);
@@ -122,6 +129,7 @@ router.post(
         return;
       }
 
+      console.log("[Auth] Password verified, setting up session");
       req.session.user = { email: user.email, role: user.role, studentId: user.id };
       req.session.save((err) => {
         if (err) {
@@ -141,6 +149,33 @@ router.post(
     }
   },
 );
+
+// Update user
+router.put("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
+  const { id } = req.params;
+  const { username, email, password, role, phone, grade } = req.body;
+  console.log("[Auth] Attempting to update user with ID:", id);
+  try {
+    const user = await User.findById(id);
+    if (!user) {
+      console.log("[Auth] User not found with ID:", id);
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (password) user.password = password;
+    if (role) user.role = role;
+    if (phone) user.phone = phone;
+    if (grade) user.grade = grade;
+    await user.save();
+    console.log("[Auth] User updated successfully:", user);
+    res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    console.error("[Auth] Error updating user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 
 // Register a new user (admin only)
 router.post(

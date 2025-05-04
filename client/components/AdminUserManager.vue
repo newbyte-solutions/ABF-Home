@@ -1,15 +1,20 @@
 <template>
-    <div class="p-5">
-        <h2>User Management</h2>
-        <div class="flex flex-col gap-2.5">
-            <div v-for="user in users" :key="user._id" class="flex justify-between items-center p-2.5 border border-gray-300 rounded">
-                <div class="flex flex-col gap-1">
-                    <span>{{ user.name }} {{ user.username }}</span>
-                    <span>Email: {{ user.email }}</span>
-                    <span>Role: {{ user.role }}</span>
-                    <span>Created: {{ formatDate(user.createdAt) }}</span>
+    <div class="p-5 w-full mx-auto">
+        <h2 class="text-center text-3xl md:text-4xl font-bold mb-10">User Management</h2>
+        <div class="flex flex-col gap-3">
+            <div v-for="user in users" :key="user._id" class="flex flex-col md:flex-row justify-between items-start md:items-center p-4 border border-gray-300 rounded shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex flex-col gap-2">
+                    <span class="text-xl font-semibold">{{ user.name }} {{ user.username }}</span>
+                    <span class="text-gray-300">Email: {{ user.email }}</span>
+                    <span class="text-gray-300">Role: {{ user.role }}</span>
+                    <span class="text-gray-300">Grade: {{ user.grade }}</span>
+                    <span class="text-gray-300">Phone: {{ user.phone }}</span>
+                    <span class="text-gray-300">Created: {{ formatDate(user.createdAt) }}</span>
                 </div>
-                <button @click="deleteUser(user._id)" class="bg-red-500 text-white border-none px-4 py-2 rounded hover:bg-red-700 cursor-pointer">Delete User</button>
+                <div class="flex flex-row md:flex-col space-y-0 space-x-2 md:space-y-2 md:space-x-0 mt-4 md:mt-0">
+                    <button @click="deleteUser(user._id)" class="bg-red-500 text-white text-base md:text-lg border-none px-4 py-2 rounded hover:bg-red-600 cursor-pointer transition-colors">Delete User</button>
+                    <button @click="editUser(user._id)" class="bg-blue-500 text-white text-base md:text-lg border-none px-4 py-2 rounded hover:bg-blue-600 cursor-pointer transition-colors">Edit User</button>
+                </div>
             </div>
         </div>
     </div>
@@ -48,6 +53,9 @@
                 } catch (error) {
                     console.error('Error deleting user:', error);
                 }
+            },
+            async editUser(userId) {
+                this.$router.push(`/admin/users/${userId}`);
             },
         },
         async mounted() {

@@ -1,6 +1,7 @@
 <template>
+  <div class="py-5"></div>
   <div
-    class="w-full min-h-screen text-white flex flex-col md:flex-row justify-center bg-gray-200 items-center space-y-12 md:space-y-0 md:space-x-16 p-12"
+    class="w-full min-h-screen text-white flex flex-col md:flex-row justify-center bg-gray-200 items-center space-y-12 md:space-y-0 md:space-x-16"
   >
     <div
       class="transform hover:scale-110 transition-transform duration-300 rounded-2xl shadow-2xl h-48 w-48 md:h-56 md:w-56 bg-gradient-to-br from-lime-400 to-green-500 p-1.5 hover:shadow-green-400/30 group"

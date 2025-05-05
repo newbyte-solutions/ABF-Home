@@ -89,19 +89,8 @@
         </div>
       </div>
     </div>
-
-    <div
-      class="mt-8 sm:mt-12 flex flex-col space-y-8 sm:space-y-12 md:space-y-0 md:flex-row w-full justify-center md:space-x-24"
-      v-if="company && company._id"
-    >
-      <EditCompanyStudents :companyId="company._id" />
-      <EditCompanyDescription :companyId="company._id" />
-    </div>
-    <div
-      class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"
-      v-if="company && company._id"
-    >
-      <EditCompanyContent :companyId="company._id" />
+    <div class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit" v-if="company && company._id">
+       <StudentEditCompany :companyId="company._id" />
     </div>
     <div
       class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"

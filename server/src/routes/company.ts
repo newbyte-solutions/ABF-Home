@@ -140,7 +140,7 @@ router.delete(
 
 router.put(
   "/:id",
-  isAdmin,
+  isAdminOrStudent,
   async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /company/${req.params.id}`);
     try {

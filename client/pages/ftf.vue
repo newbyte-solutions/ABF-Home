@@ -9,7 +9,7 @@
       <h1 class="text-4xl text-gray-800 font-bold tracking-widest mb-4">
         Fjord til Fjell
       </h1>
-      <h2 class="text-2xl text-gray-700 mb-2">
+      <h2 class="text-2xl text-gray-700 mb-2 text-center">
         Helland Ungdomsskole sin utstyrssentral
       </h2>
       <p class="text-gray-600">Mer info kommer snart!</p>

@@ -135,4 +135,52 @@ router.delete(
   },
 );
 
+router.put(
+  "/article/:id",
+  isAdminOrStudent,
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`PUT /article/${req.params.id}`);
+    console.log('Request body:', req.body);
+    try {
+      console.log(`Attempting to find article with ID: ${req.params.id}`);
+      const existingArticle = await Article.findById(req.params.id);
+      if (!existingArticle) {
+        console.log(`Article with ID ${req.params.id} not found`);
+        res.status(404).json({ message: "Article not found" });
+        return;
+      }
+      console.log('Found existing article:', existingArticle);
+
+      const updatableFields = [
+        "id",
+        "articleTitle",
+        "articleDescription",
+        "articleContent",
+        "articleAuthor",
+        "articlePublishedDate",
+        "articleTags",
+        "articleImageUrl",
+        "articleCompany",
+        "articleGrade",
+      ];
+
+      console.log('Updating fields:', updatableFields.filter(field => field in req.body));
+      for (const field of updatableFields) {
+        if (field in req.body) {
+          console.log(`Updating field ${field} with value:`, req.body[field]);
+          existingArticle.set(field, req.body[field]);
+        }
+      }
+
+      console.log('Saving updated article...');
+      const updatedArticle = await existingArticle.save();
+      console.log(`Successfully updated article: ${req.params.id}`);
+      console.log('Updated article details:', updatedArticle);
+      res.json(updatedArticle);
+    } catch (error) {
+      console.error(`Error updating article ${req.params.id}:`, error);
+      res.status(500).json({ message: "Error updating the article" });
+    }
+  },
+);
 export default router;

@@ -37,6 +37,12 @@
               >
                 Delete
               </button>
+              <button
+                @click="$router.push(`/admin/article/${article._id}`)"
+                class="px-4 py-2 bg-blue-500 ml-2 text-white rounded hover:bg-blue-600"
+              >
+                Edit
+              </button>
             </div>
             <div
               class="p-6 md:w-2/3 border-t md:border-t-0 md:border-l border-gray-200"

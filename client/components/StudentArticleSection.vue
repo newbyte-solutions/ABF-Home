@@ -36,6 +36,12 @@
             >
               Slett
             </button>
+            <button
+                @click="$router.push(`/student/article/${article._id}`)"
+                class="px-4 py-2 bg-blue-500 ml-2 text-white rounded hover:bg-blue-600"
+              >
+                Edit
+            </button>
           </div>
         </div>
       </div>

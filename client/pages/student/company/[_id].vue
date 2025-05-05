@@ -1,4 +1,6 @@
 <template>
+  <CheckStudent />
+  <div class="py-5"></div>
   <div
     class="min-h-screen bg-gray-900 text-white py-14 flex flex-col items-center justify-center px-4"
   >

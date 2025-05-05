@@ -59,7 +59,7 @@
         </div>
         <button
           type="submit"
-          class="w-full bg-blue-600 text-white text-lg font-semibold py-4 rounded-lg hover:bg-blue-700 transform hover:scale-[1.02] transition-all duration-300 shadow-lg hover:shadow-blue-500/25"
+          class="w-full bg-blue-500 text-white text-lg font-semibold py-4 rounded-lg hover:bg-blue-600 transform hover:scale-[1.02] transition-all duration-300 shadow-lg "
         >
           Update User
         </button>

@@ -140,7 +140,7 @@ router.put(
   isAdminOrStudent,
   async (req: Request, res: Response): Promise<void> => {
     console.log(`PUT /article/${req.params.id}`);
-    console.log('Request body:', req.body);
+    console.log("Request body:", req.body);
     try {
       console.log(`Attempting to find article with ID: ${req.params.id}`);
       const existingArticle = await Article.findById(req.params.id);
@@ -149,7 +149,7 @@ router.put(
         res.status(404).json({ message: "Article not found" });
         return;
       }
-      console.log('Found existing article:', existingArticle);
+      console.log("Found existing article:", existingArticle);
 
       const updatableFields = [
         "id",
@@ -164,7 +164,10 @@ router.put(
         "articleGrade",
       ];
 
-      console.log('Updating fields:', updatableFields.filter(field => field in req.body));
+      console.log(
+        "Updating fields:",
+        updatableFields.filter((field) => field in req.body),
+      );
       for (const field of updatableFields) {
         if (field in req.body) {
           console.log(`Updating field ${field} with value:`, req.body[field]);
@@ -172,10 +175,10 @@ router.put(
         }
       }
 
-      console.log('Saving updated article...');
+      console.log("Saving updated article...");
       const updatedArticle = await existingArticle.save();
       console.log(`Successfully updated article: ${req.params.id}`);
-      console.log('Updated article details:', updatedArticle);
+      console.log("Updated article details:", updatedArticle);
       res.json(updatedArticle);
     } catch (error) {
       console.error(`Error updating article ${req.params.id}:`, error);

@@ -48,12 +48,14 @@
         <input type="hidden" v-model="article.artilceImageUrl" />
         <input type="hidden" v-model="article.articlePublishedDate" />
 
-        <button
-          type="submit"
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Save Changes
-        </button>
+        <div class="flex justify-center mt-4">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Save Changes
+          </button>
+        </div>
       </form>
     </div>
   </div>

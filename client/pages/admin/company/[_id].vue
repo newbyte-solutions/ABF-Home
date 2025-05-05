@@ -1,8 +1,9 @@
 <template>
   <CheckAdmin />
+  <div class="py-8"></div>
   <div class="container mx-auto p-4">
     <div v-if="company" class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-bold mb-6">Edit Company</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">Edit Company</h1>
       <form @submit.prevent="saveCompany" class="space-y-4">
         <div class="form-group">
           <label class="block mb-1">Company Name</label>

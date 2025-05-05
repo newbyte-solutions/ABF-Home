@@ -37,11 +37,15 @@
         </div>
         <div class="form-group">
           <label class="block mb-1">Grade</label>
-          <input
+          <select
             v-model.number="company.companyGrade"
-            type="number"
             class="w-full p-2 border rounded text-gray-900"
-          />
+          >
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="100">Lærar</option>
+          </select>
         </div>
         <div class="form-group">
           <label class="block mb-1">Founded Date</label>

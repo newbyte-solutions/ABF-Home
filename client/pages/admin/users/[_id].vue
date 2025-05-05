@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="user"
-    class="w-full min-h-screen mx-auto mt-8 p-6 bg-gray-100"
-  >
+  <div v-if="user" class="w-full min-h-screen mx-auto mt-8 p-6 bg-gray-100">
     <div class="py-20">
       <h1 class="font-semibold text-4xl text-center mb-10 text-gray-900">
         Edit user: {{ user.username }}
@@ -59,7 +56,7 @@
         </div>
         <button
           type="submit"
-          class="w-full bg-blue-500 text-white text-lg font-semibold py-4 rounded-lg hover:bg-blue-600 transform hover:scale-[1.02] transition-all duration-300 shadow-lg "
+          class="w-full bg-blue-500 text-white text-lg font-semibold py-4 rounded-lg hover:bg-blue-600 transform hover:scale-[1.02] transition-all duration-300 shadow-lg"
         >
           Update User
         </button>

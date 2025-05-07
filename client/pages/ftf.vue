@@ -12,7 +12,7 @@
       <h2 class="text-2xl text-gray-700 mb-2 text-center">
         Helland Ungdomsskole sin utstyrssentral
       </h2>
-      <p class="text-gray-600 text-lg mt-4">Kommer snart!</p>
+      <p class="text-gray-600 text-lg">Kommer snart!</p>
     </div>
   </div>
 </template>

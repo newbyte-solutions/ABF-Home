@@ -2,9 +2,9 @@
 
 ## About
 
-THis is the source code for the website [husarbeidslivsfag.com](https://husarbeidslivsfag.com). It was developed to serve as a homepage and resource portal for the "Arbeidslivsfag" classes at Helland Ungdomsskole.
+This is the source code for the website [husarbeidslivsfag.com](https://husarbeidslivsfag.com). It was developed to serve as a homepage and resource portal for the "Arbeidslivsfag" classes at Helland Ungdomsskole.
 
-## Functinality
+## Functionality
 
 - [x] Homepage
 - [x] Grade based content and pages
@@ -52,7 +52,7 @@ The project is deployed using Docker and Digital Ocean. The deployment process i
 
 ## License
 
-This project is owned by Helland Ungdomsskole, in addtition to Newbyte Solutions EB. The code is only to be used by the school, and is not to be used for any other purpose. The code is not to be distributed or shared with any other parties. The code is not to be used for any commercial purposes.
+This project is owned by Helland Ungdomsskole, in addition to Newbyte Solutions EB. The code is only to be used by the school, and is not to be used for any other purpose. The code is not to be distributed or shared with any other parties. The code is not to be used for any commercial purposes.
 
 ## Contact
 

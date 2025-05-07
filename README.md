@@ -6,16 +6,19 @@ This is the source code for the website [husarbeidslivsfag.com](https://husarbei
 
 ## Functionality
 
-- [x] Homepage
-- [x] Grade based content and pages
-- [x] Content management
-- [x] User management
-- [x] User authentication
-- [x] User roles
-- [x] Student Company Portals / Homepages
-- [x] Company management
-- [x] Overarching news system
-- [x] Contact form
+- [x] Homepage with dynamic content
+- [x] Grade-specific resources and pages
+- [x] Content management system for teachers
+- [x] Student and teacher user management
+- [x] Secure authentication system
+- [x] Role-based access control (students, teachers, guests)
+- [x] Student enterprise portals with customizable pages
+- [x] Company management tools
+- [x] School-wide announcement system
+- [x] Arbeidslivsfag curriculum materials
+- [x] Docker-based deployment
+- [x] MongoDB database integration
+- [x] Webhook integration for automatic deployment
 
 ## Stack
 
@@ -26,7 +29,7 @@ This is the source code for the website [husarbeidslivsfag.com](https://husarbei
 - [x] Typescript
 - [x] Axios
 - [x] Docker
-- [x] Digital Ocean Droplets
+- [x] Digital Ocean Droplet
 
 ## Setup
 

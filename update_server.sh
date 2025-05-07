@@ -2,11 +2,11 @@
 set -e
 
 # Define variables
-PROJECT_DIR="./ABF-Home"
+PROJECT_DIR="/root/ABF-Home"
 UPLOADS_DIR="$PROJECT_DIR/server/uploads"
-BACKUP_DIR="./backup_uploads"
+BACKUP_DIR="/root/backup_uploads"
 MONGO_CONTAINER="abf-home-mongodb-1"
-MONGO_BACKUP="./mongo_backup"
+MONGO_BACKUP="/root/mongo_backup"
 REPO_URL="git@github.com:newbyte-solutions/ABF-Home.git"
 
 echo "Starting update process..."
@@ -67,4 +67,3 @@ fi
 
 # Step 4: Immediately send a response to GitHub webhook
 echo "Update process started. You can track the progress in the logs."
-

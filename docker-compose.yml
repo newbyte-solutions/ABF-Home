@@ -28,15 +28,15 @@ services:
     networks:
       - abf-network
 
-deploy-listener:
-  build: /root/ABF-Home-Updator
-  container_name: deploy-listener
-  environment:
-    - PORT=5055
-  ports:
-    - "5055:5055"
-  networks:
-    - abf-network
+  deploy-listener:
+    build: /root/ABF-Home-Updator
+    container_name: deploy-listener
+    environment:
+      - PORT=5055
+    ports:
+      - "5055:5055"
+    networks:
+      - abf-network
 
   server:
     build:

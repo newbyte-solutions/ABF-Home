@@ -11,7 +11,6 @@ services:
     depends_on:
       - client
       - server
-      - deploy-listener
     networks:
       - abf-network
 
@@ -25,18 +24,6 @@ services:
       - NODE_ENV=production
     depends_on:
       - server
-    networks:
-      - abf-network
-
-  deploy-listener:
-    build: /root/ABF-Home-Updator
-    container_name: deploy-listener
-    environment:
-      - PORT=5055
-    volumes:
-      - /root:/host-root
-    ports:
-      - "5055:5055"
     networks:
       - abf-network
 

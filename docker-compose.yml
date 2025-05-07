@@ -27,6 +27,17 @@ services:
     networks:
       - abf-network
 
+  deploy-listener:
+    image: node:18-alpine
+    container_name: deploy-listener
+    command: node /deploy/index.js 
+    volumes:
+      - /root/deploy:/deploy
+    environment:
+      - PORT=5055
+    networks:
+      - abf-network
+
   server:
     build:
       context: ./server

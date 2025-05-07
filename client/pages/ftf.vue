@@ -4,7 +4,7 @@
       <img
         src="../assets/images/ftf-logo.png"
         alt="Fjord til Fjell Logo"
-        class="w-64 h-64 mb-8"
+        class="w-64 h-64 md:w-72 md:h-72 mb-8"
       />
       <h1 class="text-4xl text-gray-800 font-bold tracking-widest mb-4">
         Fjord til Fjell

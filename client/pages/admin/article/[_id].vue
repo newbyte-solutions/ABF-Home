@@ -2,7 +2,7 @@
   <CheckAdmin />
   <div class="w-full mx-auto p-4 bg-gray-100 min-h-screen">
     <div v-if="article" class="max-w-2xl mx-auto py-20">
-      <h1 class="text-2xl font-bold mb-6">Edit Article</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center">Edit Article</h1>
       <form @submit.prevent="saveArticle" class="space-y-4">
         <div class="form-group">
           <label class="block mb-1">Title</label>
@@ -48,12 +48,14 @@
         <input type="hidden" v-model="article.artilceImageUrl" />
         <input type="hidden" v-model="article.articlePublishedDate" />
 
-        <button
-          type="submit"
-          class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-        >
-          Save Changes
-        </button>
+        <div class="flex justify-center mt-4">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          >
+            Save Changes
+          </button>
+        </div>
       </form>
     </div>
   </div>

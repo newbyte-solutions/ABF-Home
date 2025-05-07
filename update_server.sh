@@ -33,6 +33,7 @@ fi
 # Step 3: Stop all containers (if docker-compose.yml exists)
 if [ -f "$PROJECT_DIR/docker-compose.yml" ]; then
     echo "Stopping all containers..."
+    sleep 1
     (cd "$PROJECT_DIR" && docker compose down)
 else
     echo "No docker-compose.yml found. Skipping docker compose down."

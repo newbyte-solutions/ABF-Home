@@ -43,5 +43,6 @@
     <div class="w-full max-w-7xl flex flex-col justify-center items-center">
       <NewsSection />
     </div>
+    <div class="hidden">test</div>
   </div>
 </template>

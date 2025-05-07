@@ -11,6 +11,8 @@ services:
     depends_on:
       - client
       - server
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     networks:
       - abf-network
 

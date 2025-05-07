@@ -35,28 +35,16 @@ THis is the source code for the website [husarbeidslivsfag.com](https://husarbei
 - Node.js
 - Docker
 
-To run the project locally, you can use the docker-compose file to spin up the project, or alternativly:
-
-- Install the dependencies using `npm install` for both client and server.
-- Create a .env file in the server directory with the following variables:
-
-```
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/abf
+To run the project locally, you have to enter the main directory and run the following command:
+```bash
+docker compose up
 ```
 
-- Spin up a MongoDB instance using docker-compose:
-
-```
-docker pull mongo:latest
-docker run --name mongodb -p 27017:27017 -d mongo:latest
-```
-
-- Start the frontend and backend using `npm run dev` for both client and server.
+Make sure to use the dev version of the docker compose file, to avoid running nginx and the webhook container.
 
 ## Contributing
 
-Contributions are welcome, as long as they are relevant to the project. Please open an issue or pull request to discuss your changes before submitting them.
+Contributions are welcome, as long as they are relevant to the project. Please open an issue or pull request, and Newbyte Management will review it and merge it if it is relevant.
 
 ## Deployment
 

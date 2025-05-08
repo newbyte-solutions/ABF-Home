@@ -18,9 +18,9 @@ export default {
         await axios.post(
           `${publicConfig.apiBase}/auth/logout`,
           {},
-          { withCredentials: true }
+          { withCredentials: true },
         );
-        window.location.href = '/';
+        window.location.href = "/";
       } catch (error) {
         console.error("Logout failed:", error);
       }

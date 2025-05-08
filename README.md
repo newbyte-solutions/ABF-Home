@@ -39,6 +39,7 @@ This is the source code for the website [husarbeidslivsfag.com](https://husarbei
 - Docker
 
 To run the project locally, you have to enter the main directory and run the following command:
+
 ```bash
 docker compose up
 ```

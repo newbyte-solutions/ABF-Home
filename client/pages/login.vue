@@ -1,15 +1,23 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8 bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl">
+  <div
+    class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 py-12 px-4 sm:px-6 lg:px-8"
+  >
+    <div
+      class="max-w-md w-full space-y-8 bg-white/10 backdrop-blur-lg p-8 rounded-2xl shadow-2xl"
+    >
       <div>
-        <h1 class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+        <h1
+          class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500"
+        >
           Login
         </h1>
       </div>
       <form @submit.prevent="handleLogin" class="mt-8 space-y-6">
         <div class="rounded-md space-y-4">
           <div>
-            <label for="email" class="text-gray-300 text-sm font-medium">Email:</label>
+            <label for="email" class="text-gray-300 text-sm font-medium"
+              >Email:</label
+            >
             <input
               type="text"
               id="email"
@@ -20,7 +28,9 @@
             />
           </div>
           <div>
-            <label for="password" class="text-gray-300 text-sm font-medium">Password:</label>
+            <label for="password" class="text-gray-300 text-sm font-medium"
+              >Password:</label
+            >
             <input
               type="password"
               id="password"
@@ -75,7 +85,8 @@ export default {
     } catch (error) {
       console.error("Session check failed:", error);
     }
-  },  methods: {
+  },
+  methods: {
     async handleLogin() {
       const { public: publicConfig } = useRuntimeConfig();
       try {
@@ -96,7 +107,8 @@ export default {
           this.$router.push("/student");
         } else if (response.data && response.data.user.role === "guest") {
           this.$router.push("/guest");
-        }      } catch (error) {
+        }
+      } catch (error) {
         console.error("Login failed:", error);
         this.loginError = true;
       }

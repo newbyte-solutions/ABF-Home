@@ -54,7 +54,6 @@ router.get(
   },
 );
 
-
 // Login Route
 router.post("/login", async (req: Request, res: Response): Promise<void> => {
   console.log("[Auth] Login attempt initiated");

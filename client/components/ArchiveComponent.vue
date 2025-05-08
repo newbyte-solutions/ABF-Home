@@ -4,20 +4,23 @@
       v-for="news in filteredNews"
       :key="news._id"
       :to="`/article/${news._id}`"
-      class="w-56 h-80 bg-gray-200 hover:scale-110 transition relative"
+      class="w-full md:w-auto"
     >
-      <img
-        :src="news.articleImageUrl || 'https://placehold.co/300x200'"
-        alt="News image"
-        class="max-w-full max-h-[200px] drop-shadow-xl object-cover mx-auto"
-      />
-      <h1 class="text-xl font-semibold text-center my-4">
-        {{ news.articleTitle }}
-      </h1>
-      <p class="px-2 text-center">
-        {{ news.articleDescription }}
-      </p>
-      <div class="absolute bottom-4 left-1/2 -translate-x-1/2"></div>
+      <div
+        class="w-full md:w-56 h-auto md:max-h-96 bg-gray-100 hover:scale-105 transition-transform duration-300 rounded-lg shadow-md p-4"
+      >
+        <img
+          :src="news.articleImageUrl || 'https://placehold.co/300x200'"
+          alt="News image"
+          class="w-full h-[200px] object-cover object-center rounded-md mb-4"
+        />
+        <h1 class="text-xl font-semibold text-center mb-2 line-clamp-2">
+          {{ news.articleTitle }}
+        </h1>
+        <p class="px-2 text-center text-sm text-gray-600 line-clamp-3 mb-8">
+          {{ news.articleDescription }}
+        </p>
+      </div>
     </router-link>
   </div>
 </template>

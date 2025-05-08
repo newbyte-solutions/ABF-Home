@@ -4,7 +4,7 @@
     class="w-full h-fit px-4 md:px-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-10"
   >
     <router-link
-      v-for="news in newsItems"
+      v-for="news in [...newsItems].reverse()"
       :key="news._id"
       :to="`/article/${news._id}`"
       class="w-full md:w-auto"

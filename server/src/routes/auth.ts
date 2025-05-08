@@ -55,6 +55,38 @@ router.get(
   },
 );
 
+// Login Route
+router.post("/login", async (req: Request, res: Response): Promise<void> => {
+  console.log("[Auth] Login attempt initiated");
+  const { email, password } = req.body;
+  if (!email || !password) {
+    console.log("[Auth] Login attempt failed: Missing email or password");
+    res.status(400).json({ message: "Email and password are required" });
+    return;
+  }
+
+  try {
+    console.log("[Auth] Attempting to find user with email:", email);
+    const user = await User.findOne({ email });
+    if (!user) {
+      console.log("[Auth] Login failed: User not found with email:", email);
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      console.log("[Auth] Login failed: Invalid password for", email);
+      res.status(401).json({ message: "Invalid credentials" });
+      return;
+    }
+    console.log("[Auth ] Login successful for", email);
+    res.status(200).json({ message: "Login successful", user });
+  } catch (error) {
+    console.error("[Auth] Error during login:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
 // Admin Login Route
 router.post(
   "/admin_login",

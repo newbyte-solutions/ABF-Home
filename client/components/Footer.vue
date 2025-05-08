@@ -10,12 +10,8 @@
         <p>Nettside av: Newbyte Solutions EB</p>
       </div>
       <div class="flex-1 text-center md:text-right">
-        <router-link to="/admin" class="text-blue-800 underline"
-          >Admin</router-link
-        >
-        |
-        <router-link to="/student" class="text-blue-800 underline"
-          >Elev</router-link
+        <router-link to="/login" class="text-blue-800 underline"
+          >Login</router-link
         >
       </div>
     </div>

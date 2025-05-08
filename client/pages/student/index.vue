@@ -1,50 +1,35 @@
 <template>
-  <div
-    class="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8"
-  >
-    <div class="max-w-md w-full space-y-8">
-      <div>
-        <h1
-          class="mt-6 text-center text-3xl md:text-5xl font-extrabold text-white"
-        >
-          Login
-        </h1>
+  <CheckStudent />
+  <div class="w-full min-h-screen bg-gray-900 text-white py-14">
+    <div class="w-full h-fit py-10 flex flex-col items-center justify-center">
+      <h1 class="text-4xl font-semibold border-b-2 border-blue-500 pb-2 px-4">
+        Elev Portal
+      </h1>
+    </div>
+
+    <div
+      class="mx-10 p-10 min-h-96 bg-white text-black rounded-lg shadow-lg relative"
+    >
+      <h2 class="font-semibold text-xl">
+        Navn:
+        <span class="font-normal">{{ username || "Ikke autorisert" }}</span>
+      </h2>
+      <p class="font-semibold text-xl">
+        Din bedrift:
+        <span class="font-normal">{{
+          company || "Ingen bedrift tilknyttet"
+        }}</span>
+      </p>
+      <button
+        v-if="companyId"
+        @click="$router.push(`/student/company/${companyId}`)"
+        class="px-6 py-2 border-4 border-blue-500 absolute bottom-10 font-semibold"
+      >
+        Bedrift portal
+      </button>
+      <div class="absolute bottom-10 right-10">
+        <LogoutButton />
       </div>
-      <form @submit.prevent="handleLogin" class="mt-8 space-y-6">
-        <div class="rounded-md shadow-sm">
-          <div>
-            <label for="email" class="text-white">Email:</label>
-            <input
-              type="text"
-              id="email"
-              v-model="email"
-              required
-              class="appearance-none relative block w-full px-3 mt-2 mb-4 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
-              placeholder="Email"
-            />
-          </div>
-          <div>
-            <label for="password" class="text-white">Passord:</label>
-            <input
-              type="password"
-              id="password"
-              v-model="password"
-              required
-              class="appearance-none relative block w-full px-3 mt-2 py-2 border border-gray-600 placeholder-gray-400 text-gray-900 bg-white focus:outline-none focus:ring-gray-500 focus:border-gray-500 focus:z-10 sm:text-sm md:text-xl"
-              placeholder="Passord"
-              autocomplete="current-password"
-            />
-          </div>
-        </div>
-        <div>
-          <button
-            type="submit"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm md:text-xl font-semibold rounded-md text-black bg-white hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
-          >
-            Login
-          </button>
-        </div>
-      </form>
     </div>
   </div>
 </template>
@@ -55,46 +40,47 @@ import axios from "axios";
 export default {
   data() {
     return {
+      username: "",
       email: "",
-      password: "",
+      role: "",
+      id: "",
+      company: "",
+      companyId: "",
     };
   },
   async mounted() {
     const { public: publicConfig } = useRuntimeConfig();
+
     try {
       const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
         withCredentials: true,
       });
-      if (response.data && response.data.user.role === "student") {
-        this.$router.push("/student/dashboard");
-      }
-    } catch (error) {
-      console.error("Session check failed:", error);
-    }
-  },
-  methods: {
-    async handleLogin() {
-      const { public: publicConfig } = useRuntimeConfig();
+
+      const user = response.data.user;
+
+      this.username = user.username;
+      this.email = user.email;
+      this.role = user.role;
+      this.id = user.id;
+
       try {
-        const response = await axios.post(
-          `${publicConfig.apiBase}/auth/student_login`,
-          {
-            email: this.email,
-            password: this.password,
-          },
-          {
-            withCredentials: true,
-          },
+        const companyResponse = await axios.get(
+          `${publicConfig.apiBase}/company/user_company/${this.id}`,
+          { withCredentials: true },
         );
 
-        if (response.data) {
-          this.$router.push("/student/dashboard");
+        if (companyResponse.data) {
+          this.company = companyResponse.data.companyName;
+          this.companyId = companyResponse.data._id;
         }
       } catch (error) {
-        console.error("Login failed:", error);
-        this.loginError = true;
+        console.error("Error fetching company:", error);
       }
-    },
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      alert("Not authorized - please log in");
+      this.$router.push("/");
+    }
   },
 };
 </script>

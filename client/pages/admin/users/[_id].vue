@@ -95,7 +95,7 @@ export default {
         await axios.put(`${publicConfig.apiBase}/auth/${userId}`, this.user, {
           withCredentials: true,
         });
-        this.$router.push("/admin/dashboard");
+        this.$router.push("/admin");
       } catch (error) {
         console.error("Error updating user:", error);
       }

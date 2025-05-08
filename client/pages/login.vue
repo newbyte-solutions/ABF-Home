@@ -66,9 +66,9 @@ export default {
         withCredentials: true,
       });
       if (response.data && response.data.user.role === "admin") {
-        this.$router.push("/admin/dashboard");
+        this.$router.push("/admin");
       } else if (response.data && response.data.user.role === "student") {
-        this.$router.push("/student/dashboard");
+        this.$router.push("/student");
       } else if (response.data && response.data.user.role === "guest") {
         this.$router.push("/guest");
       }
@@ -91,9 +91,9 @@ export default {
         );
 
         if (response.data && response.data.user.role === "admin") {
-          this.$router.push("/admin/dashboard");
+          this.$router.push("/admin");
         } else if (response.data && response.data.user.role === "student") {
-          this.$router.push("/student/dashboard");
+          this.$router.push("/student");
         } else if (response.data && response.data.user.role === "guest") {
           this.$router.push("/guest");
         }      } catch (error) {

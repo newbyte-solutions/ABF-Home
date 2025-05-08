@@ -8,7 +8,6 @@ import {
   isLoggedIn,
 } from "../middleware/auth";
 import mongoose from "mongoose";
-import { promises } from "dns";
 
 const router = express.Router();
 
@@ -55,6 +54,7 @@ router.get(
   },
 );
 
+
 // Login Route
 router.post("/login", async (req: Request, res: Response): Promise<void> => {
   console.log("[Auth] Login attempt initiated");
@@ -79,128 +79,25 @@ router.post("/login", async (req: Request, res: Response): Promise<void> => {
       res.status(401).json({ message: "Invalid credentials" });
       return;
     }
-    console.log("[Auth ] Login successful for", email);
-    res.status(200).json({ message: "Login successful", user });
+
+    req.session.user = { email: user.email, role: user.role };
+    req.session.save((err) => {
+      if (err) {
+        console.error("[Auth] Error saving session:", err);
+        res.status(500).json({ message: "Internal Server Error" });
+      } else {
+        console.log("[Auth] Admin login successful:", email);
+        res.status(200).json({
+          message: "Login successful",
+          user: { email: user.email, role: user.role },
+        });
+      }
+    });
   } catch (error) {
-    console.error("[Auth] Error during login:", error);
+    console.error("[Auth] Login error:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
-// Admin Login Route
-router.post(
-  "/admin_login",
-  async (req: Request, res: Response): Promise<void> => {
-    console.log("[Auth] Admin login attempt initiated");
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      console.log("[Auth] Login attempt failed: Missing email or password");
-      res.status(400).json({ message: "Email and password are required" });
-      return;
-    }
-
-    try {
-      console.log("[Auth] Attempting to find admin user with email:", email);
-      const user = await User.findOne({ email });
-      if (!user || user.role !== "admin") {
-        console.log(
-          "[Auth] Admin login failed: Invalid credentials for",
-          email,
-        );
-        res.status(401).json({ message: "Invalid credentials" });
-        return;
-      }
-
-      console.log("[Auth] Admin user found, verifying password");
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        console.log("[Auth] Admin login failed: Invalid password for", email);
-        res.status(401).json({ message: "Invalid credentials" });
-        return;
-      }
-
-      console.log("[Auth] Password verified, setting up session");
-      // Set session after successful login
-      req.session.user = { email: user.email, role: user.role };
-      req.session.save((err) => {
-        if (err) {
-          console.error("[Auth] Error saving session:", err);
-          res.status(500).json({ message: "Internal Server Error" });
-        } else {
-          console.log("[Auth] Admin login successful:", email);
-          res.status(200).json({
-            message: "Login successful",
-            user: { email: user.email, role: user.role },
-          });
-        }
-      });
-    } catch (error) {
-      console.error("[Auth] Error during admin login:", error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
-  },
-);
-
-// Student Login
-router.post(
-  "/student_login",
-  async (req: Request, res: Response): Promise<void> => {
-    console.log("[Auth] Student login attempt initiated");
-    const { email, password } = req.body;
-
-    if (!email || !password) {
-      console.log(
-        "[Auth] Student login attempt failed: Missing email or password",
-      );
-      res.status(400).json({ message: "Email and password are required" });
-      return;
-    }
-
-    try {
-      console.log("[Auth] Attempting to find student user with email:", email);
-      const user = await User.findOne({ email });
-      if (!user || user.role !== "student") {
-        console.log(
-          "[Auth] Student login failed: Invalid credentials for",
-          email,
-        );
-        res.status(401).json({ message: "Invalid credentials" });
-        return;
-      }
-
-      console.log("[Auth] Student user found, verifying password");
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        console.log("[Auth] Student login failed: Invalid password for", email);
-        res.status(401).json({ message: "Invalid credentials" });
-        return;
-      }
-
-      console.log("[Auth] Password verified, setting up session");
-      req.session.user = {
-        email: user.email,
-        role: user.role,
-        studentId: user.id,
-      };
-      req.session.save((err) => {
-        if (err) {
-          console.error("[Auth] Error saving session:", err);
-          res.status(500).json({ message: "Internal Server Error" });
-        } else {
-          console.log("[Auth] Student login successful:", email);
-          res.status(200).json({
-            message: "Login successful",
-            user: { email: user.email, role: user.role },
-          });
-        }
-      });
-    } catch (error) {
-      console.error("[Auth] Error during student login:", error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
-  },
-);
 
 // Update user
 router.put(
@@ -433,33 +330,6 @@ router.get(
       res.status(201).json({ message: "Admin user created successfully" });
     } catch (error) {
       console.error("[Auth] Error creating admin user:", error);
-      res.status(500).json({ message: "Internal Server Error" });
-    }
-  },
-);
-
-router.get(
-  "/remove_admin",
-  async (req: Request, res: Response): Promise<void> => {
-    const email = process.env.ADMIN_EMAIL;
-    const username = "admin";
-    console.log("[Auth] Attempting to remove admin user");
-
-    try {
-      const adminUser = await User.findOne({
-        $or: [{ username: username }, { email: email }],
-      });
-      if (!adminUser) {
-        console.log("[Auth] Remove admin failed: Admin user not found");
-        res.status(404).json({ message: "Admin user not found" });
-        return;
-      }
-
-      await User.deleteOne({ $or: [{ username: username }, { email: email }] });
-      console.log("[Auth] Admin user removed successfully:", email);
-      res.status(200).json({ message: "Admin user removed successfully" });
-    } catch (error) {
-      console.error("[Auth] Error removing admin user:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
   },

@@ -18,6 +18,9 @@
                                     <button @click="$router.push(`/admin/company/${company._id}`)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
                                         Edit
                                     </button>
+                                    <button @click="toggleFTF(company._id)" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-all border-4 border-transparent" :class="{ 'border-4 border-purple-600 bg-transparent text-purple-600 hover:bg-purple-600 hover:text-white': company.companyIsFTF }">
+                                        Toggle FTF
+                                    </button>                                
                                 </div>
                             </div>
                             <div class="space-y-2 text-gray-700">
@@ -95,6 +98,24 @@ export default {
                 console.log('Successfully deleted company:', companyId);
             } catch (error) {
                 console.error('Error deleting company:', error);
+            }
+        },
+        async toggleFTF(companyId) {
+            console.log("Attempting to toggle FTF for company:", companyId);
+            try {
+                const { public: publicConfig } = useRuntimeConfig();
+                const response = await axios.put(
+                    `${publicConfig.apiBase}/company/toggle_ftf/${companyId}`,
+                    {},
+                    { withCredentials: true }
+                );
+                const company = this.companies.find(c => c._id === companyId);
+                if (company) {
+                    company.companyIsFTF = response.data.companyIsFTF;
+                    console.log('Successfully toggled FTF for company:', companyId, 'New FTF status:', company.companyIsFTF);
+                }
+            } catch (error) {
+                console.error('Error toggling FTF:', error);
             }
         },
         async assignStudent(companyId, studentId) {

@@ -10,6 +10,7 @@ interface ICompany extends Document {
   companyFounded: Date;
   companyLogo: string;
   companyStudents: string[];
+  companyIsFTF: boolean;
   companyWebsite: string;
   companyDescription: string;
   companyContent: string;
@@ -72,6 +73,11 @@ const CompanySchema: Schema = new Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  companyIsFTF: {
+    type: Boolean,
+    required: false,
+    default: false,
   },
   companyGrade: {
     type: Number,

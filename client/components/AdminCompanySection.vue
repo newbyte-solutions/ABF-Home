@@ -18,7 +18,7 @@
                                     <button @click="$router.push(`/admin/company/${company._id}`)" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
                                         Edit
                                     </button>
-                                    <button @click="toggleFTF(company._id)" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-all border-4 border-transparent" :class="{ 'border-4 border-purple-600 bg-transparent text-purple-600 hover:bg-purple-600 hover:text-white': company.companyIsFTF }">
+                                    <button @click="toggleFTF(company._id)" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded transition-all border-4 border-purple-500" :class="{ 'border-4 border-purple-600 bg-transparent text-purple-500 hover:bg-purple-600 hover:text-white': company.companyIsFTF }">
                                         Toggle FTF
                                     </button>                                
                                 </div>

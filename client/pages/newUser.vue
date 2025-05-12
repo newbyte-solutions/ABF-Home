@@ -19,6 +19,7 @@
         >
         <input
           type="password"
+          autocomplete="current-password"
           v-model="oldPassword"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -30,6 +31,7 @@
         >
         <input
           type="password"
+          autocomplete="current-password"
           v-model="newPassword"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -41,6 +43,7 @@
         >
         <input
           type="password"
+          autocomplete="current-password"
           v-model="confirmPassword"
           required
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

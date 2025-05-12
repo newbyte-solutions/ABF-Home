@@ -1,50 +1,49 @@
 <template>
-    <span class="hidden">Checking Auth...</span>
+  <div v-if="isLoading">
+    <span>Checking authentication...</span>
+  </div>
+  <div v-else>
+    <span class="hidden">Auth Check Complete</span>
+  </div>
 </template>
-  <script>
-      import axios from 'axios';
 
-      export default {
-          props: {
-              isAdmin: {
-                  type: Boolean,
-                  default: false
-              },
-              isStudent: {
-                  type: Boolean,
-                  default: false
-              },
-              isFtf: {
-                  type: Boolean,
-                  default: false
-              }
-          },
-          async mounted() {
-              try {
-                const { public: publicConfig } = useRuntimeConfig();
-                const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
-                    withCredentials: true,
-                });
-                const user = response.data.user;
+<script setup>
+import { useRuntimeConfig, useRouter } from '#app'
+import axios from 'axios';
+import { ref, onMounted } from 'vue';
 
-                let hasAccess = false;
+const props = defineProps({
+  isAdmin: Boolean,
+  isStudent: Boolean,
+  isFtf: Boolean
+});
 
-                if (this.isAdmin && user.role === 'admin') {
-                    hasAccess = true;
-                }
-                if (this.isStudent && user.role === 'student') {
-                    hasAccess = true;
-                }
-                  if (this.isFtf && user.isFTF === true) {
-                      hasAccess = true;
-                  }
-                
-                  if (!hasAccess) {
-                      window.location.href = '/';
-                  }
-              } catch (error) {
-                  window.location.href = '/';
-              }
-          }
-      }
-  </script>
+const router = useRouter();
+const { public: publicConfig } = useRuntimeConfig();
+const isLoading = ref(true);
+
+const checkAuth = async () => {
+  try {
+    const response = await axios.get(`${publicConfig.apiBase}/auth/me`, {
+      withCredentials: true,
+    });
+
+    const user = response.data.user;
+    let hasAccess = false;
+
+    if (props.isAdmin && user.role === 'admin') hasAccess = true;
+    if (props.isStudent && user.role === 'student') hasAccess = true;
+    if (props.isFtf && user.isFTF === true) hasAccess = true;
+
+    if (!hasAccess) {
+      router.push('/');
+    }
+  } catch (error) {
+    router.push('/');
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(checkAuth);
+</script>

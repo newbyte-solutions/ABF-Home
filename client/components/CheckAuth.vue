@@ -8,9 +8,7 @@
 </template>
 
 <script setup>
-import { useRuntimeConfig, useRouter } from '#app'
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
 
 const props = defineProps({
   isAdmin: Boolean,
@@ -30,6 +28,8 @@ const checkAuth = async () => {
 
     const user = response.data.user;
     let hasAccess = false;
+
+    console.log('User:', user);
 
     if (props.isAdmin && user.role === 'admin') hasAccess = true;
     if (props.isStudent && user.role === 'student') hasAccess = true;

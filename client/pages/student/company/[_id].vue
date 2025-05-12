@@ -92,7 +92,7 @@
       </div>
     </div>
     <div class="" v-if="company && company._id && company.companyIsFTF">
-      <FTFmanager />
+      <FTFredirect />
     </div>
     <div
       class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"

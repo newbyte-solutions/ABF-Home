@@ -254,6 +254,7 @@ router.get("/me", async (req: Request, res: Response): Promise<void> => {
           username: user.username,
           phone: user.phone,
           grade: user.grade,
+          isFTF: user.isFTF,
         },
       });
     } catch (error) {

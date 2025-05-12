@@ -8,6 +8,7 @@ const UserSchema = new Schema(
     role: { type: String, required: true, enum: ["admin", "student", "guest"] },
     phone: { type: String },
     grade: { type: Number },
+    isFTF: { type: Boolean, default: false, required: false },
   },
   {
     timestamps: true,
@@ -23,6 +24,7 @@ type IUser = {
   role: string;
   phone?: string;
   grade?: number;
+  isFTF?: boolean;
   id?: string;
   _id?: mongoose.Types.ObjectId;
   createdAt?: Date;

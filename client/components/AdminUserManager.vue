@@ -17,6 +17,7 @@
           <span class="text-gray-300">Role: {{ user.role }}</span>
           <span class="text-gray-300">Grade: {{ user.grade }}</span>
           <span class="text-gray-300">Phone: {{ user.phone }}</span>
+          <span class="text-gray-300">FTF: {{ user.isFTF ? "Yes" : "No" }}</span>
           <span class="text-gray-300"
             >Created: {{ formatDate(user.createdAt) }}</span
           >
@@ -35,6 +36,16 @@
             class="bg-blue-500 text-white text-base md:text-lg border-none px-4 py-2 rounded hover:bg-blue-600 cursor-pointer transition-colors"
           >
             Edit User
+          </button>
+          <button
+            @click="toggleFTF(user._id)"
+            class="text-white text-base md:text-lg px-4 py-2 rounded cursor-pointer transition-all border-4 border-transparent"
+            :class="{
+              'bg-purple-500 hover:bg-purple-600': !user.isFTF,
+              'border-purple-500 bg-transparent text-purple-600 hover:bg-purple-600 hover:text-white': user.isFTF
+            }"
+          >
+          Toggle FTF
           </button>
         </div>
       </div>
@@ -77,6 +88,29 @@ export default {
     },
     async editUser(userId) {
       this.$router.push(`/admin/users/${userId}`);
+    },
+    async toggleFTF(userId) {
+      console.log("Attempting to toggle FTF for user:", userId);
+      try {
+        const { public: publicConfig } = useRuntimeConfig();
+        const response = await axios.put(
+          `${publicConfig.apiBase}/auth/${userId}/toggle_isFTF`,
+          {},
+          { withCredentials: true }
+        );
+        const updatedUser = response.data;
+        const userIndex = this.users.findIndex(user => user._id === userId);
+        if (userIndex !== -1) {
+          this.users = [
+            ...this.users.slice(0, userIndex),
+            { ...this.users[userIndex], isFTF: !this.users[userIndex].isFTF },
+            ...this.users.slice(userIndex + 1)
+          ];
+        }
+        console.log("Successfully toggled FTF for user:", userId);
+      } catch (error) {
+        console.error("Error toggling FTF for user:", error);
+      }
     },
   },
   async mounted() {

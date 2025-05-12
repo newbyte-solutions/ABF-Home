@@ -35,6 +35,7 @@
       <input
         required
         type="password"
+        autocomplete="current-password"
         v-model="password"
         placeholder="Password"
         id="password"

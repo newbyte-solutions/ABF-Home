@@ -228,40 +228,6 @@ router.post("/logout", (req: Request, res: Response) => {
   });
 });
 
-// Check admin
-router.get("/check_admin", isAdmin, (req: Request, res: Response) => {
-  console.log(
-    "[Auth] Admin authentication check passed for:",
-    req.session.user?.email,
-  );
-  res.status(200).json({ message: "Admin authenticated", role: "admin" });
-});
-
-// Check student
-router.get("/check_student", isStudent, (req: Request, res: Response) => {
-  console.log(
-    "[Auth] Student authentication check passed for:",
-    req.session.user?.email,
-  );
-  res.status(200).json({ message: "Student authenticated", role: "student" });
-});
-
-// Check if user is logged in
-router.get("/check_login", (req: Request, res: Response) => {
-  if (req.session.user) {
-    console.log(
-      "[Auth] Login check: User is logged in -",
-      req.session.user.email,
-    );
-    res
-      .status(200)
-      .json({ message: "User is logged in", user: req.session.user });
-  } else {
-    console.log("[Auth] Login check: User is not logged in");
-    res.status(401).json({ message: "User is not logged in" });
-  }
-});
-
 // Me
 router.get("/me", async (req: Request, res: Response): Promise<void> => {
   if (req.session.user) {
@@ -334,7 +300,29 @@ router.get(
   },
 );
 
-router.delete("/:id", async (req: Request, res: Response): Promise<void> => {
+// Toggle isFTF
+router.put("/:id/toggle_isFTF", isAdmin, async (req: Request, res: Response): Promise<void> => {
+  const userId = req.params.id;
+  console.log("[Auth] Attempting to toggle isFTF for user with ID:", userId);
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      console.log("[Auth] User not found with ID:", userId);
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+    user.isFTF = !user.isFTF;
+    await user.save();
+    console.log("[Auth] isFTF toggled successfully for user:", userId);
+    res.status(200).json({ message: "isFTF toggled successfully", user });
+  } catch (error) {
+    console.error("[Auth] Error toggling isFTF:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
+
+// Delete user
+router.delete("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
   const userId = req.params.id;
   console.log("[Auth] Attempting to delete user with ID:", userId);
 

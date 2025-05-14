@@ -44,7 +44,9 @@
                 Edit
               </button>
             </div>
-            <div class="p-6 md:w-2/3 border-t md:border-t-0 md:border-l border-gray-200">
+            <div
+              class="p-6 md:w-2/3 border-t md:border-t-0 md:border-l border-gray-200"
+            >
               <div
                 v-html="article.articleContent"
                 class="prose max-w-none"
@@ -66,60 +68,54 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import axios from 'axios'
-import { useConfirmation } from '@/composables/useConfirmation'
-import ConfirmationModal from '@/components/ConfirmationModal.vue'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import axios from "axios";
+import { useConfirmation } from "@/composables/useConfirmation";
+import ConfirmationModal from "@/components/ConfirmationModal.vue";
 
-const router = useRouter()
-const articles = ref([])
+const router = useRouter();
+const articles = ref([]);
 
-const {
-  isVisible,
-  title,
-  message,
-  confirm,
-  onConfirm,
-  onCancel
-} = useConfirmation()
+const { isVisible, title, message, confirm, onConfirm, onCancel } =
+  useConfirmation();
 
 async function confirmDelete(id) {
   const result = await confirm(
-    'Confirm Deletion',
-    'Are you sure you want to delete this article?'
-  )
+    "Confirm Deletion",
+    "Are you sure you want to delete this article?",
+  );
   if (result) {
-    await deleteArticle(id)
+    await deleteArticle(id);
   }
 }
 
 async function deleteArticle(id) {
-  const { public: publicConfig } = useRuntimeConfig()
+  const { public: publicConfig } = useRuntimeConfig();
 
   if (!id) {
-    console.error('Error: Article ID is undefined.')
-    return
+    console.error("Error: Article ID is undefined.");
+    return;
   }
 
   try {
     await axios.delete(`${publicConfig.apiBase}/news/article/${id}`, {
-      withCredentials: true
-    })
-    articles.value = articles.value.filter((article) => article._id !== id)
+      withCredentials: true,
+    });
+    articles.value = articles.value.filter((article) => article._id !== id);
   } catch (error) {
-    console.error('Error deleting article:', error)
+    console.error("Error deleting article:", error);
   }
 }
 
 onMounted(async () => {
-  const { public: publicConfig } = useRuntimeConfig()
+  const { public: publicConfig } = useRuntimeConfig();
   try {
-    const response = await axios.get(`${publicConfig.apiBase}/news/`)
-    articles.value = response.data
+    const response = await axios.get(`${publicConfig.apiBase}/news/`);
+    articles.value = response.data;
   } catch (error) {
-    console.error('Error fetching news:', error)
-    articles.value = []
+    console.error("Error fetching news:", error);
+    articles.value = [];
   }
-})
+});
 </script>

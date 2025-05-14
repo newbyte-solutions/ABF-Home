@@ -329,34 +329,39 @@ router.get(
   },
 );
 
-router.put("/toggle_ftf/:id", async (req: Request, res: Response): Promise<void> => {
-  console.log(`PUT /company/toggle_ftf/${req.params.id}`);
-  try {
-    const company = await Company.findById(req.params.id);
-    if (!company) {
-      console.log(`Company not found with ID: ${req.params.id}`);
-      res.status(404).json({ message: "Company not found" });
+router.put(
+  "/toggle_ftf/:id",
+  async (req: Request, res: Response): Promise<void> => {
+    console.log(`PUT /company/toggle_ftf/${req.params.id}`);
+    try {
+      const company = await Company.findById(req.params.id);
+      if (!company) {
+        console.log(`Company not found with ID: ${req.params.id}`);
+        res.status(404).json({ message: "Company not found" });
+        return;
+      }
+
+      const updatedCompany = await Company.findByIdAndUpdate(
+        req.params.id,
+        { companyIsFTF: !company.companyIsFTF },
+        { new: true },
+      );
+
+      if (!updatedCompany) {
+        console.log(`Failed to update company with ID: ${req.params.id}`);
+        res.status(500).json({ message: "Failed to update company" });
+        return;
+      }
+
+      console.log(
+        `Successfully toggled FTF status for company: ${req.params.id} to ${updatedCompany.companyIsFTF}`,
+      );
+      res.json(updatedCompany);
+    } catch (error) {
+      console.error(`Error toggling FTF for company ${req.params.id}:`, error);
+      res.status(500).json({ message: "Error toggling FTF status" });
       return;
     }
-
-    const updatedCompany = await Company.findByIdAndUpdate(
-      req.params.id,
-      { companyIsFTF: !company.companyIsFTF },
-      { new: true }
-    );
-
-    if (!updatedCompany) {
-      console.log(`Failed to update company with ID: ${req.params.id}`);
-      res.status(500).json({ message: "Failed to update company" });
-      return;
-    }
-
-    console.log(`Successfully toggled FTF status for company: ${req.params.id} to ${updatedCompany.companyIsFTF}`);
-    res.json(updatedCompany);
-  } catch (error) {
-    console.error(`Error toggling FTF for company ${req.params.id}:`, error);
-    res.status(500).json({ message: "Error toggling FTF status" });
-    return;
-  }
-});
+  },
+);
 export default router;

@@ -8,12 +8,12 @@
 </template>
 
 <script setup>
-import axios from 'axios';
+import axios from "axios";
 
 const props = defineProps({
   isAdmin: Boolean,
   isStudent: Boolean,
-  isFtf: Boolean
+  isFtf: Boolean,
 });
 
 const router = useRouter();
@@ -29,17 +29,17 @@ const checkAuth = async () => {
     const user = response.data.user;
     let hasAccess = false;
 
-    console.log('User:', user);
+    console.log("User:", user);
 
-    if (props.isAdmin && user.role === 'admin') hasAccess = true;
-    if (props.isStudent && user.role === 'student') hasAccess = true;
+    if (props.isAdmin && user.role === "admin") hasAccess = true;
+    if (props.isStudent && user.role === "student") hasAccess = true;
     if (props.isFtf && user.isFTF === true) hasAccess = true;
 
     if (!hasAccess) {
-      router.push('/');
+      router.push("/");
     }
   } catch (error) {
-    router.push('/');
+    router.push("/");
   } finally {
     isLoading.value = false;
   }

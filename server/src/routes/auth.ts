@@ -302,44 +302,52 @@ router.get(
 );
 
 // Toggle isFTF
-router.put("/:id/toggle_isFTF", isAdmin, async (req: Request, res: Response): Promise<void> => {
-  const userId = req.params.id;
-  console.log("[Auth] Attempting to toggle isFTF for user with ID:", userId);
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      console.log("[Auth] User not found with ID:", userId);
-      res.status(404).json({ message: "User not found" });
-      return;
+router.put(
+  "/:id/toggle_isFTF",
+  isAdmin,
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.id;
+    console.log("[Auth] Attempting to toggle isFTF for user with ID:", userId);
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        console.log("[Auth] User not found with ID:", userId);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      user.isFTF = !user.isFTF;
+      await user.save();
+      console.log("[Auth] isFTF toggled successfully for user:", userId);
+      res.status(200).json({ message: "isFTF toggled successfully", user });
+    } catch (error) {
+      console.error("[Auth] Error toggling isFTF:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-    user.isFTF = !user.isFTF;
-    await user.save();
-    console.log("[Auth] isFTF toggled successfully for user:", userId);
-    res.status(200).json({ message: "isFTF toggled successfully", user });
-  } catch (error) {
-    console.error("[Auth] Error toggling isFTF:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+  },
+);
 
 // Delete user
-router.delete("/:id", isAdmin, async (req: Request, res: Response): Promise<void> => {
-  const userId = req.params.id;
-  console.log("[Auth] Attempting to delete user with ID:", userId);
+router.delete(
+  "/:id",
+  isAdmin,
+  async (req: Request, res: Response): Promise<void> => {
+    const userId = req.params.id;
+    console.log("[Auth] Attempting to delete user with ID:", userId);
 
-  try {
-    const deletedUser = await User.findByIdAndDelete(userId);
-    if (!deletedUser) {
-      console.log("[Auth] User not found with ID:", userId);
-      res.status(404).json({ message: "User not found" });
-      return;
+    try {
+      const deletedUser = await User.findByIdAndDelete(userId);
+      if (!deletedUser) {
+        console.log("[Auth] User not found with ID:", userId);
+        res.status(404).json({ message: "User not found" });
+        return;
+      }
+      console.log("[Auth] User deleted successfully:", userId);
+      res.status(200).json({ message: "User deleted successfully" });
+    } catch (error) {
+      console.error("[Auth] Error deleting user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-    console.log("[Auth] User deleted successfully:", userId);
-    res.status(200).json({ message: "User deleted successfully" });
-  } catch (error) {
-    console.error("[Auth] Error deleting user:", error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-});
+  },
+);
 
 export default router;

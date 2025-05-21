@@ -11,5 +11,6 @@
         Welcome to the Fjord Til Fjells admin panel
       </p>
     </div>
+    <FTFAdminDashboard />
   </div>
 </template>

@@ -5,6 +5,7 @@ import { connectDB } from "./db";
 import authRoute from "./routes/auth";
 import companyRoute from "./routes/company";
 import newsRoute from "./routes/news";
+import ftfRoute from "./routes/ftf";
 import MongoStore from "connect-mongo";
 import dotenv from "dotenv";
 
@@ -74,6 +75,7 @@ app.use("/static", express.static("uploads"));
 app.use("/auth", authRoute);
 app.use("/company", companyRoute);
 app.use("/news", newsRoute);
+app.use("/ftf", ftfRoute)
 
 // Start Server
 app.listen(port, () => {

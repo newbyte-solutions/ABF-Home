@@ -15,4 +15,7 @@
       <p class="text-gray-600 text-lg">Kommer snart!</p>
     </div>
   </div>
+  <div class="w-full min-h-screen bg-gray-200 flex items-center justify-center">
+    <FTFItems />
+  </div>
 </template>

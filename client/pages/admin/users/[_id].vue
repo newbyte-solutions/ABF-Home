@@ -1,7 +1,7 @@
 <template>
-  <div v-if="user" class="w-full min-h-screen mx-auto mt-8 p-6 bg-gray-100">
+  <div v-if="user" class="w-full min-h-screen mx-auto mt-8 p-6 bg-gray-900">
     <div class="py-20">
-      <h1 class="font-semibold text-4xl text-center mb-10 text-gray-900">
+      <h1 class="font-semibold text-4xl text-center mb-10 text-white">
         Edit user: {{ user.username }}
       </h1>
       <form

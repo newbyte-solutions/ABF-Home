@@ -1,78 +1,78 @@
 <template>
   <AuthCheck :isAdmin="true" :isStudent="false" :isFtf="false" />
   <div class="py-8"></div>
-  <div class="container mx-auto p-4">
+  <div class="container mx-auto p-4 bg-gray-900 min-h-screen">
     <div v-if="company" class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-bold mb-6 text-center">Edit Company</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center text-white">Edit Company</h1>
       <form @submit.prevent="saveCompany" class="space-y-4">
         <div class="form-group">
-          <label class="block mb-1">Company Name</label>
+          <label class="block mb-1 text-white">Company Name</label>
           <input
             v-model="company.companyName"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Email</label>
+          <label class="block mb-1 text-white">Email</label>
           <input
             v-model="company.companyEmail"
             type="email"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Phone</label>
+          <label class="block mb-1 text-white">Phone</label>
           <input
             v-model="company.companyPhone"
             type="tel"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Contact Person</label>
+          <label class="block mb-1 text-white">Contact Person</label>
           <input
             v-model="company.companyContactPerson"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Grade</label>
+          <label class="block mb-1 text-white">Grade</label>
           <input
             v-model.number="company.companyGrade"
             type="number"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Founded Date</label>
+          <label class="block mb-1 text-white">Founded Date</label>
           <input
             v-model="company.companyFounded"
             type="date"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Description</label>
+          <label class="block mb-1 text-white">Description</label>
           <textarea
             v-model="company.companyDescription"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Content</label>
+          <label class="block mb-1 text-white">Content</label>
           <textarea
             v-model="company.companyContent"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Tags</label>
+          <label class="block mb-1 text-white">Tags</label>
           <input
             v-model="tagsString"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
             placeholder="Comma-separated tags"
           />
         </div>
@@ -90,7 +90,7 @@
         <div class="flex justify-center mt-4">
           <button
             type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
           >
             Save Changes
           </button>

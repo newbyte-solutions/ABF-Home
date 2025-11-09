@@ -1,45 +1,45 @@
 <template>
   <AuthCheck :isAdmin="true" :isStudent="false" :isFtf="false" />
-  <div class="w-full mx-auto p-4 bg-gray-100 min-h-screen">
+  <div class="w-full mx-auto p-4 bg-gray-900 min-h-screen">
     <div v-if="article" class="max-w-2xl mx-auto py-20">
-      <h1 class="text-2xl font-bold mb-6 text-center">Edit Article</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center text-white">Edit Article</h1>
       <form @submit.prevent="saveArticle" class="space-y-4">
         <div class="form-group">
-          <label class="block mb-1">Title</label>
+          <label class="block mb-1 text-white">Title</label>
           <input
             v-model="article.articleTitle"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Author</label>
+          <label class="block mb-1 text-white">Author</label>
           <input
             v-model="article.articleAuthor"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Description</label>
+          <label class="block mb-1 text-white">Description</label>
           <textarea
             v-model="article.articleDescription"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Content</label>
+          <label class="block mb-1 text-white">Content</label>
           <textarea
             v-model="article.articleContent"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Tags</label>
+          <label class="block mb-1 text-white">Tags</label>
           <input
             v-model="tagsString"
             type="text"
-            class="w-full p-2 border rounded"
+            class="w-full p-2 border border-gray-700 rounded bg-gray-800 text-white focus:outline-none focus:border-blue-500"
             placeholder="Comma-separated tags"
           />
         </div>
@@ -51,7 +51,7 @@
         <div class="flex justify-center mt-4">
           <button
             type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors duration-300"
           >
             Save Changes
           </button>

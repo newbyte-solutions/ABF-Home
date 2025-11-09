@@ -3,7 +3,9 @@
   <div class="py-8"></div>
   <div class="container mx-auto p-4 bg-gray-900 min-h-screen">
     <div v-if="company" class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-bold mb-6 text-center text-white">Edit Company</h1>
+      <h1 class="text-2xl font-bold mb-6 text-center text-white">
+        Edit Company
+      </h1>
       <form @submit.prevent="saveCompany" class="space-y-4">
         <div class="form-group">
           <label class="block mb-1 text-white">Company Name</label>

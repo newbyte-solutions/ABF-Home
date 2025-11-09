@@ -52,17 +52,23 @@
               class="appearance-none relative block w-full px-4 mt-2 py-3 border-0 rounded-lg placeholder-gray-400 text-gray-100 bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 sm:text-sm md:text-base"
               placeholder="12345678"
             />
-            </div>
-            <div>
-                <label for="grade" class="text-gray-300 text-sm font-medium"
-                >Klassetrinn:</label
-                >
-                <select name="grade" id="grade" v-model="grade" required class="appearance-none relative block w-full px-4 mt-2 py-3 border-0 rounded-lg placeholder-gray-400 text-gray-100 bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 sm:text-sm md:text-base">
-                  <option value="" disabled>Velg klassetrinn</option>
-                  <option value="8">8. klasse</option>
-                  <option value="9">9. klasse</option>
-                  <option value="10">10. klasse</option>
-                </select>
+          </div>
+          <div>
+            <label for="grade" class="text-gray-300 text-sm font-medium"
+              >Klassetrinn:</label
+            >
+            <select
+              name="grade"
+              id="grade"
+              v-model="grade"
+              required
+              class="appearance-none relative block w-full px-4 mt-2 py-3 border-0 rounded-lg placeholder-gray-400 text-gray-100 bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 sm:text-sm md:text-base"
+            >
+              <option value="" disabled>Velg klassetrinn</option>
+              <option value="8">8. klasse</option>
+              <option value="9">9. klasse</option>
+              <option value="10">10. klasse</option>
+            </select>
           </div>
           <div>
             <label for="password" class="text-gray-300 text-sm font-medium"

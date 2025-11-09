@@ -12,7 +12,9 @@
     >
       <h2 class="font-semibold text-xl mb-4">
         Navn:
-        <span class="font-normal text-gray-300">{{ username || "Ikke autorisert" }}</span>
+        <span class="font-normal text-gray-300">{{
+          username || "Ikke autorisert"
+        }}</span>
       </h2>
       <p class="font-semibold text-xl mb-6">
         Din bedrift:
@@ -27,7 +29,7 @@
       >
         Bedrift portal
       </button>
-      <button 
+      <button
         v-if="!companyId"
         @click="$router.push('/student/company/create')"
         class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg absolute bottom-10 left-10 font-semibold transition duration-200 shadow-lg"

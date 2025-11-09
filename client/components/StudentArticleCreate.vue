@@ -1,12 +1,12 @@
 <template>
   <div class="w-full">
-    <form
-      @submit.prevent="handleNewArticle"
-      class="space-y-4"
-    >
-
+    <form @submit.prevent="handleNewArticle" class="space-y-4">
       <div>
-        <label for="articleTitle" class="block mb-2 text-sm font-medium text-gray-300">Artikkel tittel</label>
+        <label
+          for="articleTitle"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Artikkel tittel</label
+        >
         <input
           v-model="articleTitle"
           id="articleTitle"
@@ -17,7 +17,11 @@
         />
       </div>
       <div>
-        <label for="articleDescription" class="block mb-2 text-sm font-medium text-gray-300">Beskrivelse</label>
+        <label
+          for="articleDescription"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Beskrivelse</label
+        >
         <input
           v-model="articleDescription"
           id="articleDescription"
@@ -28,7 +32,11 @@
         />
       </div>
       <div>
-        <label for="articleContent" class="block mb-2 text-sm font-medium text-gray-300">Innhold (Markdown Support)</label>
+        <label
+          for="articleContent"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Innhold (Markdown Support)</label
+        >
         <textarea
           v-model="articleContent"
           id="articleContent"
@@ -40,7 +48,11 @@
       </div>
 
       <div>
-        <label for="articleAuthor" class="block mb-2 text-sm font-medium text-gray-300">Forfatter</label>
+        <label
+          for="articleAuthor"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Forfatter</label
+        >
         <input
           v-model="articleAuthor"
           id="articleAuthor"
@@ -50,9 +62,13 @@
           class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
         />
       </div>
-      
+
       <div>
-        <label for="articleGrade" class="block mb-2 text-sm font-medium text-gray-300">Klasse</label>
+        <label
+          for="articleGrade"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Klasse</label
+        >
         <select
           v-model="articleGrade"
           id="articleGrade"
@@ -68,7 +84,11 @@
       </div>
 
       <div>
-        <label for="articleTags" class="block mb-2 text-sm font-medium text-gray-300">Tags</label>
+        <label
+          for="articleTags"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Tags</label
+        >
         <input
           v-model="articleTags"
           id="articleTags"
@@ -79,7 +99,11 @@
       </div>
 
       <div>
-        <label for="articleImage" class="block mb-2 text-sm font-medium text-gray-300">Bilde</label>
+        <label
+          for="articleImage"
+          class="block mb-2 text-sm font-medium text-gray-300"
+          >Bilde</label
+        >
         <input
           id="articleImage"
           type="file"

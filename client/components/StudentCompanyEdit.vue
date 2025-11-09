@@ -3,7 +3,9 @@
     <div v-if="company">
       <form @submit.prevent="saveCompany" class="space-y-4">
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Bedriftsnavn</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Bedriftsnavn</label
+          >
           <input
             v-model="company.companyName"
             type="text"
@@ -11,7 +13,9 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">E-postadresse</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >E-postadresse</label
+          >
           <input
             v-model="company.companyEmail"
             type="email"
@@ -19,7 +23,9 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Telefonnummer</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Telefonnummer</label
+          >
           <input
             v-model="company.companyPhone"
             type="tel"
@@ -27,7 +33,9 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Kontaktperson</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Kontaktperson</label
+          >
           <input
             v-model="company.companyContactPerson"
             type="text"
@@ -35,7 +43,9 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Klasse</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Klasse</label
+          >
           <select
             v-model.number="company.companyGrade"
             class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 cursor-pointer"
@@ -47,7 +57,9 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Grunnlagt</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Grunnlagt</label
+          >
           <input
             v-model="company.companyFounded"
             type="date"
@@ -55,7 +67,9 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Beskrivelse</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Beskrivelse</label
+          >
           <textarea
             v-model="company.companyDescription"
             rows="4"
@@ -63,7 +77,9 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Innhold</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Innhold</label
+          >
           <textarea
             v-model="company.companyContent"
             rows="6"
@@ -71,7 +87,9 @@
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-2 text-sm font-medium text-gray-300">Tags</label>
+          <label class="block mb-2 text-sm font-medium text-gray-300"
+            >Tags</label
+          >
           <input
             v-model="tagsString"
             type="text"

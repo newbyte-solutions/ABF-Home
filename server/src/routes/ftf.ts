@@ -25,14 +25,7 @@ router.post("/items", async (req: Request, res: Response): Promise<void> => {
   } = req.body;
 
   // Basic validation
-  if (
-    !id ||
-    !name ||
-    !description ||
-    !category ||
-    !type ||
-    !ageRating
-) {
+  if (!id || !name || !description || !category || !type || !ageRating) {
     console.log("POST /items - Validation failed: Missing required fields");
     res.status(400).json({ message: "Missing required fields." });
     return;
@@ -94,7 +87,9 @@ router.get("/items/:id", async (req, res): Promise<void> => {
 // Update item (admin)
 router.put("/items/:id", async (req, res): Promise<void> => {
   console.log(`PUT /items/${req.params.id} - Updating item`);
-  const item = await FtfItem.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const item = await FtfItem.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+  });
   if (!item) {
     console.log(`PUT /items/${req.params.id} - Item not found`);
     res.status(404).json({ message: "Item not found" });

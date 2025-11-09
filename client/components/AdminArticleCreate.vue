@@ -4,14 +4,22 @@
       @submit.prevent="handleNewArticle"
       class="max-w-5xl mx-auto p-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl border border-gray-700"
     >
-      <h2 class="text-3xl font-bold mb-2 text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+      <h2
+        class="text-3xl font-bold mb-2 text-center bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+      >
         Create New Article
       </h2>
-      <p class="text-center text-gray-400 mb-8 text-sm">Share your story with the community</p>
-      
+      <p class="text-center text-gray-400 mb-8 text-sm">
+        Share your story with the community
+      </p>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="md:col-span-2">
-          <label for="articleTitle" class="block text-sm font-medium text-gray-300 mb-2">Article Title</label>
+          <label
+            for="articleTitle"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Article Title</label
+          >
           <input
             v-model="articleTitle"
             type="text"
@@ -22,7 +30,11 @@
           />
         </div>
         <div class="md:col-span-2">
-          <label for="articleDescription" class="block text-sm font-medium text-gray-300 mb-2">Description</label>
+          <label
+            for="articleDescription"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Description</label
+          >
           <input
             v-model="articleDescription"
             type="text"
@@ -33,7 +45,11 @@
           />
         </div>
         <div class="md:col-span-2">
-          <label for="articleContent" class="block text-sm font-medium text-gray-300 mb-2">Content</label>
+          <label
+            for="articleContent"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Content</label
+          >
           <textarea
             v-model="articleContent"
             placeholder="Write your article content here..."
@@ -43,7 +59,11 @@
           ></textarea>
         </div>
         <div>
-          <label for="articleAuthor" class="block text-sm font-medium text-gray-300 mb-2">Author</label>
+          <label
+            for="articleAuthor"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Author</label
+          >
           <input
             v-model="articleAuthor"
             type="text"
@@ -54,7 +74,11 @@
           />
         </div>
         <div>
-          <label for="articleCompany" class="block text-sm font-medium text-gray-300 mb-2">Company</label>
+          <label
+            for="articleCompany"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Company</label
+          >
           <select
             v-model="articleCompany"
             required
@@ -73,7 +97,11 @@
           </select>
         </div>
         <div>
-          <label for="articleGrade" class="block text-sm font-medium text-gray-300 mb-2">Grade</label>
+          <label
+            for="articleGrade"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Grade</label
+          >
           <select
             v-model="articleGrade"
             required
@@ -88,7 +116,11 @@
           </select>
         </div>
         <div>
-          <label for="articleTags" class="block text-sm font-medium text-gray-300 mb-2">Tags</label>
+          <label
+            for="articleTags"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Tags</label
+          >
           <input
             v-model="articleTags"
             type="text"
@@ -98,7 +130,11 @@
           />
         </div>
         <div class="md:col-span-2">
-          <label for="articleImage" class="block text-sm font-medium text-gray-300 mb-2">Article Image (optional)</label>
+          <label
+            for="articleImage"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Article Image (optional)</label
+          >
           <input
             type="file"
             @change="handleImageChange"
@@ -108,7 +144,7 @@
           />
         </div>
       </div>
-      
+
       <button
         type="submit"
         class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] active:scale-[0.98] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg"

@@ -2,13 +2,24 @@
   <div class="py-20 px-4">
     <form
       @submit.prevent="handleNewCompany"
-      class="max-w-4xl mx-auto bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-700">
-      <h2 class="font-bold text-4xl text-center mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Ny Bedrift</h2>
-      <p class="text-center text-gray-400 mb-8 text-sm">Registrer din bedrift her</p>
-      
+      class="max-w-4xl mx-auto bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-2xl shadow-2xl border border-gray-700"
+    >
+      <h2
+        class="font-bold text-4xl text-center mb-2 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"
+      >
+        Ny Bedrift
+      </h2>
+      <p class="text-center text-gray-400 mb-8 text-sm">
+        Registrer din bedrift her
+      </p>
+
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label for="companyName" class="block text-sm font-medium text-gray-300 mb-2">Bedriftsnavn</label>
+          <label
+            for="companyName"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Bedriftsnavn</label
+          >
           <input
             required
             type="text"
@@ -20,7 +31,11 @@
           />
         </div>
         <div>
-          <label for="companyEmail" class="block text-sm font-medium text-gray-300 mb-2">E-post</label>
+          <label
+            for="companyEmail"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >E-post</label
+          >
           <input
             required
             type="email"
@@ -32,7 +47,11 @@
           />
         </div>
         <div>
-          <label for="companyPhone" class="block text-sm font-medium text-gray-300 mb-2">Telefonnummer</label>
+          <label
+            for="companyPhone"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Telefonnummer</label
+          >
           <input
             required
             type="tel"
@@ -44,7 +63,11 @@
           />
         </div>
         <div>
-          <label for="contactPerson" class="block text-sm font-medium text-gray-300 mb-2">Kontaktperson</label>
+          <label
+            for="contactPerson"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Kontaktperson</label
+          >
           <input
             required
             type="text"
@@ -56,7 +79,11 @@
           />
         </div>
         <div>
-          <label for="companyFounded" class="block text-sm font-medium text-gray-300 mb-2">Stiftelsesdato</label>
+          <label
+            for="companyFounded"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Stiftelsesdato</label
+          >
           <input
             required
             type="date"
@@ -67,7 +94,11 @@
           />
         </div>
         <div>
-          <label for="companyLogo" class="block text-sm font-medium text-gray-300 mb-2">Bedriftslogo (valgfritt)</label>
+          <label
+            for="companyLogo"
+            class="block text-sm font-medium text-gray-300 mb-2"
+            >Bedriftslogo (valgfritt)</label
+          >
           <input
             type="file"
             @change="handleLogoUpload"
@@ -78,9 +109,13 @@
           />
         </div>
       </div>
-      
+
       <div class="mt-4">
-        <label for="companyGrade" class="block text-sm font-medium text-gray-300 mb-2">Klasse</label>
+        <label
+          for="companyGrade"
+          class="block text-sm font-medium text-gray-300 mb-2"
+          >Klasse</label
+        >
         <select
           required
           v-model="companyGrade"
@@ -88,14 +123,14 @@
           name="companyGrade"
           class="w-full p-3 rounded-lg bg-gray-700/50 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 cursor-pointer"
         >
-        <option value="">Velg Klasse</option>
-        <option value="8">8.</option>
-        <option value="9">9.</option>
-        <option value="10">10.</option>
-        <option value="100">Lærar</option>
+          <option value="">Velg Klasse</option>
+          <option value="8">8.</option>
+          <option value="9">9.</option>
+          <option value="10">10.</option>
+          <option value="100">Lærar</option>
         </select>
       </div>
-      
+
       <button
         type="submit"
         class="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] active:scale-[0.98] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-lg"

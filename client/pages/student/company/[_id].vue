@@ -7,7 +7,9 @@
     <div class="max-w-6xl mx-auto">
       <!-- Company Logo and Header Section -->
       <div class="bg-gray-800 rounded-2xl shadow-2xl overflow-hidden mb-6">
-        <div class="relative bg-gradient-to-r from-blue-600 to-purple-600 h-32 sm:h-40">
+        <div
+          class="relative bg-gradient-to-r from-blue-600 to-purple-600 h-32 sm:h-40"
+        >
           <div class="absolute -bottom-12 left-8">
             <div
               v-if="company.companyLogo"
@@ -39,9 +41,11 @@
             </div>
           </div>
         </div>
-        
+
         <div class="pt-16 px-6 sm:px-8 pb-6">
-          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4"
+          >
             <div>
               <h1 class="text-3xl sm:text-4xl font-bold mb-2">
                 {{ company.companyName }}
@@ -74,7 +78,7 @@
               </span>
             </div>
           </div>
-          
+
           <p class="text-gray-300 text-base sm:text-lg leading-relaxed">
             {{ company.companyDescription }}
           </p>
@@ -103,7 +107,9 @@
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div class="space-y-2">
-              <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-400 font-semibold"
+              >
                 Kontaktperson
               </p>
               <p class="text-base font-medium text-white flex items-center">
@@ -123,9 +129,11 @@
                 {{ company.companyContactPerson }}
               </p>
             </div>
-            
+
             <div class="space-y-2">
-              <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-400 font-semibold"
+              >
                 E-postadresse
               </p>
               <a
@@ -148,9 +156,11 @@
                 {{ company.companyEmail }}
               </a>
             </div>
-            
+
             <div class="space-y-2">
-              <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-400 font-semibold"
+              >
                 Telefonnummer
               </p>
               <a
@@ -173,9 +183,11 @@
                 {{ company.companyPhone }}
               </a>
             </div>
-            
+
             <div class="space-y-2">
-              <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-400 font-semibold"
+              >
                 Grunnlagt
               </p>
               <p class="text-base font-medium text-white flex items-center">
@@ -195,9 +207,11 @@
                 {{ formatDate(company.companyFounded) }}
               </p>
             </div>
-            
+
             <div class="space-y-2 sm:col-span-2">
-              <p class="text-xs uppercase tracking-wide text-gray-400 font-semibold">
+              <p
+                class="text-xs uppercase tracking-wide text-gray-400 font-semibold"
+              >
                 Offentlig Profil
               </p>
               <a
@@ -248,7 +262,9 @@
               :key="studentId"
               class="flex items-center space-x-3 p-3 bg-gray-700/50 rounded-lg hover:bg-gray-700 transition-colors"
             >
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+              <div
+                class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center flex-shrink-0"
+              >
                 <span class="text-white font-bold text-sm">
                   {{ (userMap[studentId] || "?").charAt(0).toUpperCase() }}
                 </span>
@@ -267,10 +283,7 @@
       </div>
 
       <!-- Action Sections -->
-      <div
-        v-if="company && company._id"
-        class="space-y-6"
-      >
+      <div v-if="company && company._id" class="space-y-6">
         <div class="bg-gray-800 rounded-xl shadow-xl p-6">
           <h2 class="text-xl font-bold mb-4 flex items-center">
             <svg

@@ -91,10 +91,10 @@ router.post(
 
     console.log(`Company logo path: ${companyLogo}`);
 
-
     const tempCompany = new Company();
     data.companyId = tempCompany._id;
-    const companyWebsite = process.env.CLIENT_URL + "/company/" + data.companyId;
+    const companyWebsite =
+      process.env.CLIENT_URL + "/company/" + data.companyId;
 
     // If the user is a student, automatically add their ID to companyStudents
     let companyStudents = data.companyStudents || [];

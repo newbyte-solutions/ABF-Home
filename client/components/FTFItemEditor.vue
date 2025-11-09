@@ -31,7 +31,9 @@
         <input v-model="tagsString" type="text" class="input" />
       </div>
       <div>
-        <label class="block font-medium mb-1">Bilde-URL(er) (kommaseparert)</label>
+        <label class="block font-medium mb-1"
+          >Bilde-URL(er) (kommaseparert)</label
+        >
         <input v-model="imagesString" type="text" class="input" />
       </div>
       <div class="flex justify-end">
@@ -45,48 +47,62 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
-import axios from 'axios'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, watch } from "vue";
+import axios from "axios";
+import { useRoute } from "vue-router";
 
-const route = useRoute()
-const item = ref<any>(null)
-const loading = ref(false)
-const tagsString = ref('')
-const imagesString = ref('')
+const route = useRoute();
+const item = ref<any>(null);
+const loading = ref(false);
+const tagsString = ref("");
+const imagesString = ref("");
 
 onMounted(async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    const { public: publicConfig } = useRuntimeConfig()
-    const res = await axios.get(`${publicConfig.apiBase}/ftf/items/${route.params.id}`)
-    item.value = res.data
-    tagsString.value = (item.value.tags || []).join(', ')
-    imagesString.value = (item.value.images || []).join(', ')
+    const { public: publicConfig } = useRuntimeConfig();
+    const res = await axios.get(
+      `${publicConfig.apiBase}/ftf/items/${route.params.id}`,
+    );
+    item.value = res.data;
+    tagsString.value = (item.value.tags || []).join(", ");
+    imagesString.value = (item.value.images || []).join(", ");
   } catch (e) {
-    item.value = null
+    item.value = null;
   } finally {
-    loading.value = false
+    loading.value = false;
   }
-})
+});
 
-watch(tagsString, val => {
-  if (item.value) item.value.tags = val.split(',').map(t => t.trim()).filter(Boolean)
-})
-watch(imagesString, val => {
-  if (item.value) item.value.images = val.split(',').map(i => i.trim()).filter(Boolean)
-})
+watch(tagsString, (val) => {
+  if (item.value)
+    item.value.tags = val
+      .split(",")
+      .map((t) => t.trim())
+      .filter(Boolean);
+});
+watch(imagesString, (val) => {
+  if (item.value)
+    item.value.images = val
+      .split(",")
+      .map((i) => i.trim())
+      .filter(Boolean);
+});
 
 async function submitEdit() {
-  loading.value = true
+  loading.value = true;
   try {
-    const { public: publicConfig } = useRuntimeConfig()
-    await axios.put(`${publicConfig.apiBase}/ftf/items/${item.value.id}`, item.value, { withCredentials: true })
-    alert('Endringer lagret!')
+    const { public: publicConfig } = useRuntimeConfig();
+    await axios.put(
+      `${publicConfig.apiBase}/ftf/items/${item.value.id}`,
+      item.value,
+      { withCredentials: true },
+    );
+    alert("Endringer lagret!");
   } catch (e) {
-    alert('Kunne ikke lagre endringer.')
+    alert("Kunne ikke lagre endringer.");
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
 </script>

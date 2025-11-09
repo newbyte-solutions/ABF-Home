@@ -1,12 +1,16 @@
 <template>
   <AuthCheck :isAdmin="false" :isStudent="true" :isFtf="false" />
-  <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-8 px-4">
+  <div
+    class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-8 px-4"
+  >
     <div v-if="article" class="max-w-3xl mx-auto">
       <div class="bg-gray-800 rounded-2xl shadow-2xl p-8">
         <h1 class="text-3xl font-bold mb-8 text-center">Rediger Artikkel</h1>
         <form @submit.prevent="saveArticle" class="space-y-4">
           <div class="form-group">
-            <label class="block mb-2 text-sm font-medium text-gray-300">Tittel</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+              >Tittel</label
+            >
             <input
               v-model="article.articleTitle"
               type="text"
@@ -14,7 +18,9 @@
             />
           </div>
           <div class="form-group">
-            <label class="block mb-2 text-sm font-medium text-gray-300">Forfatter</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+              >Forfatter</label
+            >
             <input
               v-model="article.articleAuthor"
               type="text"
@@ -22,7 +28,9 @@
             />
           </div>
           <div class="form-group">
-            <label class="block mb-2 text-sm font-medium text-gray-300">Beskrivelse</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+              >Beskrivelse</label
+            >
             <textarea
               v-model="article.articleDescription"
               rows="3"
@@ -30,7 +38,9 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label class="block mb-2 text-sm font-medium text-gray-300">Innhold</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+              >Innhold</label
+            >
             <textarea
               v-model="article.articleContent"
               rows="8"
@@ -38,7 +48,9 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label class="block mb-2 text-sm font-medium text-gray-300">Tags</label>
+            <label class="block mb-2 text-sm font-medium text-gray-300"
+              >Tags</label
+            >
             <input
               v-model="tagsString"
               type="text"
@@ -47,9 +59,9 @@
             />
           </div>
 
-        <!-- Hidden fields -->
-        <input type="hidden" v-model="article.artilceImageUrl" />
-        <input type="hidden" v-model="article.articlePublishedDate" />
+          <!-- Hidden fields -->
+          <input type="hidden" v-model="article.artilceImageUrl" />
+          <input type="hidden" v-model="article.articlePublishedDate" />
 
           <div class="flex gap-4 mt-6">
             <button

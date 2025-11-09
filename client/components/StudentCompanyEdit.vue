@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto p-4">
     <div v-if="company" class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-bold mb-6">Edit Company</h1>
+      <h1 class="text-2xl font-bold mb-6">Rediger Bedrift</h1>
       <form @submit.prevent="saveCompany" class="space-y-4">
         <div class="form-group">
-          <label class="block mb-1">Company Name</label>
+          <label class="block mb-1">Bedriftsnavn</label>
           <input
             v-model="company.companyName"
             type="text"
@@ -12,7 +12,7 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Email</label>
+          <label class="block mb-1">E-postadresse</label>
           <input
             v-model="company.companyEmail"
             type="email"
@@ -20,7 +20,7 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Phone</label>
+          <label class="block mb-1">Telefonnummer</label>
           <input
             v-model="company.companyPhone"
             type="tel"
@@ -28,7 +28,7 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Contact Person</label>
+          <label class="block mb-1">Kontaktperson</label>
           <input
             v-model="company.companyContactPerson"
             type="text"
@@ -36,7 +36,7 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Grade</label>
+          <label class="block mb-1">Klasse</label>
           <select
             v-model.number="company.companyGrade"
             class="w-full p-2 border rounded text-gray-900"
@@ -48,7 +48,7 @@
           </select>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Founded Date</label>
+          <label class="block mb-1">Grunnlagt</label>
           <input
             v-model="company.companyFounded"
             type="date"
@@ -56,14 +56,14 @@
           />
         </div>
         <div class="form-group">
-          <label class="block mb-1">Description</label>
+          <label class="block mb-1">Beskrivelse</label>
           <textarea
             v-model="company.companyDescription"
             class="w-full p-2 border rounded text-gray-900"
           ></textarea>
         </div>
         <div class="form-group">
-          <label class="block mb-1">Content</label>
+          <label class="block mb-1">Innhold</label>
           <textarea
             v-model="company.companyContent"
             class="w-full p-2 border rounded text-gray-900"
@@ -93,7 +93,7 @@
           type="submit"
           class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
-          Save Changes
+          Lagre endringer
         </button>
       </form>
     </div>

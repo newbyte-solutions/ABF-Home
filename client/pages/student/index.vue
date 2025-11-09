@@ -28,6 +28,7 @@
         Bedrift portal
       </button>
       <button 
+        v-if="!companyId"
         @click="$router.push('/student/company/create')"
         class="px-6 py-2 border-4 border-green-500 absolute bottom-10 left-10 font-semibold"
       >

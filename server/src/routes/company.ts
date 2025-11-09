@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { isAdmin, isStudent, isAdminOrStudent } from "../middleware/auth";
 import Company from "../models/company";
+import User from "../models/user";
 import multer from "multer";
 import path from "path";
 import fs from "fs";
@@ -78,7 +79,7 @@ router.get("/:id", async (req: Request, res: Response): Promise<void> => {
 
 router.post(
   "/new_company",
-  isAdmin,
+  isAdminOrStudent,
   upload.single("companyLogo"),
   async (req: Request, res: Response): Promise<void> => {
     console.log("POST /company/new_company - Creating new company");
@@ -90,7 +91,26 @@ router.post(
 
     console.log(`Company logo path: ${companyLogo}`);
 
+
+    const tempCompany = new Company();
+    data.companyId = tempCompany._id;
+    const companyWebsite = process.env.CLIENT_URL + "/company/" + data.companyId;
+
+    // If the user is a student, automatically add their ID to companyStudents
+    let companyStudents = data.companyStudents || [];
+    if (req.session?.user?.role === "student") {
+      const user = await User.findOne({ email: req.session.user.email });
+      if (user) {
+        const studentId = user._id.toString();
+        if (!companyStudents.includes(studentId)) {
+          companyStudents.push(studentId);
+        }
+        console.log(`Student ${studentId} automatically added to company`);
+      }
+    }
+
     const newCompany = new Company({
+      companyId: data.companyId,
       companyName: data.companyName,
       companyEmail: data.companyEmail,
       companyPhone: data.companyPhone,
@@ -98,8 +118,8 @@ router.post(
       companyFounded: data.companyFounded,
       companyGrade: data.companyGrade,
       companyLogo: companyLogo,
-      companyStudents: data.companyStudents,
-      companyWebsite: data.companyWebsite,
+      companyStudents: companyStudents,
+      companyWebsite: companyWebsite,
       companyDescription: data.companyDescription,
       companyContent: data.companyContent,
       companyTags: data.companyTags,

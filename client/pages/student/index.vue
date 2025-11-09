@@ -27,6 +27,12 @@
       >
         Bedrift portal
       </button>
+      <button 
+        @click="$router.push('/student/company/create')"
+        class="px-6 py-2 border-4 border-green-500 absolute bottom-10 left-10 font-semibold"
+      >
+        Opprett bedrift
+      </button>
       <div class="absolute bottom-10 right-10">
         <BaseLogoutButton />
       </div>

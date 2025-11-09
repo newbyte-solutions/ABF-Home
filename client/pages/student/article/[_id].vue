@@ -1,62 +1,73 @@
 <template>
   <AuthCheck :isAdmin="false" :isStudent="true" :isFtf="false" />
-  <div class="w-full mx-auto p-4 bg-gray-100 min-h-screen">
-    <div v-if="article" class="max-w-2xl mx-auto py-20">
-      <h1 class="text-2xl font-bold mb-6 text-center">Edit Article</h1>
-      <form @submit.prevent="saveArticle" class="space-y-4">
-        <div class="form-group">
-          <label class="block mb-1">Title</label>
-          <input
-            v-model="article.articleTitle"
-            type="text"
-            class="w-full p-2 border rounded"
-          />
-        </div>
-        <div class="form-group">
-          <label class="block mb-1">Author</label>
-          <input
-            v-model="article.articleAuthor"
-            type="text"
-            class="w-full p-2 border rounded"
-          />
-        </div>
-        <div class="form-group">
-          <label class="block mb-1">Description</label>
-          <textarea
-            v-model="article.articleDescription"
-            class="w-full p-2 border rounded"
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <label class="block mb-1">Content</label>
-          <textarea
-            v-model="article.articleContent"
-            class="w-full p-2 border rounded"
-          ></textarea>
-        </div>
-        <div class="form-group">
-          <label class="block mb-1">Tags</label>
-          <input
-            v-model="tagsString"
-            type="text"
-            class="w-full p-2 border rounded"
-            placeholder="Comma-separated tags"
-          />
-        </div>
+  <div class="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-8 px-4">
+    <div v-if="article" class="max-w-3xl mx-auto">
+      <div class="bg-gray-800 rounded-2xl shadow-2xl p-8">
+        <h1 class="text-3xl font-bold mb-8 text-center">Rediger Artikkel</h1>
+        <form @submit.prevent="saveArticle" class="space-y-4">
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-medium text-gray-300">Tittel</label>
+            <input
+              v-model="article.articleTitle"
+              type="text"
+              class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+            />
+          </div>
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-medium text-gray-300">Forfatter</label>
+            <input
+              v-model="article.articleAuthor"
+              type="text"
+              class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+            />
+          </div>
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-medium text-gray-300">Beskrivelse</label>
+            <textarea
+              v-model="article.articleDescription"
+              rows="3"
+              class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-none"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-medium text-gray-300">Innhold</label>
+            <textarea
+              v-model="article.articleContent"
+              rows="8"
+              class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-none"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="block mb-2 text-sm font-medium text-gray-300">Tags</label>
+            <input
+              v-model="tagsString"
+              type="text"
+              class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+              placeholder="Komma-separerte tags"
+            />
+          </div>
 
         <!-- Hidden fields -->
         <input type="hidden" v-model="article.artilceImageUrl" />
         <input type="hidden" v-model="article.articlePublishedDate" />
 
-        <div class="flex justify-center mt-4">
-          <button
-            type="submit"
-            class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Save Changes
-          </button>
-        </div>
-      </form>
+          <div class="flex gap-4 mt-6">
+            <button
+              type="button"
+              @click="$router.back()"
+              class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-3 px-6 rounded-lg font-semibold transition duration-200"
+            >
+              Avbryt
+            </button>
+            <button
+              type="submit"
+              class="flex-1 bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] active:scale-[0.98] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
+            >
+              Lagre endringer
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

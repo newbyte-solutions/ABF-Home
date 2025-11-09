@@ -1,47 +1,61 @@
 <template>
-  <div class="w-full min-h-screen flex-col">
-    <div
-      class="w-full flex items-center justify-center py-4 bg-gray-800 text-white"
-    >
-      <h1 class="font-bold text-2xl">Artikkler</h1>
-    </div>
-    <div class="container mx-auto p-4">
-      <div class="flex flex-col gap-6">
-        <div
-          v-for="article in filteredArticles"
-          :key="article._id"
-          class="bg-white rounded-lg shadow-lg overflow-hidden w-full"
-        >
+  <div class="w-full">
+    <div class="space-y-4">
+      <div
+        v-if="filteredArticles.length === 0"
+        class="text-center py-12 text-gray-400"
+      >
+        <p class="text-lg">Ingen artikkler ennå</p>
+      </div>
+      <div
+        v-for="article in filteredArticles"
+        :key="article._id"
+        class="bg-gray-700 rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+      >
           <div class="p-6">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">
+            <h3 class="text-xl font-bold mb-3 text-white">
               {{ article.articleTitle }}
-            </h2>
-            <div class="text-gray-600 mb-4">
+            </h3>
+            <div class="text-gray-300 mb-3">
               {{ article.articleDescription }}
             </div>
-            <div class="prose mb-4" v-html="article.articleContent"></div>
-            <div class="text-gray-600 mb-2">
-              Tags: {{ article.articleTags }}
+            <div class="flex flex-wrap gap-2 mb-3">
+              <span
+                v-for="tag in (typeof article.articleTags === 'string' ? article.articleTags.split(',') : article.articleTags)"
+                :key="tag"
+                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500/20 text-blue-300 border border-blue-500/30"
+              >
+                {{ tag.trim() }}
+              </span>
             </div>
-            <div class="text-gray-600 mb-2">
-              Forfatter: {{ article.articleAuthor }}
+            <div class="text-sm text-gray-400 mb-4 flex items-center space-x-4">
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                {{ article.articleAuthor }}
+              </span>
+              <span class="flex items-center">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ new Date(article.articlePublishedDate).toLocaleDateString('nb-NO') }}
+              </span>
             </div>
-            <div class="text-sm text-gray-500 mb-4">
-              Gitt ut:
-              {{ new Date(article.articlePublishedDate).toLocaleDateString() }}
+            <div class="flex gap-2">
+              <button
+                @click="$router.push(`/student/article/${article._id}`)"
+                class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition duration-200 font-medium"
+              >
+                Rediger
+              </button>
+              <button
+                @click="confirmDelete(article._id)"
+                class="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition duration-200 font-medium"
+              >
+                Slett
+              </button>
             </div>
-            <button
-              @click="confirmDelete(article._id)"
-              class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition duration-200"
-            >
-              Slett
-            </button>
-            <button
-              @click="$router.push(`/student/article/${article._id}`)"
-              class="px-4 py-2 bg-blue-500 ml-2 text-white rounded hover:bg-blue-600"
-            >
-              Edit
-            </button>
           </div>
         </div>
       </div>
@@ -54,7 +68,6 @@
       @confirm="onConfirm"
       @cancel="onCancel"
     />
-  </div>
 </template>
 
 <script setup>

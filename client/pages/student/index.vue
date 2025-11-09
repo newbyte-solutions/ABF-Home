@@ -8,29 +8,29 @@
     </div>
 
     <div
-      class="mx-10 p-10 min-h-96 bg-white text-black rounded-lg shadow-lg relative"
+      class="mx-10 p-10 min-h-96 bg-gray-800 text-white rounded-xl shadow-2xl relative border border-gray-700"
     >
-      <h2 class="font-semibold text-xl">
+      <h2 class="font-semibold text-xl mb-4">
         Navn:
-        <span class="font-normal">{{ username || "Ikke autorisert" }}</span>
+        <span class="font-normal text-gray-300">{{ username || "Ikke autorisert" }}</span>
       </h2>
-      <p class="font-semibold text-xl">
+      <p class="font-semibold text-xl mb-6">
         Din bedrift:
-        <span class="font-normal">{{
+        <span class="font-normal text-gray-300">{{
           company || "Ingen bedrift tilknyttet"
         }}</span>
       </p>
       <button
         v-if="companyId"
         @click="$router.push(`/student/company/${companyId}`)"
-        class="px-6 py-2 border-4 border-blue-500 absolute bottom-10 font-semibold"
+        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg absolute bottom-10 left-10 font-semibold transition duration-200 shadow-lg"
       >
         Bedrift portal
       </button>
       <button 
         v-if="!companyId"
         @click="$router.push('/student/company/create')"
-        class="px-6 py-2 border-4 border-green-500 absolute bottom-10 left-10 font-semibold"
+        class="px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg absolute bottom-10 left-10 font-semibold transition duration-200 shadow-lg"
       >
         Opprett bedrift
       </button>

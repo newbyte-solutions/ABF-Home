@@ -1,85 +1,97 @@
 <template>
-  <div class="py-20">
+  <div class="w-full">
     <form
       @submit.prevent="handleNewArticle"
-      class="max-w-lg mx-auto p-6 bg-gray-800 rounded-lg shadow-lg"
+      class="space-y-4"
     >
-      <h2 class="text-2xl font-bold mb-6 text-white text-center">
-        Ny artikkel
-      </h2>
 
-      <label for="articleTitle" class="block mb-1 text-white">Artikkel tittel</label>
-      <input
-        v-model="articleTitle"
-        id="articleTitle"
-        type="text"
-        placeholder="Artikkel tittel"
-        required
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <label for="articleDescription" class="block mb-1 text-white">Beskrivelse</label>
-      <input
-        v-model="articleDescription"
-        id="articleDescription"
-        type="text"
-        placeholder="Beskrivelse"
-        required
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <label for="articleContent" class="block mb-1 text-white">Innhold (Markdown Support)</label>
-      <textarea
-        v-model="articleContent"
-        id="articleContent"
-        placeholder="Innhold"
-        required
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
-      ></textarea>
+      <div>
+        <label for="articleTitle" class="block mb-2 text-sm font-medium text-gray-300">Artikkel tittel</label>
+        <input
+          v-model="articleTitle"
+          id="articleTitle"
+          type="text"
+          placeholder="Artikkel tittel"
+          required
+          class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+        />
+      </div>
+      <div>
+        <label for="articleDescription" class="block mb-2 text-sm font-medium text-gray-300">Beskrivelse</label>
+        <input
+          v-model="articleDescription"
+          id="articleDescription"
+          type="text"
+          placeholder="Beskrivelse"
+          required
+          class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+        />
+      </div>
+      <div>
+        <label for="articleContent" class="block mb-2 text-sm font-medium text-gray-300">Innhold (Markdown Support)</label>
+        <textarea
+          v-model="articleContent"
+          id="articleContent"
+          placeholder="Innhold"
+          required
+          rows="6"
+          class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 resize-none"
+        ></textarea>
+      </div>
 
-      <label for="articleAuthor" class="block mb-1 text-white">Forfatter</label>
-      <input
-        v-model="articleAuthor"
-        id="articleAuthor"
-        type="text"
-        placeholder="Forfatter"
-        required
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      <div>
+        <label for="articleAuthor" class="block mb-2 text-sm font-medium text-gray-300">Forfatter</label>
+        <input
+          v-model="articleAuthor"
+          id="articleAuthor"
+          type="text"
+          placeholder="Forfatter"
+          required
+          class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+        />
+      </div>
       
-      <label for="articleGrade" class="block mb-1 text-white">Klasse</label>
-      <select
-        v-model="articleGrade"
-        id="articleGrade"
-        required
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-      >
-        <option value="">Velg klasse</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-        <option value="teacher">Lærer</option>
-      </select>
+      <div>
+        <label for="articleGrade" class="block mb-2 text-sm font-medium text-gray-300">Klasse</label>
+        <select
+          v-model="articleGrade"
+          id="articleGrade"
+          required
+          class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200 cursor-pointer"
+        >
+          <option value="">Velg klasse</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="teacher">Lærer</option>
+        </select>
+      </div>
 
-      <label for="articleTags" class="block mb-1 text-white">Tags</label>
-      <input
-        v-model="articleTags"
-        id="articleTags"
-        type="text"
-        placeholder="Tags (komma-separert)"
-        class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
+      <div>
+        <label for="articleTags" class="block mb-2 text-sm font-medium text-gray-300">Tags</label>
+        <input
+          v-model="articleTags"
+          id="articleTags"
+          type="text"
+          placeholder="Tags (komma-separert)"
+          class="w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-500 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
+        />
+      </div>
 
-      <label for="articleImage" class="block mb-1 text-white">Bilde</label>
-      <input
-        id="articleImage"
-        type="file"
-        @change="handleImageChange"
-        accept="image/*"
-        class="w-full mb-6 p-2 rounded bg-gray-700 text-white"
-      />
+      <div>
+        <label for="articleImage" class="block mb-2 text-sm font-medium text-gray-300">Bilde</label>
+        <input
+          id="articleImage"
+          type="file"
+          @change="handleImageChange"
+          accept="image/*"
+          class="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 file:cursor-pointer transition duration-200"
+        />
+      </div>
 
       <button
         type="submit"
-        class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 transform hover:scale-[1.02] active:scale-[0.98] transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg"
       >
         Opprett artikkel
       </button>

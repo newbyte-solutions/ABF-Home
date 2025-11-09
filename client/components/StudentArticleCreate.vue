@@ -5,58 +5,72 @@
       class="max-w-lg mx-auto p-6 bg-gray-800 rounded-lg shadow-lg"
     >
       <h2 class="text-2xl font-bold mb-6 text-white text-center">
-        Create New Article
+        Ny artikkel
       </h2>
 
+      <label for="articleTitle" class="block mb-1 text-white">Artikkel tittel</label>
       <input
         v-model="articleTitle"
+        id="articleTitle"
         type="text"
-        placeholder="Article Title"
+        placeholder="Artikkel tittel"
         required
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      <label for="articleDescription" class="block mb-1 text-white">Beskrivelse</label>
       <input
         v-model="articleDescription"
+        id="articleDescription"
         type="text"
-        placeholder="Description"
+        placeholder="Beskrivelse"
         required
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+      <label for="articleContent" class="block mb-1 text-white">Innhold (Markdown Support)</label>
       <textarea
         v-model="articleContent"
-        placeholder="Content"
+        id="articleContent"
+        placeholder="Innhold"
         required
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 h-32"
       ></textarea>
 
+      <label for="articleAuthor" class="block mb-1 text-white">Forfatter</label>
       <input
         v-model="articleAuthor"
+        id="articleAuthor"
         type="text"
-        placeholder="Author"
+        placeholder="Forfatter"
         required
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-
+      
+      <label for="articleGrade" class="block mb-1 text-white">Klasse</label>
       <select
         v-model="articleGrade"
+        id="articleGrade"
         required
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="">Select Grade</option>
+        <option value="">Velg klasse</option>
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-        <option value="teacher">Teacher</option>
+        <option value="teacher">Lærer</option>
       </select>
 
+      <label for="articleTags" class="block mb-1 text-white">Tags</label>
       <input
         v-model="articleTags"
+        id="articleTags"
         type="text"
-        placeholder="Tags (comma separated)"
+        placeholder="Tags (komma-separert)"
         class="w-full mb-4 p-2 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
+      <label for="articleImage" class="block mb-1 text-white">Bilde</label>
       <input
+        id="articleImage"
         type="file"
         @change="handleImageChange"
         accept="image/*"
@@ -67,7 +81,7 @@
         type="submit"
         class="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        Create Article
+        Opprett artikkel
       </button>
     </form>
   </div>

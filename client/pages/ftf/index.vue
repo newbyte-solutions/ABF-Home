@@ -16,6 +16,6 @@
     </div>
   </div>
   <div class="w-full min-h-screen bg-gray-200 flex items-center justify-center">
-    <FTFItems />
+    <FtfItems />
   </div>
 </template>

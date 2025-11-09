@@ -1,5 +1,5 @@
 <template>
-  <CheckAuth :isAdmin="false" :isStudent="true" :isFtf="false" />
+  <AuthCheck :isAdmin="false" :isStudent="true" :isFtf="false" />
   <div class="py-5"></div>
   <div
     class="min-h-screen bg-gray-900 text-white py-14 flex flex-col items-center justify-center px-4"
@@ -92,25 +92,25 @@
       </div>
     </div>
     <div class="" v-if="company && company._id && company.companyIsFTF">
-      <FTFredirect />
+      <FtfRedirect />
     </div>
     <div
       class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"
       v-if="company && company._id"
     >
-      <StudentEditCompany :companyId="company._id" />
+      <StudentCompanyEdit :companyId="company._id" />
     </div>
     <div
       class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full md:w-2/3 items-center justify-center h-fit"
       v-if="company && company._id"
     >
-      <CreateArticleStudents :companyId="company._id" />
+      <StudentArticleCreate :companyId="company._id" />
     </div>
     <div
       class="mt-8 sm:mt-12 py-4 border-t-4 flex w-full items-center justify-center h-fit"
       v-if="company && company._id"
     >
-      <StudentArticleSection :companyId="company._id" />
+      <StudentArticles :companyId="company._id" />
     </div>
   </div>
 </template>

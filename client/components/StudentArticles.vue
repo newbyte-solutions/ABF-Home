@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <ConfirmationModal
+    <BaseConfirmationModal
       :visible="isVisible"
       :title="title"
       :message="message"
@@ -60,7 +60,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import ConfirmationModal from "@/components/ConfirmationModal.vue";
+import BaseConfirmationModal from "@/components/BaseConfirmationModal.vue";
 import { useConfirmation } from "@/composables/useConfirmation";
 
 const props = defineProps({

@@ -1,11 +1,11 @@
 <template>
   <header>
     <nav>
-      <Navbar />
+      <TheNavbar />
     </nav>
   </header>
   <main>
     <NuxtPage />
   </main>
-  <Footer />
+  <TheFooter />
 </template>

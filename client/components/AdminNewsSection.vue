@@ -57,7 +57,7 @@
       </ul>
     </div>
 
-    <ConfirmationModal
+    <BaseConfirmationModal
       :visible="isVisible"
       :title="title"
       :message="message"
@@ -72,7 +72,7 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { useConfirmation } from "@/composables/useConfirmation";
-import ConfirmationModal from "@/components/ConfirmationModal.vue";
+import BaseConfirmationModal from "@/components/BaseConfirmationModal.vue";
 
 const router = useRouter();
 const articles = ref([]);

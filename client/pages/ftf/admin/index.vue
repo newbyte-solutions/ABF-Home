@@ -1,5 +1,5 @@
 <template>
-  <CheckAuth :isAdmin="false" :isStudent="false" :isFtf="true" />
+  <AuthCheck :isAdmin="false" :isStudent="false" :isFtf="true" />
   <div
     class="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-start py-14 px-4"
   >
@@ -11,6 +11,6 @@
         Welcome to the Fjord Til Fjells admin panel
       </p>
     </div>
-    <FTFAdminDashboard />
+    <FtfAdminDashboard />
   </div>
 </template>

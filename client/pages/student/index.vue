@@ -1,5 +1,5 @@
 <template>
-  <CheckAuth :isAdmin="false" :isStudent="true" :isFtf="false" />
+  <AuthCheck :isAdmin="false" :isStudent="true" :isFtf="false" />
   <div class="w-full min-h-screen bg-gray-900 text-white py-14">
     <div class="w-full h-fit py-10 flex flex-col items-center justify-center">
       <h1 class="text-4xl font-semibold border-b-2 border-blue-500 pb-2 px-4">
@@ -28,7 +28,7 @@
         Bedrift portal
       </button>
       <div class="absolute bottom-10 right-10">
-        <LogoutButton />
+        <BaseLogoutButton />
       </div>
     </div>
   </div>

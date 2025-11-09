@@ -1,12 +1,12 @@
 // composables/useConfirmation.ts
 import { ref } from "vue";
 
-const isVisible = ref(false);
-const title = ref("");
-const message = ref("");
-let resolver: (result: boolean) => void;
-
 export function useConfirmation() {
+  const isVisible = ref(false);
+  const title = ref("");
+  const message = ref("");
+  let resolver: ((result: boolean) => void) | null = null;
+
   function confirm(newTitle: string, newMessage: string): Promise<boolean> {
     title.value = newTitle;
     message.value = newMessage;
@@ -19,12 +19,12 @@ export function useConfirmation() {
 
   function onConfirm() {
     isVisible.value = false;
-    resolver(true);
+    if (resolver) resolver(true);
   }
 
   function onCancel() {
     isVisible.value = false;
-    resolver(false);
+    if (resolver) resolver(false);
   }
 
   return {

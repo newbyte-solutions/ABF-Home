@@ -1,5 +1,5 @@
 <template>
-  <CheckAuth :isAdmin="true" :isStudent="false" :isFtf="false" />
+  <AuthCheck :isAdmin="true" :isStudent="false" :isFtf="false" />
   <div class="py-8"></div>
   <div class="container mx-auto p-4">
     <div v-if="company" class="max-w-2xl mx-auto">

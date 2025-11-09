@@ -20,13 +20,13 @@
                     @click="confirmDelete(company._id)"
                     class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
                   >
-                    Delete
+                    Slett
                   </button>
                   <button
                     @click="$router.push(`/admin/company/${company._id}`)"
                     class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
                   >
-                    Edit
+                    Rediger
                   </button>
                   <button
                     @click="toggleFTF(company._id)"
@@ -41,33 +41,33 @@
                 <p class="text-lg">{{ company.companyDescription }}</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div>
-                    <p><span class="font-semibold">Email:</span> {{ company.companyEmail }}</p>
-                    <p><span class="font-semibold">Contact:</span> {{ company.companyContactPerson }}</p>
-                    <p><span class="font-semibold">Phone:</span> {{ company.companyPhone }}</p>
+                    <p><span class="font-semibold">Epost:</span> {{ company.companyEmail }}</p>
+                    <p><span class="font-semibold">Kontaktperson:</span> {{ company.companyContactPerson }}</p>
+                    <p><span class="font-semibold">Telefon:</span> {{ company.companyPhone }}</p>
                   </div>
                   <div>
-                    <p><span class="font-semibold">Grade:</span> {{ company.companyGrade }}</p>
-                    <p><span class="font-semibold">Students:</span>
-                      <span v-if="company.companyStudents.length === 0">No students assigned</span>
+                    <p><span class="font-semibold">Klassetrinn:</span> {{ company.companyGrade }}</p>
+                    <p><span class="font-semibold">Studenter:</span>
+                      <span v-if="company.companyStudents.length === 0">Ingen studenter tildelt</span>
                       <ul v-else>
                         <li v-for="studentId in company.companyStudents" :key="studentId">
-                          {{ userMap[studentId] || 'Loading...' }}
+                          {{ userMap[studentId] || 'Laster...' }}
                         </li>
                       </ul>
                     </p>
-                    <p><span class="font-semibold">Founded:</span> {{ formatDate(company.companyFounded) }}</p>
+                    <p><span class="font-semibold">Grunnlagt:</span> {{ formatDate(company.companyFounded) }}</p>
                   </div>
                 </div>
                 <div class="mt-4">
                   <span class="font-semibold">Tags:</span> {{ company.companyTags }}
                 </div>
                 <div class="mt-4">
-                  <label class="font-semibold">Select Student:</label>
+                  <label class="font-semibold">Velg elev:</label>
                   <select
                     @change="(e) => assignStudent(company._id, (e.target as HTMLSelectElement).value)"
                     class="mt-2 border border-gray-300 rounded px-4 py-2 w-full text-black"
                   >
-                    <option value="" disabled selected>Select a student</option>
+                    <option value="" disabled selected>Velg en elev</option>
                     <option v-for="user in users" :key="user._id" :value="user._id" class="text-black">
                       {{ user.username }}
                     </option>

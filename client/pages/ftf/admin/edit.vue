@@ -1,6 +1,6 @@
 <template>
-  <CheckAuth :isAdmin="false" :isStudent="false" :isFtf="true" />
+  <AuthCheck :isAdmin="false" :isStudent="false" :isFtf="true" />
   <div class="container">
-    <FTFItemEditor />
+    <FtfItemEditor />
   </div>
 </template>

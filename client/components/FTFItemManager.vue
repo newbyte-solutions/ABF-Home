@@ -87,8 +87,9 @@ async function submitManage() {
     // Add log entry if present
     if (logEntry.value) {
       if (!Array.isArray(item.value.logs)) item.value.logs = [];
+      const { formatDateTime } = useFormatDate();
       item.value.logs.push(
-        `[${new Date().toLocaleString()}] ${logEntry.value}`,
+        `[${formatDateTime(new Date())}] ${logEntry.value}`,
       );
     }
     await axios.put(

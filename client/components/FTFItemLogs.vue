@@ -25,11 +25,8 @@ const route = useRoute();
 const logs = ref<any[]>([]);
 const loading = ref(true);
 
-function formatDate(dateStr: string) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  return d.toLocaleString("no-NO");
-}
+const { formatDateTime } = useFormatDate();
+const formatDate = formatDateTime;
 
 onMounted(async () => {
   loading.value = true;

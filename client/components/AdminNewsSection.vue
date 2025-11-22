@@ -27,9 +27,7 @@
               </div>
               <div class="text-sm text-gray-500 mb-4 font-semibold">
                 Published:
-                {{
-                  new Date(article.articlePublishedDate).toLocaleDateString()
-                }}
+                {{ formatDate(article.articlePublishedDate) }}
               </div>
               <button
                 @click="confirmDelete(article._id)"
@@ -79,6 +77,8 @@ const articles = ref([]);
 
 const { isVisible, title, message, confirm, onConfirm, onCancel } =
   useConfirmation();
+
+const { formatDate } = useFormatDate();
 
 async function confirmDelete(id) {
   const result = await confirm(

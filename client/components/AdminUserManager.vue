@@ -76,15 +76,7 @@ const userToDelete = ref<string | null>(null);
 const { isVisible, title, message, confirm, onConfirm, onCancel } =
   useConfirmation();
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("no-NO", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-  });
-}
+const { formatDate } = useFormatDate();
 
 async function confirmDelete(userId: string) {
   const result = await confirm(

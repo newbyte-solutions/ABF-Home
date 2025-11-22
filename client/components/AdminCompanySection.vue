@@ -191,13 +191,5 @@ onMounted(async () => {
   }
 })
 
-function formatDate(dateStr: string): string {
-  if (!dateStr) return ''
-  const d = new Date(dateStr)
-  return d.toLocaleDateString('no-NO', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  })
-}
+const { formatDate } = useFormatDate();
 </script>

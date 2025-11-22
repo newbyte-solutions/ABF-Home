@@ -344,21 +344,14 @@ import axios from "axios";
 
 export default {
   data() {
+    const { formatDate } = useFormatDate();
     return {
       company: {},
       userMap: {},
+      formatDate,
     };
   },
   methods: {
-    formatDate(dateString) {
-      if (!dateString) return "N/A";
-      const date = new Date(dateString);
-      return date.toLocaleDateString("no-NO", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    },
     async fetchStudentNames(studentIds) {
       console.log("Fetching student names for IDs:", studentIds);
       for (const id of studentIds) {

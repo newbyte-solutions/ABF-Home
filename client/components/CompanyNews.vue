@@ -72,13 +72,7 @@ const fetchNews = async () => {
   }
 };
 
-const formatDate = (date) => {
-  console.log("Formatting date:", date);
-  return new Date(date).toLocaleDateString(
-    "no-NO",
-    { year: "numeric", month: "long", day: "numeric" },
-  );
-};
+const { formatDate } = useFormatDate();
 
 onMounted(() => {
   console.log("Component mounted, initiating news fetch");

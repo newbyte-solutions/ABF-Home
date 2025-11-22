@@ -56,20 +56,12 @@ export default {
       return this.article ? marked(this.article.articleContent) : "";
     },
   },
-  methods: {
-    formatDate(dateString) {
-      const options = {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      };
-      return new Date(dateString).toLocaleDateString(
-        "no-NO",
-        options,
-      );
-    },
+  methods: {},
+  setup() {
+    const { formatDateTime } = useFormatDate();
+    return {
+      formatDate: formatDateTime,
+    };
   },
   async mounted() {
     const { public: publicConfig } = useRuntimeConfig();

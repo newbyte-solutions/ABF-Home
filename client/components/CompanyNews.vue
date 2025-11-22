@@ -74,7 +74,10 @@ const fetchNews = async () => {
 
 const formatDate = (date) => {
   console.log("Formatting date:", date);
-  return new Date(date).toLocaleDateString();
+  return new Date(date).toLocaleDateString(
+    "no-NO",
+    { year: "numeric", month: "long", day: "numeric" },
+  );
 };
 
 onMounted(() => {

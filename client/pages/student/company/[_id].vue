@@ -353,7 +353,7 @@ export default {
     formatDate(dateString) {
       if (!dateString) return "N/A";
       const date = new Date(dateString);
-      return date.toLocaleDateString("en-US", {
+      return date.toLocaleDateString("no-NO", {
         year: "numeric",
         month: "long",
         day: "numeric",

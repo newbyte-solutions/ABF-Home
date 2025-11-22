@@ -16,7 +16,7 @@
         <div class="rounded-md space-y-4">
           <div>
             <label for="username" class="text-gray-300 text-sm font-medium"
-              >Navn:</label
+              >Fullt navn:</label
             >
             <input
               type="text"
@@ -62,12 +62,12 @@
               id="grade"
               v-model="grade"
               required
-              class="appearance-none relative block w-full px-4 mt-2 py-3 border-0 rounded-lg placeholder-gray-400 text-gray-100 bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 sm:text-sm md:text-base"
+              class="appearance-none relative block w-full px-4 mt-2 py-3 border-0 rounded-lg text-gray-400 bg-white/10 focus:outline-none focus:ring-2 focus:ring-purple-500 transition-all duration-200 sm:text-sm md:text-base"
             >
-              <option value="" disabled>Velg klassetrinn</option>
-              <option value="8">8. klasse</option>
-              <option value="9">9. klasse</option>
-              <option value="10">10. klasse</option>
+              <option class="text-black" value="" disabled>Velg klassetrinn</option>
+              <option class="text-black" value="8">8. klasse</option>
+              <option class="text-black" value="9">9. klasse</option>
+              <option class="text-black" value="10">10. klasse</option>
             </select>
           </div>
           <div>

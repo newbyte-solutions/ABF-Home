@@ -29,8 +29,7 @@
           </ul>
         </div>
         <div class="bg-gray-100 p-6 rounded-lg">
-          <h3 class="text-xl font-semibold mb-2">Klasse:</h3>
-          <p class="text-gray-700">{{ company.companyGrade }}.</p>
+          <p class="text-gray-700">{{ company.companyGrade }}. Klasse</p>
         </div>
       </div>
       <div class="flex justify-center mb-8">

@@ -66,7 +66,7 @@
     </button>
 
     <!-- News List -->
-    <ArchiveComponent
+    <ArchiveView
       :grade="filters.grade"
       :tag="filters.tag"
       :company="filters.company"
@@ -78,7 +78,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "axios";
-import ArchiveComponent from "./ArchiveComponent.vue"; // update path if needed
+import ArchiveView from "./ArchiveView.vue";
 
 const filters = ref({
   grade: "",

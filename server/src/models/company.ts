@@ -1,7 +1,6 @@
 import mongoose, { Schema, Document, Int32 } from "mongoose";
 
 interface ICompany extends Document {
-  _id: string;
   companyName: string;
   companyEmail: string;
   companyPhone: string;
